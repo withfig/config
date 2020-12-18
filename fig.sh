@@ -39,6 +39,7 @@ then
 
         elif [[ $ZSH_NAME ]]
         then
+            (fig bg:new_zsh_session $TTY $$ &)
             autoload -Uz add-zsh-hook
             function fig_precmd_hook() { (fig bg:prompt $TTY &); }
             add-zsh-hook precmd go_fig
