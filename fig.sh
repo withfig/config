@@ -33,16 +33,22 @@ then
 
             if [[ ! $PROMPT_COMMAND == *"fig bg:prompt"* ]]
             then
-                export PROMPT_COMMAND='(fig bg:prompt $TTY &); '$PROMPT_COMMAND
+                export PROMPT_COMMAND='(fig bg:prompt $$ $TTY &); '$PROMPT_COMMAND
             fi
 
+            # https://superuser.com/a/181182
+            trap '$(fig bg:exec $$ $(tty) &)' DEBUG 
 
         elif [[ $ZSH_NAME ]]
         then
-            (fig bg:new_zsh_session $TTY $$ &)
+            (fig bg:new_zsh_session $$ $TTY &)
             autoload -Uz add-zsh-hook
-            function fig_precmd_hook() { (fig bg:prompt $TTY &); }
-            add-zsh-hook precmd go_fig
+
+            function fig_precmd_hook() { (fig bg:prompt $$ $TTY &); }
+            add-zsh-hook precmd fig_precmd_hook
+
+            function fig_preexec_hook() { (fig bg:exec $$ $TTY &); }
+            add-zsh-hook preexec fig_preexec_hook
 
         fi
         FIG_SHELL_VAR=1
