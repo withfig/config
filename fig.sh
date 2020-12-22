@@ -5,7 +5,7 @@ then
     if [ -z "$FIG_ENV_VAR" ]
     then
         # Gives fig context for cwd in each window
-        fig bg:init $(tty)
+        fig bg:init $$ $(tty)
         fig bg:cd
 
         # Backup for getting Fig's context
