@@ -171,6 +171,10 @@ setup_onboarding() {
 
 }
 
+function install_fish_integration() {
+    mkdir -p ~/.config/fish/conf.d
+    cp ./fig.fish ~/.config/fish/conf.d/fig.fish
+}
 
 # setup_welcome() {
 #     mkdir -p ~/run/;
@@ -187,6 +191,7 @@ main() {
     install_fig
     append_to_profiles
     setup_onboarding
+    install_fish_integration
     # setup_welcome
 
     echo success
