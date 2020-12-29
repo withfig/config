@@ -97,7 +97,10 @@ install_fig() {
 
     # Figpath definition
     touch ~/.fig/user/figpath.sh
-    
+
+    # Determine user's login shell
+    defaults write com.mschrage.fig userShell "$(dscl . -read ~/ UserShell)"
+
     # Old
     # FIG_FIGPATH='export FIGPATH="~/.fig/apps:~/.fig/user/apps:~/run:"'
     # grep -q "$FIG_FIGPATH" ~/.fig/user/figpath.sh || echo "$FIG_FIGPATH"$'\n'"$(cat ~/.fig/user/figpath.sh)" > ~/.fig/user/figpath.sh
