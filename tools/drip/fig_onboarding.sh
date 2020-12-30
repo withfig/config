@@ -119,6 +119,9 @@ exit_script_nice() {
    echo
 
    trap - SIGINT SIGTERM SIGQUIT # clear the trap
+
+   fig bg:event "Quit Shell Onboarding"
+
    exit 1
    # kill -- -$$# Kill the fig onboarding process. 
 }
