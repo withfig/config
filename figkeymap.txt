@@ -1,0 +1,21 @@
+backwardWord ←, ^B
+forwardWord →, ^F
+historySearchBackward ↑, ^P
+historySearchForward ↓, ^N
+beginningOfLine ^A
+endOfLine ^E
+historyIncrementalSearchBackward ^R
+historyIncrementalSearchForward ^S
+backwardDeleteChar ^H, ⌫
+deleteCharOrList ^D
+transposeChars ^T
+killWholeLine ^U
+backwardKillWord ^W
+yank ^Y
+sendBreak ^G
+acceptLine ↩︎, ^J, ^M
+expandOrComplete ↹, ^I
+paste ⌘V
+forwardSlash ^/
+killProcess ^C
+ctrlTwo ^2
