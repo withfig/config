@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if [[ -d /Applications/fig.app ]] && command -v fig 1> /dev/null 2> /dev/null
+if [[ -d /Applications/fig.app ]] || [[ -d ~/Applications/fig.app ]] && command -v fig 1> /dev/null 2> /dev/null
 then
     if [ -z "$FIG_ENV_VAR" ]
     then
