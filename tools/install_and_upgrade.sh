@@ -159,6 +159,7 @@ setup_onboarding() {
     sed -i '' "s/LAST_UPDATE=.*/LAST_UPDATE=$(date +'%s')/g" ~/.fig/user/config 2> /dev/null
 
 
+    grep -q 'FIG_LOGGED_IN' ~/.fig/user/config || echo "FIG_LOGGED_IN=0" >> ~/.fig/user/config
     grep -q 'FIG_ONBOARDING' ~/.fig/user/config || echo "FIG_ONBOARDING=0" >> ~/.fig/user/config
     grep -q 'DONT_SHOW_DRIP' ~/.fig/user/config || echo "DONT_SHOW_DRIP=0" >> ~/.fig/user/config
     grep -q 'DRIP_ONE' ~/.fig/user/config || echo "DRIP_ONE=0" >> ~/.fig/user/config

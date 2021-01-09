@@ -30,9 +30,20 @@ fi
 
 if  [[ $FIG_ONBOARDING = '0' ]]
 then
-	# echo running onboarding
-	# Check for prompts or onboarding
-	[ -s ~/.fig/tools/drip/fig_onboarding.sh ] && ~/.fig/tools/drip/fig_onboarding.sh 
+	# Check if we're logged in
+	if [[ $FIG_LOGGED_IN = '0' ]]
+	then
+		# If we are actually logged in, update accordingly and run onboarding campaign
+		if [[ -n $(defaults read com.mschrage.fig userEmail) ]] # -n checks if string is non zero
+		then
+      		sed -i '' "s/FIG_LOGGED_IN=.*/FIG_LOGGED_IN=1/g" ~/.fig/user/config 2> /dev/null
+			[ -s ~/.fig/tools/drip/fig_onboarding.sh ] && ~/.fig/tools/drip/fig_onboarding.sh 
+		fi
+	
+	# If we are logged in, proceed as usual
+	else
+		[ -s ~/.fig/tools/drip/fig_onboarding.sh ] && ~/.fig/tools/drip/fig_onboarding.sh 
+	fi
 
 fi
 
