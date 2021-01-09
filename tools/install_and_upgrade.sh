@@ -88,6 +88,7 @@ install_fig() {
 
 
     # Make files and folders that the user can edit (that aren't overridden by above)
+    mkdir -p ~/.fig/bin
     mkdir -p ~/.fig/user/aliases
     mkdir -p ~/.fig/user/apps
     mkdir -p ~/.fig/user/autocomplete
@@ -172,8 +173,16 @@ setup_onboarding() {
 }
 
 function install_fish_integration() {
+    # Add precommit and post-commit hooks
     mkdir -p ~/.config/fish/conf.d
     cp ./fig.fish ~/.config/fish/conf.d/fig.fish
+
+    FISH_ADD_TO_PATH='contains $HOME/.fig/bin $fish_user_paths; or set -Ua fish_user_paths $HOME/.fig/bin'
+
+    # Add ~/.fig/bin to PATH
+    touch ~/.config/fish/config.fish
+    grep -q '/.fig/bin' ~/.config/fish/config.fish || echo "$FISH_ADD_TO_PATH" >> ~/.config/fish/config.fish
+
 }
 
 # setup_welcome() {
