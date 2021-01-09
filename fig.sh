@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 
+pathadd() {
+    if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
+        PATH="${PATH:+"$PATH:"}$1"
+    fi
+}
+
+pathadd ~/.fig/bin
+
 if [[ -d /Applications/fig.app ]] && command -v fig 1> /dev/null 2> /dev/null
 then
     if [ -z "$FIG_ENV_VAR" ]
