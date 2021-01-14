@@ -27,11 +27,11 @@ fi
 # fi
 
 
-
-if  [[ $FIG_ONBOARDING = '0' ]]
+# https://unix.stackexchange.com/questions/290146/multiple-logical-operators-a-b-c-and-syntax-error-near-unexpected-t
+if  [[ ($FIG_ONBOARDING == '0') && ( $TERM_PROGRAM == "iTerm.app" ||  $TERM_PROGRAM == "Apple_Terminal" )  ]]
 then
 	# Check if we're logged in
-	if [[ $FIG_LOGGED_IN = '0' ]]
+	if [[ $FIG_LOGGED_IN == '0' ]]
 	then
 		# If we are actually logged in, update accordingly and run onboarding campaign
 		if [[ -n $(defaults read com.mschrage.fig userEmail) ]] # -n checks if string is non zero
