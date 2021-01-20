@@ -176,7 +176,7 @@ setup_onboarding() {
 function install_fish_integration() {
     # Add precommit and post-commit hooks
     mkdir -p ~/.config/fish/conf.d
-    cp ./fig.fish ~/.config/fish/conf.d/fig.fish
+    cp ~/.fig/fig.fish ~/.config/fish/conf.d/fig.fish
 
     FISH_ADD_TO_PATH='contains $HOME/.fig/bin $fish_user_paths; or set -Ua fish_user_paths $HOME/.fig/bin'
 
