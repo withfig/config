@@ -436,7 +436,7 @@ cat <<EOF
 
    fig               open the fig ◧ menu in the status bar
    fig invite        invite up to 5 friends or teammates to Fig
-   fig feedback      send feedback directly to the Fig founders
+   fig report        send feedback directly to the Fig founders
    fig update        update Fig's autocomplete scripts
    fig --help        a summary of Fig commands with examples
 
@@ -486,7 +486,7 @@ while true; do
       print_special "If Fig ever stops working, you can use the debug tool at the top of this menu to see what's wrong."
       press_enter_to_continue
       break
-   elif [[ $input == "fig feedback"* ]]
+   elif [[ $input == "fig report"* ]]
    then
       eval $input
       print_special "${BOLD}Thanks${NORMAL} so much for your feedback :)"
@@ -545,7 +545,7 @@ cat <<EOF
    ${BOLD}Get in touch:${NORMAL}
 
    * ${UNDERLINE}mailto:hello@withfig.com${UNDERLINE_END}
-   * Or ${MAGENTA}${BOLD}fig feedback${NORMAL}
+   * Or ${MAGENTA}${BOLD}fig report${NORMAL}
 
 EOF
 
@@ -597,31 +597,48 @@ clear
 
 
 ## NOTE: DON'T FORMAT THIS, IT IS ACTUALLY FORMATTED CORRECTLY...
-cat <<EOF
+# cat <<EOF
 
-   ${BOLD}                        ######## ####  ######   
-                           ##        ##  ##    ##  
-                           ##        ##  ##        
-                           ######    ##  ##   #### 
-                           ##        ##  ##    ##  
-                           ##        ##  ##    ##  
-   ${NORMAL}We hope you enjoy...${BOLD}    ##       ####  ######${NORMAL}
+#    ${BOLD}                        ######## ####  ######   
+#                            ##        ##  ##    ##  
+#                            ##        ##  ##        
+#                            ######    ##  ##   #### 
+#                            ##        ##  ##    ##  
+#                            ##        ##  ##    ##  
+#    ${NORMAL}We hope you enjoy...${BOLD}    ##       ####  ######${NORMAL}
 
+# EOF
+
+# Done using http://patorjk.com/software/taag/#p=testall&f=Graffiti&t=fig
+# Font name = Ivrit
+cat <<'EOF'
+            We hope you enjoy
+      ___                       ___     
+     /\__\                     /\__\    
+    /:/ _/_       ___         /:/ _/_   
+   /:/ /\__\     /\__\       /:/ /\  \  
+  /:/ /:/  /    /:/__/      /:/ /::\  \ 
+ /:/_/:/  /    /::\  \     /:/__\/\:\__\
+ \:\/:/  /     \/\:\  \__  \:\  \ /:/  /
+  \::/__/       ~~\:\/\__\  \:\  /:/  / 
+   \:\  \          \::/  /   \:\/:/  /  
+    \:\__\         /:/  /     \::/  /   
+     \/__/         \/__/       \/__/                                                                       
 EOF
 
-cat <<EOF
+# cat <<EOF
 
-   ${BOLD}Note from Fig Team (11 Dec. 2020)${NORMAL} 
-   For the moment, we (${BOLD}${MAGENTA}Fig${NORMAL}) have decided to focus on autocomplete / 
-   intellisense for the Terminal. 
+#    ${BOLD}Note from Fig Team (11 Dec. 2020)${NORMAL} 
+#    For the moment, we have decided to focus on autocomplete / 
+#    intellisense for the Terminal. 
 
-   When we launched, we were doing a lot: runbooks, apps, sidebar, shortcuts, 
-   an app store for the Terminal… We tried to do too much too quickly.
+#    When we launched, we were doing a lot: runbooks, apps, sidebar, shortcuts, 
+#    an app store for the Terminal… We tried to do too much too quickly.
 
-   Limiting our focus to autocomplete in the short-term helps us make sure Fig 
-   is a great experience. We plan to revisit everything mentioned above 
-   (and more) very soon.
+#    Limiting our focus to autocomplete in the short-term helps us make sure Fig 
+#    is a great experience. We plan to revisit everything mentioned above 
+#    (and more) very soon.
 
-   Brendan & Matt
+#    Brendan & Matt
 
-EOF
+# EOF
