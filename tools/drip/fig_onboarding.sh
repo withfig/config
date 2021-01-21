@@ -626,19 +626,18 @@ cat <<'EOF'
      \/__/         \/__/       \/__/                                                                       
 EOF
 
-# cat <<EOF
+cat <<EOF
 
-#    ${BOLD}Note from Fig Team (11 Dec. 2020)${NORMAL} 
-#    For the moment, we have decided to focus on autocomplete / 
-#    intellisense for the Terminal. 
+   ${BOLD}Note from Fig Team ${NORMAL} 
+   For the moment, we are focused on building autocomplete for the terminal. 
 
-#    When we launched, we were doing a lot: runbooks, apps, sidebar, shortcuts, 
-#    an app store for the Terminal… We tried to do too much too quickly.
+   When we launched, we were doing a lot: runbooks, apps, sidebar, shortcuts, 
+   an app store for the terminal… We tried to do too much too quickly.
 
-#    Limiting our focus to autocomplete in the short-term helps us make sure Fig 
-#    is a great experience. We plan to revisit everything mentioned above 
-#    (and more) very soon.
+   Limiting our focus to autocomplete in the short-term helps us make sure Fig 
+   is a great experience. We plan to revisit everything mentioned above 
+   (and more) very soon.
 
-#    Brendan & Matt
+   Have thoughts? Email hello@withfig.com
 
-# EOF
+EOF
