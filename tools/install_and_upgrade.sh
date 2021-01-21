@@ -178,7 +178,7 @@ function install_fish_integration() {
     mkdir -p ~/.config/fish/conf.d
     cp ~/.fig/fig.fish ~/.config/fish/conf.d/fig.fish
 
-    FISH_ADD_TO_PATH='contains $HOME/.fig/bin $fish_user_paths; or set -Ua fish_user_paths $HOME/.fig/bin'
+    FISH_ADD_TO_PATH=$'\ncontains $HOME/.fig/bin $fish_user_paths; or set -Ua fish_user_paths $HOME/.fig/bin\n'
 
     # Add ~/.fig/bin to PATH
     touch ~/.config/fish/config.fish
