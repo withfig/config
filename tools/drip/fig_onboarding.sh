@@ -612,6 +612,7 @@ clear
 # Done using http://patorjk.com/software/taag/#p=testall&f=Graffiti&t=fig
 # Font name = Ivrit
 cat <<'EOF'
+
             We hope you enjoy
       ___                       ___     
      /\__\                     /\__\    
@@ -626,18 +627,18 @@ cat <<'EOF'
      \/__/         \/__/       \/__/                                                                       
 EOF
 
-cat <<EOF
+# cat <<EOF
 
-   ${BOLD}Note from Fig Team ${NORMAL} 
-   For the moment, we are focused on building autocomplete for the terminal. 
+#    ${BOLD}Note from Fig Team ${NORMAL} 
+#    For the moment, we are focused on building autocomplete for the terminal. 
 
-   When we launched, we were doing a lot: runbooks, apps, sidebar, shortcuts, 
-   an app store for the terminal… We tried to do too much too quickly.
+#    When we launched, we were doing a lot: runbooks, apps, sidebar, shortcuts, 
+#    an app store for the terminal… We tried to do too much too quickly.
 
-   Limiting our focus to autocomplete in the short-term helps us make sure Fig 
-   is a great experience. We plan to revisit everything mentioned above 
-   (and more) very soon.
+#    Limiting our focus to autocomplete in the short-term helps us make sure Fig 
+#    is a great experience. We plan to revisit everything mentioned above 
+#    (and more) very soon.
 
-   Have thoughts? Email hello@withfig.com
+#    Have thoughts? Email hello@withfig.com
 
-EOF
+# EOF
