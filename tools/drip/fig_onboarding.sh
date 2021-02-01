@@ -7,6 +7,7 @@
 set -e
 
 ## Force current process to be shell, rather than `env`
+cd ~
 fig bg:prompt $$ $TTY
 
 # Colors
@@ -262,7 +263,6 @@ press_enter_to_continue
 
 clear
 
-cd ~
 cat <<EOF
    
    ${BOLD}${MAGENTA}Fig${NORMAL} suggests commands, options, and arguments as you type.
