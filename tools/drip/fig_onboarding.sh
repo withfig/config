@@ -6,6 +6,9 @@
 # needed so that ^c works when run as `fig onboarding`
 set -e
 
+## Force current process to be shell, rather than `env`
+fig bg:prompt $$ $TTY
+
 # Colors
 BLACK=$(tput setaf 0)
 RED=$(tput setaf 1)
