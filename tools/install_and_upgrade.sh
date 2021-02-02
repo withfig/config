@@ -139,7 +139,6 @@ append_to_profiles() {
     grep -q 'source ~/.fig/fig.sh' ~/.bashrc || echo "$FIG_FULLSOURCEVAR" >> ~/.bashrc
     grep -q 'source ~/.fig/fig.sh' ~/.zshrc || echo "$FIG_FULLSOURCEVAR" >> ~/.zshrc
 
-
 }
 
 
@@ -173,16 +172,18 @@ setup_onboarding() {
 
 }
 
-function install_fish_integration() {
-    # Add precommit and post-commit hooks
+install_fish_integration() {
+
+
+    # Special set up for Fish
+
+    # if [[ -d ~/.config/fish ]]; 
+    # then 
     mkdir -p ~/.config/fish/conf.d
+    touch ~/.config/fish/conf.d/fig.fish
     cp ~/.fig/fig.fish ~/.config/fish/conf.d/fig.fish
-
-    FISH_ADD_TO_PATH=$'\ncontains $HOME/.fig/bin $fish_user_paths; or set -Ua fish_user_paths $HOME/.fig/bin\n'
-
-    # Add ~/.fig/bin to PATH
-    touch ~/.config/fish/config.fish
-    grep -q '/.fig/bin' ~/.config/fish/config.fish || echo "$FISH_ADD_TO_PATH" >> ~/.config/fish/config.fish
+    
+    # fi
 
 }
 

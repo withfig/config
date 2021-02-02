@@ -31,6 +31,7 @@ then
     # We use a shell variable to make sure this doesn't load twice
     if [ -z "$FIG_SHELL_VAR" ]
     then
+
         if [[ $BASH ]]
         then
             # Set environment VAR
@@ -45,14 +46,14 @@ then
 
         elif [[ $ZSH_NAME ]]
         then
-            (fig bg:new_zsh_session $$ $TTY &)
             autoload -Uz add-zsh-hook
 
             function fig_precmd_hook() { (fig bg:prompt $$ $TTY &); }
             add-zsh-hook precmd fig_precmd_hook
 
             function fig_preexec_hook() { (fig bg:exec $$ $TTY &); }
-            add-zsh-hook preexec fig_preexec_hook
+            add-zsh-hook preexec fig_preexec_hook       
+            
 
         fi
         FIG_SHELL_VAR=1
