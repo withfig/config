@@ -6,6 +6,10 @@
 # needed so that ^c works when run as `fig onboarding`
 set -e
 
+## Force current process to be shell, rather than `env`
+cd ~
+fig bg:prompt $$ $TTY
+
 # Colors
 BLACK=$(tput setaf 0)
 RED=$(tput setaf 1)
@@ -259,7 +263,6 @@ press_enter_to_continue
 
 clear
 
-cd ~
 cat <<EOF
    
    ${BOLD}${MAGENTA}Fig${NORMAL} suggests commands, options, and arguments as you type.
