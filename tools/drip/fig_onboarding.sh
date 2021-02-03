@@ -117,8 +117,9 @@ exit_script_nice() {
    print_special "${BOLD}${UNDERLINE}Fig's onboarding was quit${UNDERLINE_END}${NORMAL}"
    echo
    print_special "You can redo this onboarding any time. Just run ${BOLD}${MAGENTA}fig onboarding${NORMAL}"
+   echo 
    echo
-   print_special "Have feedback? Email ${UNDERLINE}hello@withfig.com${UNDERLINE_END}"
+   print_special "Have feedback? Use ${BOLD}${MAGENTA}fig report${NORMAL}"
    echo
    echo
 
@@ -486,7 +487,7 @@ while true; do
       eval $input
       print_special "${BOLD}Awesome!${NORMAL}"
       echo
-      print_special "If Fig ever stops working, you can use the debug tool at the top of this menu to see what's wrong."
+      print_special "If Fig ever stops working, you can ${BOLD}use the debug tool${NORMAL} at the top of this menu to see what's wrong."
       press_enter_to_continue
       break
    elif [[ $input == "fig report"* ]]
@@ -628,6 +629,8 @@ cat <<'EOF'
    \:\  \          \::/  /   \:\/:/  /  
     \:\__\         /:/  /     \::/  /   
      \/__/         \/__/       \/__/                                                                       
+
+
 EOF
 
 # cat <<EOF
