@@ -15,7 +15,11 @@ if [ -d /Applications/fig.app ] || [ -d ~/Applications/fig.app ] && command -v f
         # Check for prompts or onboarding
         [ -s ~/.fig/tools/prompts.sh ] && bash ~/.fig/tools/prompts.sh
 
-
+        # Generated automatically by iTerm and Terminal
+        # But needs to be explicitly set for VSCode and Hyper
+        if [ -z "$TERM_SESSION_ID" ] 
+            export TERM_SESSION_ID=(uuidgen)
+        end
         export TTY=(tty)
         export FIG_ENV_VAR=1
 
