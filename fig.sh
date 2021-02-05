@@ -22,6 +22,12 @@ then
         [ -s ~/.fig/tools/prompts.sh ] && source ~/.fig/tools/prompts.sh
 
 
+        # Generated automatically by iTerm and Terminal
+        # But needs to be explicitly set for VSCode and Hyper
+        if [ -z "${TERM_SESSION_ID}" ] 
+            then 
+                export TERM_SESSION_ID="$(uuidgen)"
+        fi
         export TTY=$(tty)
         export FIG_ENV_VAR=1
 
