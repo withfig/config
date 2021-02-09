@@ -12,8 +12,6 @@ if [[ -d /Applications/fig.app ]] || [[ -d ~/Applications/fig.app ]]  && command
 then
     if [ -z "$FIG_ENV_VAR" ]
     then
-        # Gives fig context for cwd in each window
-        fig bg:init $$ $(tty)
 
         # Run aliases shell script
         [ -s ~/.fig/user/aliases/_myaliases.sh ] && source ~/.fig/user/aliases/*.sh
@@ -30,6 +28,9 @@ then
         fi
         export TTY=$(tty)
         export FIG_ENV_VAR=1
+
+        # Gives fig context for cwd in each window
+        fig bg:init $$ $TTY
 
     fi
 
