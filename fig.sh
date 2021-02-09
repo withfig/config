@@ -59,7 +59,10 @@ then
             add-zsh-hook precmd fig_precmd_hook
 
             function fig_preexec_hook() { (fig bg:exec $$ $TTY &); }
-            add-zsh-hook preexec fig_preexec_hook       
+            add-zsh-hook preexec fig_preexec_hook 
+
+            # Integrate with ZSH line editor
+            source ~/.fig/tools/zle.sh      
             
 
         fi
