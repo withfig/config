@@ -23,12 +23,6 @@ function accept-line() {
 }
 zle -N accept-line
 
-function accept-line-and-down-history() {
-	zle .accept-line-and-down-history
-	( fig bg:zsh-keybuffer $CURSOR "$BUFFER" ) &!
-}
-zle -N accept-line-and-down-history
-
 function accept-search() {
 	zle .accept-search
 	( fig bg:zsh-keybuffer $CURSOR "$BUFFER" ) &!
@@ -203,30 +197,6 @@ function down-case-word() {
 }
 zle -N down-case-word
 
-function down-history() {
-	zle .down-history
-	( fig bg:zsh-keybuffer $CURSOR "$BUFFER" ) &!
-}
-zle -N down-history
-
-function down-line() {
-	zle .down-line
-	( fig bg:zsh-keybuffer $CURSOR "$BUFFER" ) &!
-}
-zle -N down-line
-
-function down-line-or-history() {
-	zle .down-line-or-history
-	( fig bg:zsh-keybuffer $CURSOR "$BUFFER" ) &!
-}
-zle -N down-line-or-history
-
-function down-line-or-search() {
-	zle .down-line-or-search
-	( fig bg:zsh-keybuffer $CURSOR "$BUFFER" ) &!
-}
-zle -N down-line-or-search
-
 function emacs-backward-word() {
 	zle .emacs-backward-word
 	( fig bg:zsh-keybuffer $CURSOR "$BUFFER" ) &!
@@ -340,60 +310,6 @@ function gosmacs-transpose-chars() {
 	( fig bg:zsh-keybuffer $CURSOR "$BUFFER" ) &!
 }
 zle -N gosmacs-transpose-chars
-
-function history-beginning-search-backward() {
-	zle .history-beginning-search-backward
-	( fig bg:zsh-keybuffer $CURSOR "$BUFFER" ) &!
-}
-zle -N history-beginning-search-backward
-
-function history-beginning-search-forward() {
-	zle .history-beginning-search-forward
-	( fig bg:zsh-keybuffer $CURSOR "$BUFFER" ) &!
-}
-zle -N history-beginning-search-forward
-
-function history-incremental-pattern-search-backward() {
-	zle .history-incremental-pattern-search-backward
-	( fig bg:zsh-keybuffer $CURSOR "$BUFFER" ) &!
-}
-zle -N history-incremental-pattern-search-backward
-
-function history-incremental-pattern-search-forward() {
-	zle .history-incremental-pattern-search-forward
-	( fig bg:zsh-keybuffer $CURSOR "$BUFFER" ) &!
-}
-zle -N history-incremental-pattern-search-forward
-
-function history-incremental-search-backward() {
-	zle .history-incremental-search-backward
-	( fig bg:zsh-keybuffer $CURSOR "$BUFFER" ) &!
-}
-zle -N history-incremental-search-backward
-
-function history-incremental-search-forward() {
-	zle .history-incremental-search-forward
-	( fig bg:zsh-keybuffer $CURSOR "$BUFFER" ) &!
-}
-zle -N history-incremental-search-forward
-
-function history-search-backward() {
-	zle .history-search-backward
-	( fig bg:zsh-keybuffer $CURSOR "$BUFFER" ) &!
-}
-zle -N history-search-backward
-
-function history-search-forward() {
-	zle .history-search-forward
-	( fig bg:zsh-keybuffer $CURSOR "$BUFFER" ) &!
-}
-zle -N history-search-forward
-
-function infer-next-history() {
-	zle .infer-next-history
-	( fig bg:zsh-keybuffer $CURSOR "$BUFFER" ) &!
-}
-zle -N infer-next-history
 
 function insert-last-word() {
 	zle .insert-last-word
@@ -671,30 +587,6 @@ function up-case-word() {
 }
 zle -N up-case-word
 
-function up-history() {
-	zle .up-history
-	( fig bg:zsh-keybuffer $CURSOR "$BUFFER" ) &!
-}
-zle -N up-history
-
-function up-line() {
-	zle .up-line
-	( fig bg:zsh-keybuffer $CURSOR "$BUFFER" ) &!
-}
-zle -N up-line
-
-function up-line-or-history() {
-	zle .up-line-or-history
-	( fig bg:zsh-keybuffer $CURSOR "$BUFFER" ) &!
-}
-zle -N up-line-or-history
-
-function up-line-or-search() {
-	zle .up-line-or-search
-	( fig bg:zsh-keybuffer $CURSOR "$BUFFER" ) &!
-}
-zle -N up-line-or-search
-
 function vi-add-eol() {
 	zle .vi-add-eol
 	( fig bg:zsh-keybuffer $CURSOR "$BUFFER" ) &!
@@ -808,12 +700,6 @@ function vi-down-case() {
 	( fig bg:zsh-keybuffer $CURSOR "$BUFFER" ) &!
 }
 zle -N vi-down-case
-
-function vi-down-line-or-history() {
-	zle .vi-down-line-or-history
-	( fig bg:zsh-keybuffer $CURSOR "$BUFFER" ) &!
-}
-zle -N vi-down-line-or-history
 
 function vi-end-of-line() {
 	zle .vi-end-of-line
@@ -1085,12 +971,6 @@ function vi-up-case() {
 }
 zle -N vi-up-case
 
-function vi-up-line-or-history() {
-	zle .vi-up-line-or-history
-	( fig bg:zsh-keybuffer $CURSOR "$BUFFER" ) &!
-}
-zle -N vi-up-line-or-history
-
 function vi-yank() {
 	zle .vi-yank
 	( fig bg:zsh-keybuffer $CURSOR "$BUFFER" ) &!
@@ -1150,6 +1030,132 @@ function yank-pop() {
 	( fig bg:zsh-keybuffer $CURSOR "$BUFFER" ) &!
 }
 zle -N yank-pop
+
+## Control-R
+
+function history-beginning-search-backward() {
+	( fig bg:hide ) &!
+	zle .history-beginning-search-backward
+}
+zle -N history-beginning-search-backward
+
+function history-beginning-search-forward() {
+	( fig bg:hide ) &!
+	zle .history-beginning-search-forward
+}
+zle -N history-beginning-search-forward
+
+function history-incremental-pattern-search-backward() {
+	( fig bg:hide ) &! 
+	zle .history-incremental-pattern-search-backward
+}
+zle -N history-incremental-pattern-search-backward
+
+function history-incremental-pattern-search-forward() {
+	( fig bg:hide ) &!
+	zle .history-incremental-pattern-search-forward
+}
+zle -N history-incremental-pattern-search-forward
+
+function history-incremental-search-backward() {
+	( fig bg:hide ) &!
+	zle .history-incremental-search-backward
+}
+zle -N history-incremental-search-backward
+
+function history-incremental-search-forward() {
+	( fig bg:hide ) &!
+	zle .history-incremental-search-forward
+}
+zle -N history-incremental-search-forward
+
+function history-search-backward() {
+	( fig bg:hide ) &!
+	zle .history-search-backward
+}
+zle -N history-search-backward
+
+function history-search-forward() {
+	( fig bg:hide ) &!
+	zle .history-search-forward
+}
+zle -N history-search-forward
+
+function infer-next-history() {
+	( fig bg:hide ) &!
+	zle .infer-next-history
+}
+zle -N infer-next-history
+
+## Up arrow 
+
+function up-history() {
+	zle .up-history
+	( fig bg:hide ) &!
+}
+zle -N up-history
+
+function up-line() {
+	zle .up-line
+	( fig bg:hide ) &!
+}
+zle -N up-line
+
+function up-line-or-history() {
+	zle .up-line-or-history
+	( fig bg:hide ) &!
+}
+zle -N up-line-or-history
+
+function up-line-or-search() {
+	zle .up-line-or-search
+	( fig bg:hide ) &!
+}
+zle -N up-line-or-search
+
+function vi-up-line-or-history() {
+	zle .vi-up-line-or-history
+	( fig bg:hide ) &!
+}
+zle -N vi-up-line-or-history
+
+## Down arrow
+
+function down-history() {
+	zle .down-history
+	( fig bg:hide ) &!
+}
+zle -N down-history
+
+function down-line() {
+	zle .down-line
+	( fig bg:hide ) &!
+}
+zle -N down-line
+
+function down-line-or-history() {
+	zle .down-line-or-history
+	( fig bg:hide ) &!
+}
+zle -N down-line-or-history
+
+function down-line-or-search() {
+	zle .down-line-or-search
+	( fig bg:hide ) &!
+}
+zle -N down-line-or-search
+
+function accept-line-and-down-history() {
+	zle .accept-line-and-down-history
+	( fig bg:hide ) &!
+}
+zle -N accept-line-and-down-history
+
+function vi-down-line-or-history() {
+	zle .vi-down-line-or-history
+	( fig bg:hide ) &!
+}
+zle -N vi-down-line-or-history
 
 ## Add insertion lock. See ShellBridge.insertUnicodeString
 function self-insert() {
