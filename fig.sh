@@ -61,11 +61,40 @@ then
             function fig_preexec_hook() { (fig bg:exec $$ $TTY &); }
             add-zsh-hook preexec fig_preexec_hook 
 
-            # Integrate with ZSH line editor
-            source ~/.fig/tools/zle.sh      
-            
-
         fi
         FIG_SHELL_VAR=1
+    fi
+
+    # todo: Add a check to confirm "add-zle-hook-widget" facility exists
+    if [[ $ZSH_NAME ]]
+        then
+            # Integrate with ZSH line editor
+            autoload -U +X add-zle-hook-widget
+            function fig_zsh_keybuffer() { 
+                if [ ! -f ~/.fig/insertion-lock ]; then
+                    (fig bg:zsh-keybuffer $CURSOR "$BUFFER" $HISTNO &)
+                fi
+             }
+
+            function fig_hide() { 
+                (fig bg:hide &)
+            }
+
+            # Delete any widget, if it already exists
+            add-zle-hook-widget -D line-pre-redraw fig_zsh_keybuffer
+            add-zle-hook-widget line-pre-redraw fig_zsh_keybuffer
+
+            # Update keybuffer on new line
+            add-zle-hook-widget -D line-init fig_zsh_keybuffer
+            add-zle-hook-widget line-init fig_zsh_keybuffer
+
+            # Hide when going through history (see also: histno logic in ShellHooksManager.updateKeybuffer)
+            add-zle-hook-widget -D history-line-set fig_hide
+            add-zle-hook-widget history-line-set fig_hide
+
+            # Hide when searching
+            add-zle-hook-widget -D isearch-update fig_hide
+            add-zle-hook-widget isearch-update fig_hide
+            
     fi
 fi
