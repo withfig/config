@@ -633,6 +633,23 @@ cat <<'EOF'
 
 EOF
 
+if [[ "$TERM_PROGRAM" == "iTerm.app" ]]
+then
+cat <<EOF
+   ${BOLD}P.S. Using iTerm?${NORMAL}
+
+   Fig can't distinguish between iTerm tabs by default
+   and requires the use of a plugin.
+
+   Run ${MAGENTA}${BOLD}fig integrations:iterm${NORMAL} to install it now
+
+   ...or enable in ${UNDERLINE}Settings${NORMAL} > ${UNDERLINE}Setup iTerm Tab Integration${NORMAL}. 
+
+EOF
+fi
+
+#    or install the integration from ◧ > Settings > Setup iTerm Tab Integration.
+
 # cat <<EOF
 
 #    ${BOLD}Note from Fig Team ${NORMAL} 
