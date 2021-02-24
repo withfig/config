@@ -16,10 +16,6 @@ then
         # Run aliases shell script
         [ -s ~/.fig/user/aliases/_myaliases.sh ] && source ~/.fig/user/aliases/*.sh
 
-        # Check for prompts or onboarding
-        [ -s ~/.fig/tools/prompts.sh ] && source ~/.fig/tools/prompts.sh
-
-
         # Generated automatically by iTerm and Terminal
         # But needs to be explicitly set for VSCode and Hyper
         if [ -z "${TERM_SESSION_ID}" ] 
@@ -31,6 +27,10 @@ then
 
         # Gives fig context for cwd in each window
         fig bg:init $$ $TTY
+
+        # Check for prompts or onboarding 
+        # must be last, so Fig has context for onboarding!
+        [ -s ~/.fig/tools/prompts.sh ] && source ~/.fig/tools/prompts.sh
 
     fi
 
