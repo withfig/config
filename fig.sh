@@ -96,7 +96,7 @@ then
             add-zle-hook-widget -D isearch-update fig_hide
             add-zle-hook-widget isearch-update fig_hide
 
-                        # Create insertion facility
+            # Create insertion facility
             function fig_insert () {
                 immediate=$(< ~/.fig/zle/immediate)
                 insertion=$(< ~/.fig/zle/insert)
