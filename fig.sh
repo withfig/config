@@ -55,10 +55,10 @@ then
         then
             autoload -Uz add-zsh-hook
 
-            function fig_precmd_hook() { (fig bg:prompt $$ $TTY &); }
+            function fig_precmd_hook() { fig bg:prompt $$ $TTY &!; }
             add-zsh-hook precmd fig_precmd_hook
 
-            function fig_preexec_hook() { (fig bg:exec $$ $TTY &); }
+            function fig_preexec_hook() { fig bg:exec $$ $TTY &!; }
             add-zsh-hook preexec fig_preexec_hook 
 
         fi
@@ -72,12 +72,12 @@ then
             autoload -U +X add-zle-hook-widget
             function fig_zsh_keybuffer() { 
                 if [ ! -f ~/.fig/insertion-lock ]; then
-                    (fig bg:zsh-keybuffer $CURSOR "$BUFFER" $HISTNO &)
+                    fig bg:zsh-keybuffer $CURSOR "$BUFFER" $HISTNO &!
                 fi
              }
 
             function fig_hide() { 
-                fig bg:hide
+                fig bg:hide &!
             }
 
             # Delete any widget, if it already exists
