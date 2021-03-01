@@ -95,6 +95,32 @@ then
             # Hide when searching
             add-zle-hook-widget -D isearch-update fig_hide
             add-zle-hook-widget isearch-update fig_hide
+
+                        # Create insertion facility
+            function fig_insert () {
+                immediate=$(< ~/.fig/zle/immediate)
+                insertion=$(< ~/.fig/zle/insert)
+                deletion=$(< ~/.fig/zle/delete)
+                offset=$(< ~/.fig/zle/offset)
+
+                if [ ! $deletion = "0" ]; then
+                    LBUFFER=${LBUFFER:0:-deletion}
+                fi
+
+                RBUFFER=${insertion}${RBUFFER}
+                CURSOR=$CURSOR+${#insertion}-$offset
+
+                if [ $immediate = "1" ]; then
+                    zle accept-line
+                fi
+
+            }
+
+            zle -N fig_insert
+
+            # Bind to fn12 - Hyper and VScode don't support fn13+
+            # If this changes, make sure to update coresponding keycode in ZLEIntegration.insert
+            bindkey '^[[24~' fig_insert
             
     fi
 fi

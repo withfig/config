@@ -89,6 +89,7 @@ install_fig() {
 
     # Make files and folders that the user can edit (that aren't overridden by above)
     mkdir -p ~/.fig/bin
+    mkdir -p ~/.fig/zle
     mkdir -p ~/.fig/user/aliases
     mkdir -p ~/.fig/user/apps
     mkdir -p ~/.fig/user/autocomplete
