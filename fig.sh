@@ -8,7 +8,7 @@ pathadd() {
 
 pathadd ~/.fig/bin
 
-if ([[ -d /Applications/fig.app ]] || [[ -d ~/Applications/fig.app ]])  && [ ! $TERMINAL_EMULATOR = "JetBrains-JediTerm" ] && command -v fig 1> /dev/null 2> /dev/null
+if ([[ -d /Applications/fig.app ]] || [[ -d ~/Applications/fig.app ]])  && [ ! "$TERMINAL_EMULATOR" = JetBrains-JediTerm ] && command -v fig 1> /dev/null 2> /dev/null
 then
     if [ -z "$FIG_ENV_VAR" ]
     then
