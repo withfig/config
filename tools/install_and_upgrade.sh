@@ -188,6 +188,14 @@ install_fish_integration() {
 
 }
 
+install_tmux_integration() {
+	TMUX_INTEGRATION=$'# Fig Tmux Integration: Enabled\nsource-file ~/.fig/tmux\n# End of Fig Tmux Integration'
+
+	# todo: check if ~/.tmux.conf exists before appending to it
+	grep -q 'source-file ~/.fig/tmux' ~/.tmux.conf || echo "$TMUX_INTEGRATION" >> ~/.tmux.conf
+
+}
+
 # setup_welcome() {
 #     mkdir -p ~/run/;
 
@@ -204,6 +212,7 @@ main() {
     append_to_profiles
     setup_onboarding
     install_fish_integration
+    install_tmux_integration
     # setup_welcome
 
     echo success

@@ -8,7 +8,7 @@ pathadd() {
 
 pathadd ~/.fig/bin
 
-if [[ -d /Applications/fig.app ]] || [[ -d ~/Applications/fig.app ]]  && command -v fig 1> /dev/null 2> /dev/null
+if ([[ -d /Applications/fig.app ]] || [[ -d ~/Applications/fig.app ]])  && [ ! $TERMINAL_EMULATOR = "JetBrains-JediTerm" ] && command -v fig 1> /dev/null 2> /dev/null
 then
     if [ -z "$FIG_ENV_VAR" ]
     then
@@ -18,7 +18,9 @@ then
 
         # Generated automatically by iTerm and Terminal
         # But needs to be explicitly set for VSCode and Hyper
-        if [ -z "${TERM_SESSION_ID}" ] 
+        # This variable is inherited when new ttys are created using Tmux
+        # and must be explictly overwritten
+        if [[ -z "${TERM_SESSION_ID}" ]] || [[ ! -z "$TMUX" ]] 
             then 
                 export TERM_SESSION_ID="$(uuidgen)"
         fi
