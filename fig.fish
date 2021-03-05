@@ -4,7 +4,7 @@ or set -Ua fish_user_paths $HOME/.fig/bin
 
 if [ -d /Applications/fig.app ] || [ -d ~/Applications/fig.app ] && command -v fig 1>/dev/null 2>/dev/null
 
-    if [ -z "$FIG_ENV_VAR" ]
+    if [ -t 1 ] && ([ -z "$FIG_ENV_VAR" ] || [ ! -z "$TMUX" ])
 
         # Gives fig context for cwd in each window
         fig bg:init $fish_pid (tty)
