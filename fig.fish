@@ -2,9 +2,9 @@ contains $HOME/.fig/bin $fish_user_paths
 or set -Ua fish_user_paths $HOME/.fig/bin
 
 
-if [ -d /Applications/fig.app ] || [ -d ~/Applications/fig.app ] && command -v fig 1>/dev/null 2>/dev/null
+if [ -d /Applications/fig.app -o -d ~/Applications/fig.app ] && command -v fig 1>/dev/null 2>/dev/null
 
-    if [ -t 1 ] && begin; [ -z "$FIG_ENV_VAR" ] || [ ! -z "$TMUX" ] end;
+    if [ -t 1 ] && [ -z "$FIG_ENV_VAR" -o ! -z "$TMUX" ]
 
         # Gives fig context for cwd in each window
         fig bg:init $fish_pid (tty)
@@ -19,7 +19,7 @@ if [ -d /Applications/fig.app ] || [ -d ~/Applications/fig.app ] && command -v f
         # But needs to be explicitly set for VSCode and Hyper
         # This variable is inherited when new ttys are created using Tmux
         # and must be explictly overwritten
-        if [ -z "$TERM_SESSION_ID" ] || [ ! -z "$TMUX" ]
+        if [ -z "$TERM_SESSION_ID" -o ! -z "$TMUX" ]
             export TERM_SESSION_ID=(uuidgen)
         end
         export TTY=(tty)
