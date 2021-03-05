@@ -74,12 +74,12 @@ then
             autoload -U +X add-zle-hook-widget
             function fig_zsh_keybuffer() { 
                 if [ ! -f ~/.fig/insertion-lock ]; then
-                    fig bg:zsh-keybuffer $CURSOR "$BUFFER" $HISTNO &!
+                    (fig bg:zsh-keybuffer $CURSOR "$BUFFER" $HISTNO &)
                 fi
              }
 
             function fig_hide() { 
-                fig bg:hide &!
+                (fig bg:hide &)
             }
 
             # Delete any widget, if it already exists
