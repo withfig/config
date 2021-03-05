@@ -17,7 +17,9 @@ if [ -d /Applications/fig.app ] || [ -d ~/Applications/fig.app ] && command -v f
 
         # Generated automatically by iTerm and Terminal
         # But needs to be explicitly set for VSCode and Hyper
-        if [ -z "$TERM_SESSION_ID" ] 
+        # This variable is inherited when new ttys are created using Tmux
+        # and must be explictly overwritten
+        if [ -z "$TERM_SESSION_ID" ] || [ ! -z "$TMUX" ]
             export TERM_SESSION_ID=(uuidgen)
         end
         export TTY=(tty)
