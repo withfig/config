@@ -10,8 +10,8 @@ pathadd ~/.fig/bin
 
 if ([[ -d /Applications/fig.app ]] || [[ -d ~/Applications/fig.app ]])  && [ ! "$TERMINAL_EMULATOR" = JetBrains-JediTerm ] && command -v fig 1> /dev/null 2> /dev/null
 then
-    if [ -z "$FIG_ENV_VAR" ]
-    then
+    if  [[ -t 1 ]] && ([[ -z "$FIG_ENV_VAR" ]] || [[ ! -z "$TMUX" ]])
+        then
 
         # Run aliases shell script
         [ -s ~/.fig/user/aliases/_myaliases.sh ] && source ~/.fig/user/aliases/*.sh
@@ -57,10 +57,10 @@ then
         then
             autoload -Uz add-zsh-hook
 
-            function fig_precmd_hook() { fig bg:prompt $$ $TTY &!; }
+            function fig_precmd_hook() { (fig bg:prompt $$ $TTY &); }
             add-zsh-hook precmd fig_precmd_hook
 
-            function fig_preexec_hook() { fig bg:exec $$ $TTY &!; }
+            function fig_preexec_hook() { (fig bg:exec $$ $TTY &); }
             add-zsh-hook preexec fig_preexec_hook 
 
         fi
