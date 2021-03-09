@@ -1,3 +1,4 @@
+zmodload zsh/system
 
 # Integrate with ZSH line editor
 autoload -U +X add-zle-hook-widget
