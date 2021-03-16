@@ -101,7 +101,8 @@ install_fig() {
     touch ~/.fig/user/figpath.sh
 
     # Determine user's login shell
-    defaults write com.mschrage.fig userShell "$(dscl . -read ~/ UserShell)"
+    # Explicitly reading from "/Users/$(whoami)" rather than ~ to handle rare cases where these are different
+    defaults write com.mschrage.fig userShell "$(dscl . -read /Users/$(whoami) UserShell)"
 
     # Old
     # FIG_FIGPATH='export FIGPATH="~/.fig/apps:~/.fig/user/apps:~/run:"'
