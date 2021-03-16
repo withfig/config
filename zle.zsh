@@ -74,6 +74,7 @@ function fig_insert () {
 
 zle -N fig_insert
 
-# Bind to fn12 - Hyper and VScode don't support fn13+
+# Bind to arbitrary unicode character
 # If this changes, make sure to update coresponding keycode in ZLEIntegration.insert
-bindkey '^[[24~' fig_insert
+# And increment $FIG_INTEGRATION_VERSION
+bindkey '◧' fig_insert
