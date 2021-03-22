@@ -40,7 +40,7 @@ SEPARATOR="  \n\n  --\n\n\n"
 
 
 print_special() {
-	echo "${TAB}$@${NORMAL}"$'\n'
+   echo "${TAB}$@${NORMAL}"$'\n'
 }
 
 
@@ -211,6 +211,7 @@ less -R <<EOF
 
 
 EOF
+fig bg:clear-keybuffer
 }
 
 
@@ -222,11 +223,11 @@ EOF
 #### How to print multiple lines easily
 
 #cat <<EOF
-	## This is known as a here document (or heredoc)
-	## Using a hyphen between << and EOF will remove any indenting beforehand e.g. <<-EOF
-		# https://stackoverflow.com/questions/4937792/using-variables-inside-a-bash-heredoc
-	## Using quotes around EOF will remove expansions
-		# https://superuser.com/questions/1436906/need-to-expand-a-variable-in-a-heredoc-that-is-in-quotes
+   ## This is known as a here document (or heredoc)
+   ## Using a hyphen between << and EOF will remove any indenting beforehand e.g. <<-EOF
+      # https://stackoverflow.com/questions/4937792/using-variables-inside-a-bash-heredoc
+   ## Using quotes around EOF will remove expansions
+      # https://superuser.com/questions/1436906/need-to-expand-a-variable-in-a-heredoc-that-is-in-quotes
 #EOF
 
 clear
@@ -279,6 +280,8 @@ EOF
 press_enter_to_continue
 clear
 
+fig bg:init $$ $TTY
+fig bg:clear-keybuffer
 cat <<EOF
 
    ${BOLD}Example${NORMAL}
@@ -296,8 +299,8 @@ EOF
 
 
 # osascript -e 'tell application "System Events" 
-# 	keystroke "cd ~/" 
-	# end tell'
+#  keystroke "cd ~/" 
+   # end tell'
 
 
 while true; do
@@ -369,6 +372,8 @@ EOF
 press_enter_to_continue
 clear 
 
+fig bg:init $$ $TTY
+fig bg:clear-keybuffer
 cat <<EOF
 
    ${BOLD}Another Example${NORMAL}
@@ -433,7 +438,8 @@ clear
 # clear
 
 
-
+fig bg:init $$ $TTY
+fig bg:clear-keybuffer
 cat <<EOF
    
    ${BOLD}Last Step: The ${MAGENTA}Fig${NORMAL} ${BOLD}CLI${NORMAL}
