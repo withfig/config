@@ -102,7 +102,15 @@ install_fig() {
 
     # Determine user's login shell
     # Explicitly reading from "/Users/$(whoami)" rather than ~ to handle rare cases where these are different
-    defaults write com.mschrage.fig userShell "$(dscl . -read /Users/$(whoami) UserShell)"
+    USER_SHELL="$(dscl . -read /Users/$(whoami) UserShell)"
+    defaults write com.mschrage.fig userShell "$USER_SHELL"
+
+    USER_SHELL_TRIMMED="$(echo "$USER_SHELL" | cut -d ' ' -f 2)"
+    fig settings userShell $USER_SHELL_TRIMMED
+
+    
+    #
+    fig settings pty.path $($USER_SHELL_TRIMMED -li -c "/usr/bin/env | /usr/bin/grep '^PATH=' | /bin/cat | /usr/bin/sed 's|PATH=||g'") 
 
     # Old
     # FIG_FIGPATH='export FIGPATH="~/.fig/apps:~/.fig/user/apps:~/run:"'
