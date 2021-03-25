@@ -95,6 +95,8 @@ install_fig() {
     mkdir -p ~/.fig/user/autocomplete
     mkdir -p ~/.fig/user/aliases
 
+    touch ~/.fig/settings.json
+    
     touch ~/.fig/user/aliases/_myaliases.sh
 
     # Figpath definition
