@@ -108,11 +108,11 @@ install_fig() {
     defaults write com.mschrage.fig userShell "$USER_SHELL"
 
     USER_SHELL_TRIMMED="$(echo "$USER_SHELL" | cut -d ' ' -f 2)"
-    fig settings userShell $USER_SHELL_TRIMMED
 
+    # Hard code figcli path because symlinking has not happened when this script runs
+    /Applications/Fig.app/Contents/MacOS/figcli settings userShell $USER_SHELL_TRIMMED
     
-    #
-    fig settings pty.path $($USER_SHELL_TRIMMED -li -c "/usr/bin/env | /usr/bin/grep '^PATH=' | /bin/cat | /usr/bin/sed 's|PATH=||g'") 
+    /Applications/Fig.app/Contents/MacOS/figcli settings pty.path $($USER_SHELL_TRIMMED -li -c "/usr/bin/env | /usr/bin/grep '^PATH=' | /bin/cat | /usr/bin/sed 's|PATH=||g'") 
 
     # Old
     # FIG_FIGPATH='export FIGPATH="~/.fig/apps:~/.fig/user/apps:~/run:"'
