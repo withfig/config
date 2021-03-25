@@ -37,19 +37,15 @@ function fig_hide() {
 }
 
 # Delete any widget, if it already exists
-add-zle-hook-widget -d line-pre-redraw fig_zsh_keybuffer
 add-zle-hook-widget line-pre-redraw fig_zsh_keybuffer
 
 # Update keybuffer on new line
-add-zle-hook-widget -d line-init fig_zsh_keybuffer
 add-zle-hook-widget line-init fig_zsh_keybuffer
 
 # Hide when going through history (see also: histno logic in ShellHooksManager.updateKeybuffer)
-add-zle-hook-widget -d history-line-set fig_hide
 add-zle-hook-widget history-line-set fig_hide
 
 # Hide when searching
-add-zle-hook-widget -d isearch-update fig_hide
 add-zle-hook-widget isearch-update fig_hide
 
 # Create insertion facility
