@@ -280,8 +280,8 @@ EOF
 press_enter_to_continue
 clear
 
-fig bg:init $$ $TTY
-fig bg:clear-keybuffer
+(fig bg:init $$ $TTY &)
+(fig bg:clear-keybuffer &)
 cat <<EOF
 
    ${BOLD}Example${NORMAL}
@@ -372,8 +372,8 @@ EOF
 press_enter_to_continue
 clear 
 
-fig bg:init $$ $TTY
-fig bg:clear-keybuffer
+(fig bg:init $$ $TTY &)
+(fig bg:clear-keybuffer &)
 cat <<EOF
 
    ${BOLD}Another Example${NORMAL}
@@ -438,8 +438,8 @@ clear
 # clear
 
 
-fig bg:init $$ $TTY
-fig bg:clear-keybuffer
+(fig bg:init $$ $TTY &)
+(fig bg:clear-keybuffer &)
 cat <<EOF
    
    ${BOLD}Last Step: The ${MAGENTA}Fig${NORMAL} ${BOLD}CLI${NORMAL}
