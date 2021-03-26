@@ -571,7 +571,8 @@ echo
 
 
 
-sed -i '' "s/FIG_ONBOARDING=.*/FIG_ONBOARDING=1/g" ~/.fig/user/config 2> /dev/null
+# Make sure we are using OSX sed rather than GNU version
+/usr/bin/sed -i '' "s/FIG_ONBOARDING=.*/FIG_ONBOARDING=1/g" ~/.fig/user/config 2> /dev/null
 fig bg:event "Completed Shell Onboarding"
 
     
