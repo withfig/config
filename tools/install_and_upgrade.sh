@@ -144,12 +144,13 @@ append_to_profiles() {
     [ -e ~/.bash_profile ] && sed -i '' 's/~\/.fig\/exports\/env.sh/~\/.fig\/fig.sh/g' ~/.bash_profile 2> /dev/null
 
     
-    # Check that new sourcing exists. If it doesn't, add it
-    grep -q 'source ~/.fig/fig.sh' ~/.profile || echo "$FIG_FULLSOURCEVAR" >> ~/.profile
-    grep -q 'source ~/.fig/fig.sh' ~/.zprofile || echo "$FIG_FULLSOURCEVAR" >> ~/.zprofile
-    grep -q 'source ~/.fig/fig.sh' ~/.bash_profile || echo "$FIG_FULLSOURCEVAR" >> ~/.bash_profile
-    grep -q 'source ~/.fig/fig.sh' ~/.bashrc || echo "$FIG_FULLSOURCEVAR" >> ~/.bashrc
-    grep -q 'source ~/.fig/fig.sh' ~/.zshrc || echo "$FIG_FULLSOURCEVAR" >> ~/.zshrc
+    # Check that the file exists and whether we've source fig.sh. If file exists and doesn't contain fig.sh, add it
+    # We don't want to appened fig.sh to files that doen't exist, because it creates them and might change shell behavior
+    [ -f ~/.profile ] && grep -q 'source ~/.fig/fig.sh' ~/.profile || echo "$FIG_FULLSOURCEVAR" >> ~/.profile
+    [ -f ~/.zprofile ] && grep -q 'source ~/.fig/fig.sh' ~/.zprofile || echo "$FIG_FULLSOURCEVAR" >> ~/.zprofile
+    [ -f ~/.bash_profile ] && grep -q 'source ~/.fig/fig.sh' ~/.bash_profile || echo "$FIG_FULLSOURCEVAR" >> ~/.bash_profile
+    [ -f ~/.bashrc ] && grep -q 'source ~/.fig/fig.sh' ~/.bashrc || echo "$FIG_FULLSOURCEVAR" >> ~/.bashrc
+    [ -f ~/.zshrc ] && grep -q 'source ~/.fig/fig.sh' ~/.zshrc || echo "$FIG_FULLSOURCEVAR" >> ~/.zshrc
 
 }
 
