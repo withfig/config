@@ -10,7 +10,7 @@ pathadd ~/.fig/bin
 
 if ([[ -d /Applications/fig.app ]] || [[ -d ~/Applications/fig.app ]]) && [ ! "$TERMINAL_EMULATOR" = JetBrains-JediTerm ]  && command -v fig 1> /dev/null 2> /dev/null
 then
-    if  [[ -t 1 ]] && ([[ -z "$FIG_ENV_VAR" ]] || [[ ! -z "$TMUX" ]])
+    if  [[ -t 1 ]] && ([[ -z "$FIG_ENV_VAR" ]] || [[ ! -z "$TMUX" ]] || [[ "$TERM_PROGRAM" = vscode ]])
     then
 
         # Run aliases shell script
@@ -18,9 +18,9 @@ then
 
         # Generated automatically by iTerm and Terminal
         # But needs to be explicitly set for VSCode and Hyper
-        # This variable is inherited when new ttys are created using Tmux
+        # This variable is inherited when new ttys are created using Tmux of VSCode
         # and must be explictly overwritten
-        if [[ -z "${TERM_SESSION_ID}" ]] || [[ ! -z "$TMUX" ]] 
+        if [[ -z "${TERM_SESSION_ID}" ]] || [[ ! -z "$TMUX" ]]  || [[ "$TERM_PROGRAM" = vscode ]] 
             then 
                 export TERM_SESSION_ID="$(uuidgen)"
         fi
