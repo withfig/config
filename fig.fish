@@ -23,6 +23,7 @@ if [ -d /Applications/fig.app -o -d ~/Applications/fig.app ] && command -v fig 1
             export TERM_SESSION_ID=(uuidgen)
         end
         export TTY=(tty)
+        export FIG_INTEGRATION_VERSION=2
         export FIG_ENV_VAR=1
 
     end
@@ -32,6 +33,10 @@ if [ -d /Applications/fig.app -o -d ~/Applications/fig.app ] && command -v fig 1
 
     # https://fishshell.com/docs/current/cmds/if.html
     if [ -z "$FIG_SHELL_VAR" ]
+
+        function fig_keybuffer --on-signal SIGUSR1
+        	fig bg:fish-keybuffer (commandline -C) (commandline) 0 &
+        end
 
         function fig_precmd --on-event fish_prompt
             fig bg:prompt $fish_pid (tty) &

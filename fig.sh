@@ -25,7 +25,7 @@ then
                 export TERM_SESSION_ID="$(uuidgen)"
         fi
         export TTY=$(tty)
-        export FIG_INTEGRATION_VERSION=1
+        export FIG_INTEGRATION_VERSION=2
         export FIG_ENV_VAR=1
 
         # Gives fig context for cwd in each window
