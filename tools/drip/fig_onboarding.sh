@@ -94,9 +94,9 @@ exit_script_annoying() {
 
    if [[ "$response" =~ ^(yes|y|YES|Y)$ ]]
    then
-      sed -i '' "s/FIG_ONBOARDING=.*/FIG_ONBOARDING=0/g" ~/.fig/user/config 2> /dev/null
+      sed -i='' "s/FIG_ONBOARDING=.*/FIG_ONBOARDING=0/g" ~/.fig/user/config 2> /dev/null
    else
-      sed -i '' "s/FIG_ONBOARDING=.*/FIG_ONBOARDING=1/g" ~/.fig/user/config 2> /dev/null
+      sed -i='' "s/FIG_ONBOARDING=.*/FIG_ONBOARDING=1/g" ~/.fig/user/config 2> /dev/null
    fi
 
    echo
@@ -109,7 +109,7 @@ exit_script_annoying() {
 # In case user quits script
 exit_script_nice() {
    
-   sed -i '' "s/FIG_ONBOARDING=.*/FIG_ONBOARDING=1/g" ~/.fig/user/config 2> /dev/null
+   sed -i='' "s/FIG_ONBOARDING=.*/FIG_ONBOARDING=1/g" ~/.fig/user/config 2> /dev/null
 
    clear 
    echo
@@ -490,6 +490,7 @@ while true; do
    #    break
    if [[ $input == "fig" ]]
    then
+      sed -i='' "s/FIG_ONBOARDING=.*/FIG_ONBOARDING=1/g" ~/.fig/user/config 2> /dev/null
       eval $input
       print_special "${BOLD}Awesome!${NORMAL}"
       echo
@@ -572,7 +573,7 @@ echo
 
 
 # Make sure we are using OSX sed rather than GNU version
-/usr/bin/sed -i '' "s/FIG_ONBOARDING=.*/FIG_ONBOARDING=1/g" ~/.fig/user/config 2> /dev/null
+sed -i='' "s/FIG_ONBOARDING=.*/FIG_ONBOARDING=1/g" ~/.fig/user/config 2> /dev/null
 fig bg:event "Completed Shell Onboarding"
 
     
