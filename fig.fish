@@ -35,7 +35,7 @@ if [ -d /Applications/fig.app -o -d ~/Applications/fig.app ] && command -v fig 1
     if [ -z "$FIG_SHELL_VAR" ]
 
         function fig_keybuffer --on-signal SIGUSR1
-        	fig bg:fish-keybuffer (commandline -C) (commandline) 0 &
+            echo fig bg:fish-keybuffer $TERM_SESSION_ID $FIG_INTEGRATION_VERSION 0 (commandline -C) \"(commandline)\" | base64 | nc -U /tmp/fig.socket
         end
 
         function fig_precmd --on-event fish_prompt
