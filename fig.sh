@@ -8,7 +8,7 @@ pathadd() {
 
 pathadd ~/.fig/bin
 
-if ([[ -d /Applications/fig.app ]] || [[ -d ~/Applications/fig.app ]]) && [ ! "$TERMINAL_EMULATOR" = JetBrains-JediTerm ]  && command -v fig 1> /dev/null 2> /dev/null
+if ([[ -d /Applications/Fig.app ]] || [[ -d ~/Applications/Fig.app ]]) && [ ! "$TERMINAL_EMULATOR" = JetBrains-JediTerm ]  && command -v fig 1> /dev/null 2> /dev/null
 then
     if  [[ -t 1 ]] && ([[ -z "$FIG_ENV_VAR" ]] || [[ ! -z "$TMUX" ]] || [[ "$TERM_PROGRAM" = vscode ]])
     then
