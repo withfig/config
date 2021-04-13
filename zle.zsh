@@ -28,7 +28,7 @@ function fig_zsh_redraw() {
       unset _fig_redraw_fd
     fi
 
-    echo fig bg:fish-keybuffer $TERM_SESSION_ID $FIG_INTEGRATION_VERSION $HISTNO $CURSOR \""$BUFFER"\" | base64 | nc -U /tmp/fig.socket
+    echo fig bg:zsh-keybuffer $TERM_SESSION_ID $FIG_INTEGRATION_VERSION $HISTNO $CURSOR \""$BUFFER"\" | base64 | nc -U /tmp/fig.socket
 }
 
 function fig_hide() { 
