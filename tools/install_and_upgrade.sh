@@ -114,6 +114,8 @@ install_fig() {
     
     /Applications/Fig.app/Contents/MacOS/figcli settings pty.path $($USER_SHELL_TRIMMED -li -c "/usr/bin/env | /usr/bin/grep '^PATH=' | /bin/cat | /usr/bin/sed 's|PATH=||g'") 
 
+    # Restart file watcher
+    /Applications/Fig.app/Contents/MacOS/figcli settings:init
     # Old
     # FIG_FIGPATH='export FIGPATH="~/.fig/apps:~/.fig/user/apps:~/run:"'
     # grep -q "$FIG_FIGPATH" ~/.fig/user/figpath.sh || echo "$FIG_FIGPATH"$'\n'"$(cat ~/.fig/user/figpath.sh)" > ~/.fig/user/figpath.sh

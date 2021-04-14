@@ -48,6 +48,9 @@ if [ -d /Applications/fig.app -o -d ~/Applications/fig.app ] && command -v fig 1
 
         set FIG_SHELL_VAR 1
 
+        # Prevents wierd interaction where setting the title with ANSI escape sequence triggers prompt redraw
+        fig settings autocomplete.addStatusToTerminalTitle false &
+
         fig bg:exec $fish_pid (tty) &
     end
 
