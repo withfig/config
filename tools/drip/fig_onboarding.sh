@@ -286,11 +286,10 @@ cat <<EOF
 
    ${BOLD}Example${NORMAL}
    Try typing ${BOLD}cd${NORMAL} then space. Autocomplete will suggest the folders in your home directory.
+
    
    ${BOLD}To Continue...${NORMAL}
-   cd into the "${BOLD}.fig${NORMAL}" folder
-  
-   ${UNDERLINE}Tip${UNDERLINE_END}: Selecting a suggestion with a ${BOLD}🟥 red icon${NORMAL} and ${BOLD}↪${NORMAL} symbol will immediately execute a command
+   cd into the "${BOLD}.fig/${NORMAL}" folder
 
 EOF
 
@@ -307,39 +306,45 @@ while true; do
    input=""
    read -e -p "${TAB}$ " input
    echo # New line after output
-   if [[ $input == 'cd .fig/' ]]
-   then
-      cd ~/.fig
-      print_special "${BOLD}Awesome!${NORMAL}"
-      press_enter_to_continue
-      break
+   # if [[ $input == 'cd .fig/' ]]
+   # then
+   #    cd ~/.fig
+   #    print_special "${BOLD}Awesome!${NORMAL}"
+   #    echo
+   #    print_special ${UNDERLINE}Quick Tip${UNDERLINE_END}: Selecting a suggestion with a ${BOLD}🟥 red icon${NORMAL} and ${BOLD}↪${NORMAL} symbol will immediately execute a command
+   #    press_enter_to_continue
+   #    break
    
 
-   elif [[ $input == 'cd .fig' ]]
-   then
-      cd ~/.fig
-      print_special ${BOLD}Awesome!${NORMAL}
-      print_special "You may have seen ${BOLD}.fig ↪${NORMAL} and ${BOLD}.fig/${NORMAL}. The first runs the command for you. The second shows you the folders underneath .fig/"
-      press_enter_to_continue
-      break
+   # elif [[ $input == 'cd .fig' ]]
+   # then
+   #    cd ~/.fig
+   #    print_special ${BOLD}Awesome!${NORMAL}
+   #    echo
+   #    print_special ${UNDERLINE}Quick Tip${UNDERLINE_END}: Selecting a suggestion with a ${BOLD}🟥 red icon${NORMAL} and ${BOLD}↪${NORMAL} symbol will immediately execute a command
+   #    # print_special "You may have seen ${BOLD}.fig ↪${NORMAL} and ${BOLD}.fig/${NORMAL}. The first runs the command for you. The second shows you the folders underneath .fig/"
+   #    press_enter_to_continue
+   #    break
 
-   elif [[ $input == cd* ]]
-   then
-   print_special "Whoops. Looks like you just typed ${BOLD}cd${NORMAL}. Type ${BOLD}cd .fig/${NORMAL} to continue"
-   print_special "You can hit enter if you see the ${BOLD}↪${NORMAL} symbol"
+   # elif [[ $input == cd* ]]
+   # then
+   # print_special "Whoops. Looks like you just typed ${BOLD}cd${NORMAL}. Type ${BOLD}cd .fig/${NORMAL} to continue"
+   # print_special "You can hit enter if you see the ${BOLD}↪${NORMAL} symbol"
 
-   elif [[ $input == cd* ]]
+   if [[ $input == cd* ]]
    then
       cd ~/.fig
       print_special "${BOLD}Awesome!${NORMAL}"
-      print_special "Looks like you cd'd into another directory. Glad you are playing around! We are going to put you in ~/.fig for the next step"
+      echo
+      # print_special "Looks like you cd'd into another directory. Glad you are playing around! We are going to put you in ~/.fig for the next step"
+      print_special ${UNDERLINE}Quick Tip${UNDERLINE_END}: Selecting a suggestion with a ${BOLD}🟥 red icon${NORMAL} and ${BOLD}↪${NORMAL} symbol will immediately execute a command
       press_enter_to_continue
       break
 
    elif [[ $input == '' ]]
    then
       print_special "Type ${BOLD}cd .fig/${NORMAL} to continue"
-      print_special "You can hit enter if you see the ${BOLD}↪${NORMAL} symbol"
+      # print_special "You can hit enter if you see the ${BOLD}↪${NORMAL} symbol"
    
    elif [[ $input  == 'help' ]] || [[ $input  == 'HELP' ]] || [[ $input  == '--help' ]] || [[ $input  == '-h' ]]
    then 
