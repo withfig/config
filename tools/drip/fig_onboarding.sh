@@ -450,6 +450,7 @@ cat <<EOF
    ${BOLD}Last Step: The ${MAGENTA}Fig${NORMAL} ${BOLD}CLI${NORMAL}
 
    fig               open the fig ◧ menu in the status bar
+   fig settings      update preferences
    fig invite        invite up to 5 friends or teammates to Fig
    fig report        send feedback directly to the Fig founders
    fig update        update Fig's autocomplete scripts
@@ -467,6 +468,7 @@ EOF
 
 # Eventually prompt the user: do you want to invite friends to fig? type y if yes or otherwise it's a no
 # Only run the below if yes
+
 
 
 while true; do
@@ -496,8 +498,17 @@ while true; do
    if [[ $input == "fig" ]]
    then
       sed -i='' "s/FIG_ONBOARDING=.*/FIG_ONBOARDING=1/g" ~/.fig/user/config 2> /dev/null
-      eval $input
-      print_special "${BOLD}Awesome!${NORMAL}"
+      fig > /dev/null
+
+      if [[ -d $(echo /Applications/Bartender*.app/) ]]
+      then
+         echo
+         print_special "${BOLD}Well this is awkward...${NORMAL} It looks like you are using ${BOLD}Bartender${NORMAL} which means the ${BOLD}${MAGENTA}Fig${NORMAL} command may not work."
+         echo
+         print_special "Instead click the Fig icon ◧ in your status bar"
+      else 
+         print_special "${BOLD}Awesome!${NORMAL}"
+      fi
       echo
       print_special "If Fig ever stops working, you can ${BOLD}use the debug tool${NORMAL} at the top of this menu to see what's wrong."
       press_enter_to_continue
