@@ -2,7 +2,7 @@ contains $HOME/.fig/bin $fish_user_paths
 or set -Ua fish_user_paths $HOME/.fig/bin
 
 
-if [ -d /Applications/fig.app -o -d ~/Applications/fig.app ] && command -v fig 1>/dev/null 2>/dev/null
+if [ -d /Applications/Fig.app -o -d ~/Applications/Fig.app ] && command -v fig 1>/dev/null 2>/dev/null
 
     if [ -t 1 ] && [ -z "$FIG_ENV_VAR" -o ! -z "$TMUX" ]
 
