@@ -500,7 +500,7 @@ while true; do
       sed -i='' "s/FIG_ONBOARDING=.*/FIG_ONBOARDING=1/g" ~/.fig/user/config 2> /dev/null
       fig > /dev/null
 
-      if [[ -d $(echo /Applications/j*.app/) ]]
+      if [[ -d $(echo /Applications/Bartender*.app/) ]]
       then
          echo
          print_special "${BOLD}Well this is awkward...${NORMAL} It looks like you are using ${BOLD}Bartender${NORMAL} which means the ${BOLD}${MAGENTA}Fig${NORMAL} command may not work."
