@@ -14,7 +14,8 @@ then
     then
 
         # Run aliases shell script
-        [ -s ~/.fig/user/aliases/_myaliases.sh ] && source ~/.fig/user/aliases/*.sh
+        # for f in path/to/dir; do source $f; done # this is more correct if we want to source multiple files in a given folder
+        # [ -s ~/.fig/user/aliases/_myaliases.sh ] && source ~/.fig/user/aliases/*.sh
 
         # Generated automatically by iTerm and Terminal
         # But needs to be explicitly set for VSCode and Hyper
