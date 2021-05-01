@@ -79,8 +79,7 @@ install_fig() {
     cd ~/.fig/autocomplete
 
     {
-        curl https://codeload.github.com/withfig/autocomplete/tar.gz/master | \
-        tar -xz --strip-components=2 autocomplete-master/specs
+        curl -s "https://waitlist.withfig.com/specs?version=latest" | tar -xz --strip-components=1 specs
         
     } || {
         error "pulling latest autocomplete files failed"
