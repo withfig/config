@@ -564,15 +564,19 @@ clear
 
 cat <<EOF
 
-   ${BOLD}Want to contribute${NORMAL}?
+   ${BOLD}Want to contribute?${NORMAL}
 
-   * Check out our docs: ${UNDERLINE}https://withfig.com/docs/getting-started${UNDERLINE_END}
-   * Submit a pull request ${UNDERLINE}https://github.com/withfig/autocomplete${UNDERLINE_END}
+   * Check out our docs: ${UNDERLINE}withfig.com/docs/getting-started${UNDERLINE_END}
+   * Submit a pull request: ${UNDERLINE}github.com/withfig/autocomplete${UNDERLINE_END}
 
-   ${BOLD}Get in touch:${NORMAL}
 
-   * ${UNDERLINE}mailto:hello@withfig.com${UNDERLINE_END}
-   * Or ${MAGENTA}${BOLD}fig report${NORMAL}
+   ${BOLD}Want to customize Fig's settings?${NORMAL}
+
+   e.g. tab/enter behavior, width, height, theme etc
+   
+   Check out ${MAGENTA}${UNDERLINE}withfig.com/docs/support/settings${NORMAL}
+
+
 
 EOF
 
@@ -656,6 +660,8 @@ cat <<'EOF'
 
 
 EOF
+
+
 
 if [[ "$TERM_PROGRAM" == "iTerm.app" ]]
 then
