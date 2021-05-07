@@ -678,6 +678,9 @@ cat <<EOF
 EOF
 fi
 
+# Make absolutely sure that settings listener has been launched!
+(fig settings:init > /dev/null &)
+
 #    or install the integration from ◧ > Settings > Setup iTerm Tab Integration.
 
 # cat <<EOF
