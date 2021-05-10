@@ -39,11 +39,11 @@ if [ -d /Applications/Fig.app -o -d ~/Applications/Fig.app ] && command -v fig 1
         end
 
         function fig_precmd --on-event fish_prompt
-            fig bg:prompt $fish_pid (tty) &
+            fig bg:prompt $fish_pid (tty) &; disown
         end
 
         function fig_preexec --on-event fish_preexec
-            fig bg:exec $fish_pid (tty) &
+            fig bg:exec $fish_pid (tty) &; disown
         end
 
         set FIG_SHELL_VAR 1
