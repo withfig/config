@@ -10,7 +10,9 @@ pathadd ~/.fig/bin
 
 if ([[ -d /Applications/Fig.app ]] || [[ -d ~/Applications/Fig.app ]]) && [ ! "$TERMINAL_EMULATOR" = JetBrains-JediTerm ]  && command -v fig 1> /dev/null 2> /dev/null
 then
-    if  [[ -t 1 ]] && ([[ -z "$FIG_ENV_VAR" ]] || [[ ! -z "$TMUX" ]] || [[ "$TERM_PROGRAM" = vscode ]])
+    # We used to check for if the current session was an interactive TTY [[ -t 1 ]]
+    # But this broke p10k in VSCode...
+    if ([[ -z "$FIG_ENV_VAR" ]] || [[ ! -z "$TMUX" ]] || [[ "$TERM_PROGRAM" = vscode ]])
     then
 
         # Run aliases shell script
