@@ -19,7 +19,7 @@ Here are some of our primary repos.
 
 [withfig/fig](https://github.com/withfig/fig): The central repo. All issues taken here.
 
-[withfig/autocomplete](https://github.com/withfig/autocomplete): Collection of all specs for [autocomplete](https://docs.withfig.com/autocomplete). Contribute new specs and update old specs here.
+[withfig/autocomplete](https://github.com/withfig/autocomplete): Collection of all specs for [autocomplete](https://fig.io/docs/autocomplete). Contribute new specs and update old specs here.
 
 [withfig/config](https://github.com/withfig/config): Fig's default configuration at install. Contains apps, installation, and update scripts.
 
@@ -48,6 +48,6 @@ By contributing, you agree that your contributions will be licensed under its MI
 
 ## Questions and support
 
-For product support, visit our [docs](https://withfig.com/docs) and join the [Fig Community](https://figcommunity.slack.com/join/shared_invite/zt-fupa9n8g-sfHm8MyBn1DBaCj8SoIxSA#/) for instant support and discussion.
+For product support, visit our [docs](https://fig.io/docs) and join the [Fig Community](https://figcommunity.slack.com/join/shared_invite/zt-fupa9n8g-sfHm8MyBn1DBaCj8SoIxSA#/) for instant support and discussion.
 
-Any unanswered questions or inquiries? We're always open to chat at hello@withfig.com.
+Any unanswered questions or inquiries? We're always open to chat at hello@fig.io.

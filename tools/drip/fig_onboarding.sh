@@ -87,7 +87,7 @@ exit_script_annoying() {
    echo
    echo
    print_special "Sorry to see you go."
-   print_special "If you have feedback, we'd appreciate you emailing hello@withfig.com"
+   print_special "If you have feedback, we'd appreciate you emailing hello@fig.io"
    echo
 
    read -n 1 -r -p "${TAB}Do you want to finish Fig's onboarding in your next Terminal session? [y/N] "  response
@@ -180,7 +180,7 @@ less -R <<EOF
          * Go to Fig Menu (◧) > Autocomplete 
 
 
-      If the problem persists: please let us know! Contact the Fig team at hello@withfig.com
+      If the problem persists: please let us know! Contact the Fig team at hello@fig.io
 
 
    ${BOLD}What does the ↪ symbol / suggestion mean?${NORMAL}
@@ -201,7 +201,7 @@ less -R <<EOF
 
    ${BOLD}I want to uninstall Fig${NORMAL}
       * Go to Fig Menu (◧) > Settings > Uninstall Fig
-      3. If you're feeling generous, we would love to hear why you uninstalled Fig. hello@withfig.com
+      3. If you're feeling generous, we would love to hear why you uninstalled Fig. hello@fig.io
    
 
 
@@ -566,7 +566,7 @@ cat <<EOF
 
    ${BOLD}Want to contribute?${NORMAL}
 
-   * Check out our docs: ${UNDERLINE}withfig.com/docs/getting-started${UNDERLINE_END}
+   * Check out our docs: ${UNDERLINE}fig.io/docs/getting-started${UNDERLINE_END}
    * Submit a pull request: ${UNDERLINE}github.com/withfig/autocomplete${UNDERLINE_END}
 
 
@@ -574,7 +574,7 @@ cat <<EOF
 
    e.g. tab/enter behavior, width, height, theme etc
    
-   Check out ${MAGENTA}${UNDERLINE}withfig.com/docs/support/settings${NORMAL}
+   Check out ${MAGENTA}${UNDERLINE}fig.io/docs/support/settings${NORMAL}
 
 
 
@@ -695,6 +695,6 @@ fi
 #    is a great experience. We plan to revisit everything mentioned above 
 #    (and more) very soon.
 
-#    Have thoughts? Email hello@withfig.com
+#    Have thoughts? Email hello@fig.io
 
 # EOF
