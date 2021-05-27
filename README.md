@@ -17,7 +17,7 @@ The config directory is structured like so:
 </tr>
 <tr>
     <td>apps/</td>
-    <td>installed Fig apps. See <a href="https://github.com/withfig/autocomplete"> withfig/fig-apps</a> </td>
+    <td>installed Fig apps. See <a href="https://github.com/withfig/fig-apps"> withfig/fig-apps</a> </td>
 </tr>
 <tr>
     <td>team/</td>
