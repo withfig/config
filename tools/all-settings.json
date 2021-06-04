@@ -1,0 +1,144 @@
+[
+  {
+    "settingName": "autocomplete.developerMode",
+    "title": "Toggle the developer mode",
+    "description": "When true, Fig will not cache completion specs and will load specs from the directory",
+    "type": "boolean",
+    "details": "The developer mode changes the way specs are loaded"
+  },
+  {
+    "settingName": "autocomplete.theme",
+    "title": "Set Fig's theme",
+    "description": "When true, Fig will not cache completion specs and will load specs from the directory",
+    "type": "single_select",
+    "options": ["light", "dark"],
+    "default": "dark"
+  },
+  {
+    "settingName": "autocomplete.sortMethod",
+    "title": "Change the sort method",
+    "description": "Specify how Fig should sort suggestions",
+    "type": "single_select",
+    "default": "recency",
+    "options": [
+      {
+        "name": "recency",
+        "description": "Sort by most recently used"
+      },
+      {
+        "name": "alphabetical",
+        "description": "Sort by alphabetical"
+      }
+    ]
+  },
+  {
+    "settingName": "autocomplete.devCompletionsFolder",
+    "title": "Set the dev completions folder",
+    "description": "When autocomplete.developerMode is enabled, Fig loads completion specs from the specified directory.",
+    "type": "text",
+    "details": "This needs to be an absolute path"
+  },
+  {
+    "settingName": "autocomplete.scrollWrapAround",
+    "title": "Wrap around",
+    "description": "A flag that determines whether the selection will wrap around when pressing arrow key at bottom or top of list.",
+    "type": "boolean"
+  },
+  {
+    "settingName": "autocomplete.insertSpaceAutomatically",
+    "title": "Insert Space automatically",
+    "description": "A flag that determines whether Fig will automatically insert a space.",
+    "type": "boolean",
+    "default": true
+  },
+  {
+    "settingName": "autocomplete.immediatelyRunDangerousCommands",
+    "title": "Run dangerous commands",
+    "description": "A flag that determines whether Fig will present suggestions to immediately run commands that might be dangerous, like rm.",
+    "type": "boolean"
+  },
+  {
+    "settingName": "autocomplete.immediatelyRunGitAliases",
+    "title": "Git aliases",
+    "description": "A flag that determines whether Fig will present suggestions to immediately run git aliases.",
+    "type": "boolean"
+  },
+  {
+    "settingName": "autocomplete.immediatelyExecuteAfterSpace",
+    "title": "Execute after space",
+    "description": "A flag that determines whether Fig will add the immediate insert suggestion to the top of the suggestions after a user hits space.",
+    "type": "boolean"
+  },
+  {
+    "settingName": "autocomplete.disableForCommands",
+    "title": "Set commands where Fig should be disabled",
+    "description": "Pass in a JSON array of commands Fig should not autocomplete on.",
+    "type": "multiselect",
+    "details": "This must be a comma-separated list of values (e.g. git,npm)"
+  },
+  {
+    "settingName": "autocomplete.enter",
+    "title": "Set Enter behavior",
+    "description": "Set the behavior of the enter key.",
+    "type": "single_select",
+    "options": ["insert", "ignore"],
+    "default": "insert"
+  },
+  {
+    "settingName": "autocomplete.tab",
+    "title": "Set Tab behavior",
+    "description": "Set the behavior of the tab key.",
+    "type": "single_select",
+    "options": ["insert", "insertOrPrefix", "shake", "navigate"],
+    "default": "insert"
+  },
+  {
+    "settingName": "autocomplete.height",
+    "title": "Autocomplete window height",
+    "description": "Set the maximum height of the autocomplete window.",
+    "type": "number"
+  },
+  {
+    "settingName": "autocomplete.width",
+    "title": "Autocomplete window width",
+    "description": "Set the maximum width of the autocomplete window.",
+    "type": "number"
+  },
+  {
+    "settingName": "autocomplete.fuzzySearch",
+    "title": "Set Fuzzysearch",
+    "description": "Search of suggestions using fuzzy search rather than prefix search.",
+    "type": "boolean",
+    "details": "This currently does not support the tab autocomplete underlining that prefix search has"
+  },
+  {
+    "settingName": "pty.path",
+    "title": "Set the path of the pseudoterminal",
+    "description": "The $PATH variable used in pseudoterminals. If autocomplete isn't showing file suggestions, running fig settings pty.path  \"$PATH\" may fix the issue. You will need to restart Fig for the changes to apply.",
+    "type": "text"
+  },
+  {
+    "settingName": "pty.rc",
+    "title": "Filepath for file to be sourced",
+    "description": "A file that will be sourced when Fig creates a pseudoterminal",
+    "type": "text"
+  },
+  {
+    "settingName": "app.launchOnStartup",
+    "title": "Launch Fig on Start",
+    "description": "A flag that determines whether the Fig app is added to Login Items. If true, Fig will launch automatically whenever you restart your computer.",
+    "type": "boolean"
+  },
+  {
+    "settingName": "app.hideMenubarIcon",
+    "title": "Hide menu bar icon",
+    "description": "Hide Fig's icon ◧ in the Mac status bar",
+    "type": "boolean"
+  },
+  {
+    "settingName": "app.disableTelemetry",
+    "title": "Telemetry",
+    "description": "Opt-out of all non-essential telemetry collection. By default, Fig collects limited usage information to provide support and improve the product. Read our statement on privacy for more details.",
+    "type": "boolean"
+  }
+]
