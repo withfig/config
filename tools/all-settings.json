@@ -2,7 +2,7 @@
   {
     "settingName": "autocomplete.developerMode",
     "title": "Developer mode",
-    "description": "Turns off completion-spec caching and load completion specs from the <code>autocomplete.devCompletionsFolder</code>",
+    "description": "Turns off completion-spec caching and load completion specs from the autocomplete.devCompletionsFolder",
     "type": "boolean",
     "details": "The developer mode changes the way specs are loaded"
   },
@@ -34,9 +34,9 @@
   {
     "settingName": "autocomplete.devCompletionsFolder",
     "title": "Completion Specs Folder",
-    "description": "When autocomplete.developerMode is enabled, Fig loads completion specs from the directory specified here.",
+    "description": "When autocomplete.developerMode is enabled, Fig loads completion specs from the specified directory.",
     "type": "text",
-    "details": "This must be an absolute path (e.g. ~/Desktop)"
+    "details": "This must be an absolute path (e.g. /User/username/Desktop)"
   },
   {
     "settingName": "autocomplete.scrollWrapAround",
@@ -72,10 +72,10 @@
   },
   {
     "settingName": "autocomplete.disableForCommands",
-    "title": "Disable Fig for certain CLI tools",
+    "title": "Disable Fig for specific CLI tools",
     "description": "A JSON array of CLI tools that Fig should NOT autocomplete on.",
     "type": "multiselect",
-    "details": "e.g. [\"git\",\"npm\"])"
+    "details": "e.g. [\"git\",\"npm\"]"
   },
   {
     "settingName": "autocomplete.enter",
@@ -107,22 +107,25 @@
   },
   {
     "settingName": "autocomplete.fuzzySearch",
-    "title": "Set Fuzzysearch",
-    "description": "Search of suggestions using substring match rather than prefix search.",
+    "title": "Fuzzy Search Strings",
+    "description": "Search of suggestions using substring matching rather than prefix search.",
     "type": "boolean",
     "details": "This currently does not support the tab autocomplete underlining that prefix search has"
   },
   {
     "settingName": "pty.path",
     "title": "Set the path variable of Fig's pseudoterminal",
-    "description": "The $PATH variable used in pseudoterminals. If autocomplete isn't showing file suggestions, running fig settings pty.path  \"$PATH\" may fix the issue. You will need to restart Fig for the changes to apply.",
-    "type": "text"
+    "description": "The $PATH variable used in pseudoterminals. If autocomplete isn't showing file suggestions, running `fig set:path` may fix the issue.",
+    "type": "text",
+    "details": "The error text 'commands not found' often appears if the `pty.path` is not set correctly."
   },
   {
     "settingName": "pty.rc",
-    "title": "Filepath for Fig's pseudoterminal to source",
-    "description": "A file that will be sourced when Fig creates a pseudoterminal. Use this for adjusting your environment variables",
-    "type": "text"
+    "title": "Init File for ",
+    "description": "A file that will be sourced when Fig creates a pseudoterminal.",
+    "type": "text",
+    "default" : "~/.fig/user/ptyrc",
+    "details" : "Add environment variables to this file, in order for commands like `aws` to use them when generating completions."
   },
   {
     "settingName": "app.launchOnStartup",
@@ -133,13 +136,14 @@
   {
     "settingName": "app.hideMenubarIcon",
     "title": "Hide menu bar icon",
-    "description": "Hide Fig's icon ◧ in the Mac status bar",
+    "description": "Hide Fig's icon from the macOS menu bar",
     "type": "boolean"
   },
   {
     "settingName": "app.disableTelemetry",
     "title": "Telemetry",
-    "description": "Opt-out of all telemetry. By default, Fig collects limited usage information to provide support and improve the product. Read our statement on privacy at fig.io/privacy for more details.",
-    "type": "boolean"
+    "description": "Opt-out of all telemetry. By default, Fig collects limited usage information to provide support and improve the product.",
+    "type": "boolean",
+    "details" : "Read our statement on privacy at fig.io/privacy for more details."
   }
 ]
