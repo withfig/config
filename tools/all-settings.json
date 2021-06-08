@@ -2,7 +2,7 @@
   {
     "settingName": "autocomplete.developerMode",
     "title": "Developer mode",
-    "description": "Turns off caching and loads completions from <code>devCompletionsFolder</code>",
+    "description": "Turns off completion-spec caching and load completion specs from the <code>autocomplete.devCompletionsFolder</code>",
     "type": "boolean",
     "details": "The developer mode changes the way specs are loaded"
   },
@@ -27,55 +27,55 @@
       },
       {
         "name": "alphabetical",
-        "description": "Sort by alphabetical"
+        "description": "Sort in alphabetical order"
       }
     ]
   },
   {
     "settingName": "autocomplete.devCompletionsFolder",
-    "title": "Developer Completion Specs",
-    "description": "When autocomplete.developerMode is enabled, Fig loads completion specs from the specified directory.",
+    "title": "Completion Specs Folder",
+    "description": "When autocomplete.developerMode is enabled, Fig loads completion specs from the directory specified here.",
     "type": "text",
-    "details": "This must to be an absolute path"
+    "details": "This must be an absolute path (e.g. ~/Desktop)"
   },
   {
     "settingName": "autocomplete.scrollWrapAround",
-    "title": "Wrap around when scrolling",
-    "description": "A flag that determines whether the selection will wrap around when pressing arrow key at bottom or top of list.",
+    "title": "Wrap around when navigating",
+    "description": "If true, when pressing arrow key on the bottom suggestion, the autocomplete menu will loop back to the first suggestion.",
     "type": "boolean",
     "default": false
   },
   {
     "settingName": "autocomplete.insertSpaceAutomatically",
-    "title": "Insert Space automatically",
-    "description": "A flag that determines whether Fig will automatically insert a space.",
+    "title": "Insert space after selecting a suggestion",
+    "description": "When true, Fig will automatically insert a space after you select a suggestion.",
     "type": "boolean",
     "default": true
   },
   {
     "settingName": "autocomplete.immediatelyRunDangerousCommands",
     "title": "Run dangerous commands",
-    "description": "A flag that determines whether Fig will present suggestions to immediately run commands that might be dangerous, like rm.",
+    "description": "When true, users will be able to immediately run suggestions that completion specs have marked as \"dangerous\" (e.g. rm -rf) rather than having to hit enter twice.",
     "type": "boolean"
   },
   {
     "settingName": "autocomplete.immediatelyRunGitAliases",
     "title": "Git aliases",
-    "description": "A flag that determines whether Fig will present suggestions to immediately run git aliases.",
+    "description": "When false, Fig will treat git aliases as 'dangerous' (described above).",
     "type": "boolean"
   },
   {
     "settingName": "autocomplete.immediatelyExecuteAfterSpace",
-    "title": "Execute after space",
-    "description": "A flag that determines whether Fig will add the immediate insert suggestion to the top of the suggestions after a user hits space.",
+    "title": "Allow immediate execute after space",
+    "description": "When true, Fig will show the 'immediate insert suggestion' at the top of the suggestion list immediately after the user hits space.",
     "type": "boolean"
   },
   {
     "settingName": "autocomplete.disableForCommands",
-    "title": "Set commands where Fig should be disabled",
-    "description": "Pass in a JSON array of commands Fig should not autocomplete on.",
+    "title": "Disable Fig for certain CLI tools",
+    "description": "A JSON array of CLI tools that Fig should NOT autocomplete on.",
     "type": "multiselect",
-    "details": "This must be a comma-separated list of values (e.g. git,npm)"
+    "details": "e.g. [\"git\",\"npm\"])"
   },
   {
     "settingName": "autocomplete.enter",
@@ -88,40 +88,40 @@
   {
     "settingName": "autocomplete.tab",
     "title": "Set Tab behavior",
-    "description": "Set the behavior of the tab key.",
+    "description": "Set the behavior of the tab key. Insert: insert immediately. insertOrPrefix: insert the matching prefix or selected suggestion. shake: insert matching prefix or shake. navigate: Insert matching prefix or move down one selection",
     "type": "single_select",
     "options": ["insert", "insertOrPrefix", "shake", "navigate"],
-    "default": "insert"
+    "default": "shake"
   },
   {
     "settingName": "autocomplete.height",
     "title": "Autocomplete window height",
-    "description": "Set the maximum height of the autocomplete window.",
+    "description": "Set the maximum height of the autocomplete window in pixels",
     "type": "number"
   },
   {
     "settingName": "autocomplete.width",
     "title": "Autocomplete window width",
-    "description": "Set the maximum width of the autocomplete window.",
+    "description": "Set the maximum width of the autocomplete window in pixels",
     "type": "number"
   },
   {
     "settingName": "autocomplete.fuzzySearch",
     "title": "Set Fuzzysearch",
-    "description": "Search of suggestions using fuzzy search rather than prefix search.",
+    "description": "Search of suggestions using substring match rather than prefix search.",
     "type": "boolean",
     "details": "This currently does not support the tab autocomplete underlining that prefix search has"
   },
   {
     "settingName": "pty.path",
-    "title": "Set the path of the pseudoterminal",
+    "title": "Set the path variable of Fig's pseudoterminal",
     "description": "The $PATH variable used in pseudoterminals. If autocomplete isn't showing file suggestions, running fig settings pty.path  \"$PATH\" may fix the issue. You will need to restart Fig for the changes to apply.",
     "type": "text"
   },
   {
     "settingName": "pty.rc",
-    "title": "Filepath for file to be sourced",
-    "description": "A file that will be sourced when Fig creates a pseudoterminal",
+    "title": "Filepath for Fig's pseudoterminal to source",
+    "description": "A file that will be sourced when Fig creates a pseudoterminal. Use this for adjusting your environment variables",
     "type": "text"
   },
   {
@@ -139,7 +139,7 @@
   {
     "settingName": "app.disableTelemetry",
     "title": "Telemetry",
-    "description": "Opt-out of all non-essential telemetry collection. By default, Fig collects limited usage information to provide support and improve the product. Read our statement on privacy for more details.",
+    "description": "Opt-out of all telemetry. By default, Fig collects limited usage information to provide support and improve the product. Read our statement on privacy at fig.io/privacy for more details.",
     "type": "boolean"
   }
 ]
