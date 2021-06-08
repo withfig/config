@@ -1,22 +1,22 @@
 [
   {
     "settingName": "autocomplete.developerMode",
-    "title": "Toggle the developer mode",
-    "description": "When true, Fig will not cache completion specs and will load specs from the directory",
+    "title": "Developer mode",
+    "description": "Turns off caching and loads completions from <code>devCompletionsFolder</code>",
     "type": "boolean",
     "details": "The developer mode changes the way specs are loaded"
   },
   {
     "settingName": "autocomplete.theme",
-    "title": "Set Fig's theme",
-    "description": "When true, Fig will not cache completion specs and will load specs from the directory",
+    "title": "Theme",
+    "description": "Change Fig's theme",
     "type": "single_select",
     "options": ["light", "dark"],
     "default": "dark"
   },
   {
     "settingName": "autocomplete.sortMethod",
-    "title": "Change the sort method",
+    "title": "Order suggestions by...",
     "description": "Specify how Fig should sort suggestions",
     "type": "single_select",
     "default": "recency",
@@ -33,16 +33,17 @@
   },
   {
     "settingName": "autocomplete.devCompletionsFolder",
-    "title": "Set the dev completions folder",
+    "title": "Developer Completion Specs",
     "description": "When autocomplete.developerMode is enabled, Fig loads completion specs from the specified directory.",
     "type": "text",
-    "details": "This needs to be an absolute path"
+    "details": "This must to be an absolute path"
   },
   {
     "settingName": "autocomplete.scrollWrapAround",
-    "title": "Wrap around",
+    "title": "Wrap around when scrolling",
     "description": "A flag that determines whether the selection will wrap around when pressing arrow key at bottom or top of list.",
-    "type": "boolean"
+    "type": "boolean",
+    "default": false
   },
   {
     "settingName": "autocomplete.insertSpaceAutomatically",
