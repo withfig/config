@@ -9,7 +9,6 @@ We want to make contributing to Fig as easy and transparent as possible, whether
 - Submitting feature requests
 
 - Contributing content or feature changes
-  
 
 ## Our Repos
 
@@ -35,6 +34,10 @@ Fig welcomes code contributions via pull request. Here are a few styling guides 
 - Limit the first line to 72 characters or less
 - Reference issues and pull requests liberally after the first line
 
+## Code Style
+
+Fig adheres very nearly to Google's [shell style
+guide](https://google.github.io/styleguide/shellguide.html#s6.5-wildcard-expansion-of-filenames).
 
 ## Bug reports and feature requests
 
