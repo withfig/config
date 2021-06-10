@@ -91,25 +91,57 @@ install_fig() {
   fi
 }
 
+fig_source() {
+  echo "\n#### FIG ENV VARIABLES ####"
+  echo "[ -s ~/.fig/$1 ] && source ~/.fig/$1"
+  echo "#### END FIG ENV VARIABLES ####\n"
+}
+
+fig_append() {
+  # Appends line to a config file to source file from the ~/.fig directory.
+  # Usage: fig_append fig.sh path/to/rc
+  # Don't append to files that don't exist to avoid creating file and
+  # changing shell behavior.
+  if [ -f "$2" ] && ! grep -q "source ~/.fig/$1" "$2"; then
+    echo "$(fig_source $1)" >> "$2"
+  fi
+}
+
+fig_prepend() {
+  # Prepends line to a config file to source file from the ~/.fig directory.
+  # Usage: fig_prepend fig_pre.sh path/to/rc
+  # Don't prepend to files that don't exist to avoid creating file and
+  # changing shell behavior.
+  if [ -f "$2" ] && ! grep -q "source ~/.fig/$1" "$2"; then
+    echo -e "$(fig_source $1)\n$(cat $2)" > $2
+  fi
+}
+
 # Add the fig.sh to your profiles so it can be sourced on new terminal window load
 append_to_profiles() {
-  FIG_SOURCEVAR='[[ -s ~/.fig/fig.sh ]] && source ~/.fig/fig.sh'
-  FIG_FULLSOURCEVAR=$'\n\n#### FIG ENV VARIABLES ####\n'$FIG_SOURCEVAR$'\n#### END FIG ENV VARIABLES ####\n\n'
-  
-  # Replace old sourcing in profiles 
+  # Replace old sourcing in profiles.
   for rc in .profile .zprofile .bash_profile; do
     if [[ -e "${HOME}/${rc}" ]]; then
       sed -i '' 's/~\/.fig\/exports\/env.sh/~\/.fig\/fig.sh/g' "~/.${rc}" 2> /dev/null
     fi
   done
   
-  # Check that the file exists and whether we've source fig.sh. If file exists and doesn't contain fig.sh, add it
-  # We don't want to appened fig.sh to files that doen't exist, because it creates them and might change shell behavior
   for rc in .profile .zprofile .bash_profile .bashrc .zshrc; do
-    if [[ -f "${HOME}/${rc}" ]] && ! grep -q 'source ~/.fig/fig.sh' "${HOME}/${rc}"; then
-      echo "${FIG_FULLSOURCEVAR}" >> "~/.${rc}"
-    fi
+    fig_prepend shell/pre.sh "${HOME}/${rc}"
+    fig_append fig.sh "${HOME}/${rc}"
   done
+
+  # Handle fish separately.
+  mkdir -p ~/.config/fish/conf.d
+
+  # Use 00_/99_ prefix to load script earlier/later in fish startup.
+  ln -sf ~/.fig/shell/pre.fish ~/.config/fish/conf.d/00_fig_pre.fish
+  ln -sf ~/.fig/shell/post.fish ~/.config/fish/conf.d/99_fig_post.fish
+
+  # Remove deprecated fish config file.
+  if [[ -f -~/.config/fish/conf.d/fig.fish ]]; then
+    rm ~/.config/fish/conf.d/fig.fish
+  fi
 }
 
 setup_onboarding() {
@@ -135,16 +167,6 @@ setup_onboarding() {
   done
 }
 
-install_fish_integration() {
-  # Special set up for Fish
-  # if [[ -d ~/.config/fish ]]; 
-  # then 
-  mkdir -p ~/.config/fish/conf.d
-  touch ~/.config/fish/conf.d/fig.fish
-  cp ~/.fig/fig.fish ~/.config/fish/conf.d/fig.fish
-  # fi
-}
-
 install_tmux_integration() {
   TMUX_INTEGRATION=$'# Fig Tmux Integration: Enabled\nsource-file ~/.fig/tmux\n# End of Fig Tmux Integration'
 
@@ -157,6 +179,5 @@ install_tmux_integration() {
 install_fig
 append_to_profiles
 setup_onboarding
-install_fish_integration
 install_tmux_integration
 echo success
