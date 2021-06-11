@@ -70,7 +70,24 @@ function fig_insert () {
 
 zle -N fig_insert
 
+# Used to force z-asug to clear suggestion
+# This function will by used when inserting immediately
+function fig_insert_and_clear_autosuggestion () {
+  zle fig_insert
+}
+
+zle -N fig_insert_and_clear_autosuggestion
+
+
 # Bind to arbitrary unicode character
 # If this changes, make sure to update coresponding keycode in ZLEIntegration.insert
 # And increment $FIG_INTEGRATION_VERSION
 bindkey '◧' fig_insert
+bindkey '◨' fig_insert_and_clear_autosuggestion
+
+# Ensure compatibility w/ z-asug -- resolves https://github.com/withfig/fig/issues/62
+# Add `fig_insert_and_clear_autosuggestion` to list of widgets that clear suggestions, if not already included
+if ! test -z "$ZSH_AUTOSUGGEST_CLEAR_WIDGETS" && ! (($ZSH_AUTOSUGGEST_CLEAR_WIDGETS[(Ie)fig_insert_and_clear_autosuggestion])); then
+  ZSH_AUTOSUGGEST_CLEAR_WIDGETS=(${(@)ZSH_AUTOSUGGEST_CLEAR_WIDGETS} fig_insert_and_clear_autosuggestion)
+fi
+
