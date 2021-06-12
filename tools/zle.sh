@@ -1,4 +1,3 @@
-
 function accept-and-hold() {
 	zle .accept-and-hold
 	( fig bg:zsh-keybuffer $CURSOR "$BUFFER" ) &!

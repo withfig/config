@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
-# Fig onboarding shell script
+# Fig onboarding shell script.
 # Based somewhat on oh my zshell https://github.com/ohmyzsh/ohmyzsh/blob/master/tools/install.sh
 
-# needed so that ^c works when run as `fig onboarding`
+# needed so that ^c works when run as `fig onboarding`.
 set -e
 
-## Force current process to be shell, rather than `env`
+# Force current process to be shell, rather than `env`.
 cd ~
 fig bg:prompt $$ $TTY
 
@@ -22,11 +22,11 @@ WHITE=$(tput setaf 7)
 
 CODE=$(tput setaf 153)
 
-# Other colors
+# Other colors.
 LIME_YELLOW=$(tput setaf 190)
 POWDER_BLUE=$(tput setaf 153)
 
-# Weights and decoration
+# Weights and decoration.
 BOLD=$(tput bold)
 UNDERLINE=$(tput smul)
 UNDERLINE_END=$(tput rmul)
@@ -34,112 +34,92 @@ HIGHLIGHT=$(tput smso)
 HIGHLIGHT_END=$(tput rmso)
 NORMAL=$(tput sgr0)
 
-# Structure
+# Structure.
 TAB='   '
 SEPARATOR="  \n\n  --\n\n\n"
 
-
 print_special() {
-   echo "${TAB}$@${NORMAL}"$'\n'
+  echo "${TAB}$@${NORMAL}"$'\n'
 }
 
-
 press_any_key_to_continue() {
-    
-    echo # new line
-    read -n 1 -s -r -p "${TAB}${HIGHLIGHT} Press any key to continue ${HIGHLIGHT_END}"
-    echo # new line
-    echo # new line
+  echo # new line
+  read -n 1 -s -r -p "${TAB}${HIGHLIGHT} Press any key to continue ${HIGHLIGHT_END}"
+  echo # new line
+  echo # new line
 }
 
 press_enter_to_continue() {
-    
-   echo # new line
+  echo # new line
 
-   if [ "$1" != "" ]
-   then
-      read -n 1 -s -r -p "${TAB}${HIGHLIGHT} $1 ${HIGHLIGHT_END}" pressed_key 
-   else
-      read -n 1 -s -r -p "${TAB}${HIGHLIGHT} Press enter to continue ${HIGHLIGHT_END}" pressed_key 
-   fi
+  if [[ "$1" != "" ]]; then
+    read -n 1 -s -r -p "${TAB}${HIGHLIGHT} $1 ${HIGHLIGHT_END}" pressed_key 
+  else
+    read -n 1 -s -r -p "${TAB}${HIGHLIGHT} Press enter to continue ${HIGHLIGHT_END}" pressed_key 
+  fi
 
-
-   while true; do
-
-   if [ "$pressed_key" == "" ] # ie if pressed_key = enter
-   then
+  while true; do
+    # ie if pressed_key = enter
+    if [[ "$pressed_key" == "" ]]; then
       echo # new line
       echo # new line
       break
-   else 
+    else 
       read -n 1 -s -r pressed_key
-   fi
-
-   done
-    
+    fi
+  done
 }
-
-
-
 
 # In case user quits script
 exit_script_annoying() {
-   echo
-   echo
-   print_special "Sorry to see you go."
-   print_special "If you have feedback, we'd appreciate you emailing hello@fig.io"
-   echo
+  echo
+  echo
+  print_special "Sorry to see you go."
+  print_special "If you have feedback, we'd appreciate you emailing hello@fig.io"
+  echo
 
-   read -n 1 -r -p "${TAB}Do you want to finish Fig's onboarding in your next Terminal session? [y/N] "  response
+  read -n 1 -r -p "${TAB}Do you want to finish Fig's onboarding in your next Terminal session? [y/N] "  response
 
-   if [[ "$response" =~ ^(yes|y|YES|Y)$ ]]
-   then
-      sed -i='' "s/FIG_ONBOARDING=.*/FIG_ONBOARDING=0/g" ~/.fig/user/config 2> /dev/null
-   else
-      sed -i='' "s/FIG_ONBOARDING=.*/FIG_ONBOARDING=1/g" ~/.fig/user/config 2> /dev/null
-   fi
+  if [[ "${response}" =~ ^(yes|y|YES|Y)$ ]]; then
+    sed -i='' "s/FIG_ONBOARDING=.*/FIG_ONBOARDING=0/g" ~/.fig/user/config 2> /dev/null
+  else
+    sed -i='' "s/FIG_ONBOARDING=.*/FIG_ONBOARDING=1/g" ~/.fig/user/config 2> /dev/null
+  fi
 
-   echo
+  echo
 
-   trap - SIGINT SIGTERM SIGQUIT # clear the trap
-   kill -- -$$ # Kill the fig onboarding process
+  trap - SIGINT SIGTERM SIGQUIT # clear the trap
+  kill -- -$$ # Kill the fig onboarding process
 }
-
 
 # In case user quits script
 exit_script_nice() {
-   
-   sed -i='' "s/FIG_ONBOARDING=.*/FIG_ONBOARDING=1/g" ~/.fig/user/config 2> /dev/null
+  sed -i='' "s/FIG_ONBOARDING=.*/FIG_ONBOARDING=1/g" ~/.fig/user/config 2> /dev/null
 
-   clear 
-   echo
-   echo
-   print_special "${BOLD}${UNDERLINE}Fig's onboarding was quit${UNDERLINE_END}${NORMAL}"
-   echo
-   print_special "You can redo this onboarding any time. Just run ${BOLD}${MAGENTA}fig onboarding${NORMAL}"
-   echo 
-   echo
-   print_special "Have feedback? Use ${BOLD}${MAGENTA}fig report${NORMAL}"
-   echo
-   echo
+  clear 
+  echo
+  echo
+  print_special "${BOLD}${UNDERLINE}Fig's onboarding was quit${UNDERLINE_END}${NORMAL}"
+  echo
+  print_special "You can redo this onboarding any time. Just run ${BOLD}${MAGENTA}fig onboarding${NORMAL}"
+  echo 
+  echo
+  print_special "Have feedback? Use ${BOLD}${MAGENTA}fig report${NORMAL}"
+  echo
+  echo
 
-   trap - SIGINT SIGTERM SIGQUIT # clear the trap
+  trap - SIGINT SIGTERM SIGQUIT # clear the trap
 
-   fig bg:event "Quit Shell Onboarding"
+  fig bg:event "Quit Shell Onboarding"
 
-   exit 1
-   # kill -- -$$# Kill the fig onboarding process. 
+  exit 1
+  # kill -- -$$# Kill the fig onboarding process. 
 }
-
 
 # If the user does ctrl + c, run the exit_script function
 trap exit_script_nice SIGINT SIGTERM SIGQUIT
 
-
-
 # Help text
-
-
 show_help() {
    # make sure the final EOF is aligned with the end 
 less -R <<EOF
@@ -211,25 +191,10 @@ less -R <<EOF
 
 
 EOF
-fig bg:clear-keybuffer
+  fig bg:clear-keybuffer
 }
 
-
-
 ### Core Script ###
-
-
-
-#### How to print multiple lines easily
-
-#cat <<EOF
-   ## This is known as a here document (or heredoc)
-   ## Using a hyphen between << and EOF will remove any indenting beforehand e.g. <<-EOF
-      # https://stackoverflow.com/questions/4937792/using-variables-inside-a-bash-heredoc
-   ## Using quotes around EOF will remove expansions
-      # https://superuser.com/questions/1436906/need-to-expand-a-variable-in-a-heredoc-that-is-in-quotes
-#EOF
-
 clear
 
 # Done using http://patorjk.com/software/taag/#p=testall&f=Graffiti&t=fig
@@ -293,73 +258,38 @@ cat <<EOF
 
 EOF
 
-
 # printf "${TAB}$ " 
-
 
 # osascript -e 'tell application "System Events" 
 #  keystroke "cd ~/" 
    # end tell'
 
-
 while true; do
-   input=""
-   read -e -p "${TAB}$ " input
-   echo # New line after output
-   # if [[ $input == 'cd .fig/' ]]
-   # then
-   #    cd ~/.fig
-   #    print_special "${BOLD}Awesome!${NORMAL}"
-   #    echo
-   #    print_special ${UNDERLINE}Quick Tip${UNDERLINE_END}: Selecting a suggestion with a ${BOLD}🟥 red icon${NORMAL} and ${BOLD}↪${NORMAL} symbol will immediately execute a command
-   #    press_enter_to_continue
-   #    break
-   
-
-   # elif [[ $input == 'cd .fig' ]]
-   # then
-   #    cd ~/.fig
-   #    print_special ${BOLD}Awesome!${NORMAL}
-   #    echo
-   #    print_special ${UNDERLINE}Quick Tip${UNDERLINE_END}: Selecting a suggestion with a ${BOLD}🟥 red icon${NORMAL} and ${BOLD}↪${NORMAL} symbol will immediately execute a command
-   #    # print_special "You may have seen ${BOLD}.fig ↪${NORMAL} and ${BOLD}.fig/${NORMAL}. The first runs the command for you. The second shows you the folders underneath .fig/"
-   #    press_enter_to_continue
-   #    break
-
-   # elif [[ $input == cd* ]]
-   # then
-   # print_special "Whoops. Looks like you just typed ${BOLD}cd${NORMAL}. Type ${BOLD}cd .fig/${NORMAL} to continue"
-   # print_special "You can hit enter if you see the ${BOLD}↪${NORMAL} symbol"
-
-   if [[ $input == cd* ]]
-   then
+  input=""
+  read -e -p "${TAB}$ " input
+  echo # New line after output
+  case "${input}" in
+    cd*)
       cd ~/.fig
       print_special "${BOLD}Awesome!${NORMAL}"
       echo
       # print_special "Looks like you cd'd into another directory. Glad you are playing around! We are going to put you in ~/.fig for the next step"
       print_special ${UNDERLINE}Quick Tip${UNDERLINE_END}: Selecting a suggestion with a ${BOLD}🟥 red icon${NORMAL} and ${BOLD}↪${NORMAL} symbol will immediately execute a command
       press_enter_to_continue
-      break
-
-   elif [[ $input == '' ]]
-   then
-      print_special "Type ${BOLD}cd .fig/${NORMAL} to continue"
-      # print_special "You can hit enter if you see the ${BOLD}↪${NORMAL} symbol"
-   
-   elif [[ $input  == 'help' ]] || [[ $input  == 'HELP' ]] || [[ $input  == '--help' ]] || [[ $input  == '-h' ]]
-   then 
+      ;;
+    "") print_special "Type ${BOLD}cd .fig/${NORMAL} to continue" ;;
+    help|HELP|--help|-h)
       show_help
       print_special "Type ${BOLD}cd .fig/${NORMAL} to continue"
-   else
+      ;;
+    *)
       print_special "${YELLOW}Whoops. Looks like you tried something other than cd."
       print_special "Type ${BOLD}cd .fig/${NORMAL} to continue"
-   fi
+      ;;
+  esac
 done
 
-
-
 clear 
-
 
 # Hiding Autocomplete
 
@@ -393,39 +323,31 @@ cat <<EOF
 
 EOF
 
-
-
 while true; do
-   input=""
-   read -e -p "${TAB}$ " input
-   echo # New line after output
-   if [[ $input == "git commit"* ]]
-   then
+  input=""
+  read -e -p "${TAB}$ " input
+  echo # New line after output
+  case "${input}" in
+    "git commit"*)
       print_special "${BOLD}Nice work!${NORMAL}"
       press_enter_to_continue
-      break
-   
-   elif [[ $input == 'continue' ]]
-   then
-      break
-   elif [[ $input == '' ]]
-   then
+      ;;
+    continue) break ;;
+    "")
       print_special "Try running ${BOLD}git commit -m 'hello'${NORMAL} to continue. Otherwise, just type ${BOLD}continue"
-   elif [[ $input  == 'help' ]] || [[ $input  == 'HELP' ]] || [[ $input  == '--help' ]] || [[ $input  == '-h' ]]
-   then 
+      ;;
+    help|HELP|--help|-h)
       show_help
       print_special "Try running ${BOLD}git commit -m 'hello'${NORMAL} to continue. Otherwise, just type ${BOLD}continue"
-   else
+      ;;
+    *)
       print_special "${YELLOW}Whoops. Looks like you tried something other than ${BOLD}git commit${NORMAL}."
       print_special "Try running ${BOLD}git commit -m 'hello'${NORMAL} to continue. Otherwise, just type ${BOLD}continue"
-   fi
+      ;;
+  esac
 done
 
-
 clear 
-
-
-
 
 # cat <<EOF
    
@@ -437,11 +359,9 @@ clear
 
 # EOF
 
-
 # press_enter_to_continue
 
 # clear
-
 
 (fig bg:init $$ $TTY &)
 (fig bg:clear-keybuffer &)
@@ -469,98 +389,68 @@ EOF
 # Eventually prompt the user: do you want to invite friends to fig? type y if yes or otherwise it's a no
 # Only run the below if yes
 
-
-
 while true; do
-
-   input=""
-   read -e -p "${TAB}$ " input
-   echo # New line after output
-   # if [[ $input == "fig feedback"* ]]
-   # then
-   #    eval $input
-   #    print_special "${BOLD}Thanks${NORMAL} so much for your feedback :)"
-   #    press_enter_to_continue
-   #    break
-
-   # elif [[ $input == "fig invite"* ]]
-   # then
-   #    eval $input
-   #    press_enter_to_continue
-   #    break
-   
-   # elif [[ $input == fig* ]]
-   # then
-   #    eval $input
-   #    print_special "${BOLD}Glad you like Fig!${NORMAL}"
-   #    press_enter_to_continue
-   #    break
-   if [[ $input == "fig" ]]
-   then
+  input=""
+  read -e -p "${TAB}$ " input
+  echo # New line after output
+  case "${input}" in
+    "fig")
       sed -i='' "s/FIG_ONBOARDING=.*/FIG_ONBOARDING=1/g" ~/.fig/user/config 2> /dev/null
       fig > /dev/null
 
-      if [[ -d $(echo /Applications/Bartender*.app/) ]]
-      then
-         echo
-         print_special "${BOLD}Well this is awkward...${NORMAL} It looks like you are using ${BOLD}Bartender${NORMAL} which means the ${BOLD}${MAGENTA}Fig${NORMAL} command may not work."
-         echo
-         print_special "Instead click the Fig icon ◧ in your status bar"
+      if [[ -d $(echo /Applications/Bartender*.app/) ]]; then
+        echo
+        print_special "${BOLD}Well this is awkward...${NORMAL} It looks like you are using ${BOLD}Bartender${NORMAL} which means the ${BOLD}${MAGENTA}Fig${NORMAL} command may not work."
+        echo
+        print_special "Instead click the Fig icon ◧ in your status bar"
       else 
-         print_special "${BOLD}Awesome!${NORMAL}"
+        print_special "${BOLD}Awesome!${NORMAL}"
       fi
       echo
       print_special "If Fig ever stops working, you can ${BOLD}use the debug tool${NORMAL} at the top of this menu to see what's wrong."
       press_enter_to_continue
-      break
-   elif [[ $input == "fig report"* ]]
-   then
+      ;;
+    "fig report"*)
       eval $input
       print_special "${BOLD}Thanks${NORMAL} so much for your feedback :)"
-      
       echo
       print_special "${BOLD}To Continue...${NORMAL}"
       print_special "Run the ${MAGENTA}${BOLD}fig${NORMAL} command."
       print_special "(You can also type ${UNDERLINE}continue${NORMAL})"
-
-   elif [[ $input == "fig invite"* ]]
-   then
+      ;;
+    "fig invite"*)
       eval $input
       print_special "${BOLD}Thanks${NORMAL} so much for inviting friends to Fig:)"
       echo
       print_special "${BOLD}To Continue...${NORMAL}"
       print_special "Run the ${MAGENTA}${BOLD}fig${NORMAL} command."
       print_special "(You can also type ${UNDERLINE}continue${NORMAL})"
-
-   elif [[ $input == 'continue' ]]
-   then
-      break
-   elif [[ $input == '' ]]
-   then
+      ;;
+    continue) break ;;
+    "")
       echo
       print_special "${BOLD}To Continue...${NORMAL}"
       print_special "Run the ${MAGENTA}${BOLD}fig${NORMAL} command."
       print_special "(You can also type ${UNDERLINE}continue${NORMAL})"
-   elif [[ $input  == 'help' ]] || [[ $input  == 'HELP' ]] || [[ $input  == '--help' ]] || [[ $input  == '-h' ]]
-   then 
+      ;;
+    help|HELP|--help|-h)
       show_help
       echo
       print_special "${BOLD}To Continue...${NORMAL}"
       print_special "Run the ${MAGENTA}${BOLD}fig${NORMAL} command."
       print_special "(You can also type ${UNDERLINE}continue${NORMAL})"
-   else
+      ;;
+    *)
       print_special "${YELLOW}Whoops. Looks like you tried something unexpected. Maybe pick another command?"
       echo
       print_special "${BOLD}To Continue...${NORMAL}"
       print_special "Run the ${MAGENTA}${BOLD}fig${NORMAL} command."
       print_special "(You can also type ${UNDERLINE}continue${NORMAL})"
-   fi
+      ;;
+  esac
 done
 
-
 clear 
-
-
 
 cat <<EOF
 
@@ -582,27 +472,21 @@ EOF
 
 # Tell use how to open urls based on terminal type
 # https://superuser.com/questions/683962/how-to-identify-the-terminal-from-a-script
-if [[ "$TERM_PROGRAM" == "iTerm.app" ]]
-then
-   echo "   ${UNDERLINE}Hint${UNDERLINE_END}: Hold cmd + click to open URLs"
+if [[ "${TERM_PROGRAM}" == "iTerm.app" ]]; then
+  echo "   ${UNDERLINE}Hint${UNDERLINE_END}: Hold cmd + click to open URLs"
 else
-   echo "   ${UNDERLINE}Hint${UNDERLINE_END}: Hold cmd + double-click to open URLs"
+  echo "   ${UNDERLINE}Hint${UNDERLINE_END}: Hold cmd + double-click to open URLs"
 fi
 echo
-
-
 
 # Make sure we are using OSX sed rather than GNU version
 sed -i='' "s/FIG_ONBOARDING=.*/FIG_ONBOARDING=1/g" ~/.fig/user/config 2> /dev/null
 fig bg:event "Completed Shell Onboarding"
 
-    
 echo # new line
 press_enter_to_continue 'Press enter to finish'
 echo # new line
 echo # new line
-
-
 
 clear
 
@@ -661,10 +545,7 @@ cat <<'EOF'
 
 EOF
 
-
-
-if [[ "$TERM_PROGRAM" == "iTerm.app" ]]
-then
+if [[ "${TERM_PROGRAM}" == "iTerm.app" ]]; then
 cat <<EOF
    ${BOLD}P.S. Using iTerm?${NORMAL}
 
