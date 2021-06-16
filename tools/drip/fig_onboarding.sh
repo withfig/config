@@ -276,6 +276,7 @@ while true; do
       # print_special "Looks like you cd'd into another directory. Glad you are playing around! We are going to put you in ~/.fig for the next step"
       print_special ${UNDERLINE}Quick Tip${UNDERLINE_END}: Selecting a suggestion with a ${BOLD}🟥 red icon${NORMAL} and ${BOLD}↪${NORMAL} symbol will immediately execute a command
       press_enter_to_continue
+      break
       ;;
     "") print_special "Type ${BOLD}cd .fig/${NORMAL} to continue" ;;
     help|HELP|--help|-h)
@@ -331,6 +332,7 @@ while true; do
     "git commit"*)
       print_special "${BOLD}Nice work!${NORMAL}"
       press_enter_to_continue
+      break
       ;;
     continue) break ;;
     "")
@@ -409,6 +411,7 @@ while true; do
       echo
       print_special "If Fig ever stops working, you can ${BOLD}use the debug tool${NORMAL} at the top of this menu to see what's wrong."
       press_enter_to_continue
+      break
       ;;
     "fig report"*)
       eval $input
