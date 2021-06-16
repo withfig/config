@@ -2,7 +2,7 @@ if [[ -n "$BASH" ]]; then
   source ~/.fig/shell/post.bash
 elif [[ -n "$ZSH_NAME" ]]; then
   source ~/.fig/shell/post.zsh
-else; then
+else
   # Fallback to naive method, exposed alteration of prompt variables if in unrecognized shell.
   if [ -z "${FIG_PTY_SHELL_VAR}" ]; then
     FIG_SHELL="\001\033]697;Shell=unknown\007\002"

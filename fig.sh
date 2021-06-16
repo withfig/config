@@ -27,6 +27,6 @@ if ([[ -d /Applications/Fig.app ]] || [[ -d ~/Applications/Fig.app ]]) \
   # todo: Add a check to confirm "add-zle-hook-widget" facility exists
   # Not included in fig.zsh, because should be run last
   if [[ -n "${ZSH_NAME}" ]]; then
-    source ~/.fig/zle.zsh
+    source ~/.fig/shell/zle.zsh
   fi
 fi
