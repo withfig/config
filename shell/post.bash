@@ -2,15 +2,6 @@
 source ~/.fig/shell/bash-preexec.sh
 function __bp_adjust_histcontrol() { :; }
 
-if [[ -n "${PROMPT_COMMAND}" ]]; then
-  PROMPT_COMMAND+=$'\n'
-fi
-
-if [[ "$PROMPT_COMMAND" != *"__fig_prompt"* ]]; then
-  export PROMPT_COMMAND=''$PROMPT_COMMAND
-  PROMPT_COMMAND+='__fig_prompt'
-fi
-
 FIG_LAST_PS1="$PS1"
 FIG_LAST_PS2="$PS2"
 FIG_LAST_PS3="$PS3"
@@ -21,7 +12,7 @@ function fig_osc { printf "\033]697;"; printf $@; printf "\007"; }
 function __fig_preexec() {
   __fig_ret_value="$?"
 
-  fig bg:exec $$ $(tty) &
+  $(fig bg:exec $$ $(tty) &)
 
   fig_osc PreExec
 
@@ -47,7 +38,7 @@ function __fig_preexec() {
 function __fig_prompt () {
   __fig_ret_value="$?"
 
-  fig bg:prompt $$ $TTY &
+  $(fig bg:prompt $$ $TTY &)
 
   # Work around bug in CentOS 7.2 where preexec doesn't run if you press ^C
   # while entering a command.
@@ -84,3 +75,4 @@ function __fig_prompt () {
 
 # trap DEBUG -> preexec -> command -> PROMPT_COMMAND -> prompt shown.
 preexec_functions+=(__fig_preexec)
+precmd_functions+=(__fig_prompt)
