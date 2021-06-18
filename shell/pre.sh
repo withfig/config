@@ -26,12 +26,10 @@ if ([[ -d /Applications/Fig.app || -d ~/Applications/Fig.app ]]) \
   fi
 
   if command -v ~/.fig/bin/fig_pty 1> /dev/null 2> /dev/null; then
-    if [[ -n "${DISPLAY}" ]]; then
-      if [[ -z "${FIG_TERM}" || (-z "${FIG_TERM_TMUX}" && -n "${TMUX}") ]]; then
-        # Pty module sets FIG_TERM or FIG_TERM_TMUX to avoid running twice. 
-        FIG_SHELL=$(~/.fig/bin/fig_get_shell)
-        exec -a "figterm" ~/.fig/bin/fig_pty "${FIG_SHELL}"
-      fi
+    if [[ -z "${FIG_TERM}" || (-z "${FIG_TERM_TMUX}" && -n "${TMUX}") ]]; then
+      # Pty module sets FIG_TERM or FIG_TERM_TMUX to avoid running twice. 
+      FIG_SHELL=$(~/.fig/bin/fig_get_shell)
+      exec -a "figterm" ~/.fig/bin/fig_pty "${FIG_SHELL}"
     fi
   fi
 fi
