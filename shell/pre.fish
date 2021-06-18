@@ -17,10 +17,9 @@ if [ -d /Applications/Fig.app -o -d ~/Applications/Fig.app ] \
   end
 
   if command -v fig_pty 1>/dev/null 2>/dev/null
-    if [ -z "$FIG_TERM" ]
-      fig_pty
-    else if [ -z "$FIG_TERM_TMUX" -a -n "$TMUX" ]
-      fig_pty
+    if [ -z "$FIG_TERM" ] || [ -z "$FIG_TERM_TMUX" -a -n "$TMUX" ]
+      set FIG_SHELL (~/.fig/bin/fig_get_shell)
+      exec ~/.fig/bin/fig_pty $FIG_SHELL
     end
   end
 end

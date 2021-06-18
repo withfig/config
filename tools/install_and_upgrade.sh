@@ -34,16 +34,21 @@ error() {
 install_fig() {
   # Create fig dir an cd into it
   mkdir -p ~/.fig
-  cd ~/.fig
 
-  curl "https://codeload.github.com/withfig/config/tar.gz/${FIG_TAG}" \
-    | tar -xz --strip-components=1 \
-    || (
-      echo "downloading from main instead of fig tag_name" \
-        && curl https://codeload.github.com/withfig/config/tar.gz/main \
-          | tar -xz --strip-components=1 \
-       ) \
-    || error "pulling withfig/config repo failed"
+  if [[ "${FIG_TAG}" == "local" ]]; then
+    cp -r "$PWD"/* ~/.fig
+    cd ~/.fig
+  else
+    cd ~/.fig
+    curl "https://codeload.github.com/withfig/config/tar.gz/${FIG_TAG}" \
+      | tar -xz --strip-components=1 \
+      || (
+        echo "downloading from main instead of fig tag_name" \
+          && curl https://codeload.github.com/withfig/config/tar.gz/main \
+            | tar -xz --strip-components=1 \
+        ) \
+      || error "pulling withfig/config repo failed"
+  fi
 
   mkdir -p ~/.fig/autocomplete
   cd ~/.fig/autocomplete

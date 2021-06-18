@@ -1,10 +1,5 @@
-
-
 autocomplete/*
 !autocomplete/README.md
-
-
-
 
 # custom files and folders
 user/*
@@ -12,7 +7,6 @@ user/*
 
 team/*
 !team/README.md
-
 
 # temp files directories
 cache/
