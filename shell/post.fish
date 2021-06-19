@@ -21,7 +21,7 @@ if [ -z "$FIG_SHELL_VAR" ]
   end
 
   function fig_preexec --on-event fish_preexec
-    command -v fig && fig bg:exec $fish_pid (tty) &; disown
+    command -v fig > /dev/null 2>&1 && fig bg:exec $fish_pid (tty) &; disown
     fig_osc PreExec
 
     if fig_fn_defined fig_user_mode_prompt
@@ -38,7 +38,7 @@ if [ -z "$FIG_SHELL_VAR" ]
   end
 
   function fig_precmd --on-event fish_prompt
-    command -v fig && fig bg:prompt $fish_pid (tty) &; disown
+    command -v fig > /dev/null 2>&1 && fig bg:prompt $fish_pid (tty) &; disown
 
     if [ $fig_has_set_prompt = 1 ]
       fig_preexec

@@ -6,7 +6,7 @@ FIG_HAS_ZSH_PTY_HOOKS=1
 FIG_HAS_SET_PROMPT=0
 
 fig_preexec() {
-  command -v fig && fig bg:exec $$ $TTY &!
+  command -v fig > /dev/null 2>&1 && fig bg:exec $$ $TTY &!
 
   # Restore user defined prompt before executing.
   PS1="$FIG_USER_PS1"
@@ -19,8 +19,7 @@ fig_preexec() {
 }
 
 fig_precmd() {
-  echo hi
-  command -v fig && fig bg:prompt $$ $TTY &!
+  command -v fig > /dev/null 2>&1 && fig bg:prompt $$ $TTY &!
 
   if [ $FIG_HAS_SET_PROMPT -eq 1 ]; then
     # ^C pressed while entering command, call preexec manually to clear fig prompts.
