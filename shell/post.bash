@@ -12,7 +12,7 @@ function fig_osc { printf "\033]697;"; printf $@; printf "\007"; }
 function __fig_preexec() {
   __fig_ret_value="$?"
 
-  $(fig bg:exec $$ $(tty) &)
+  $(command -v fig && fig bg:exec $$ $(tty) &)
 
   fig_osc PreExec
 
@@ -38,7 +38,7 @@ function __fig_preexec() {
 function __fig_prompt () {
   __fig_ret_value="$?"
 
-  $(fig bg:prompt $$ $TTY &)
+  $(command -v fig && fig bg:prompt $$ $TTY &)
 
   # Work around bug in CentOS 7.2 where preexec doesn't run if you press ^C
   # while entering a command.

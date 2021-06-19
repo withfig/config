@@ -96,38 +96,12 @@ install_fig() {
   fi
 }
 
-fig_source() {
-  printf "#### FIG ENV VARIABLES ####\n"
-  printf "[ -s ~/.fig/$1 ] && source ~/.fig/$1\n"
-  printf "#### END FIG ENV VARIABLES ####\n"
-}
-
-fig_append() {
-  # Appends line to a config file to source file from the ~/.fig directory.
-  # Usage: fig_append fig.sh path/to/rc
-  # Don't append to files that don't exist to avoid creating file and
-  # changing shell behavior.
-  if [ -f "$2" ] && ! grep -q "source ~/.fig/$1" "$2"; then
-    echo "$(fig_source $1)" >> "$2"
-  fi
-}
-
-fig_prepend() {
-  # Prepends line to a config file to source file from the ~/.fig directory.
-  # Usage: fig_prepend fig_pre.sh path/to/rc
-  # Don't prepend to files that don't exist to avoid creating file and
-  # changing shell behavior.
-  if [ -f "$2" ] && ! grep -q "source ~/.fig/$1" "$2"; then
-    echo -e "$(fig_source $1)\n$(cat $2)" > $2
-  fi
-}
-
 # Add the fig.sh to your profiles so it can be sourced on new terminal window load
 append_to_profiles() {
   # Replace old sourcing in profiles.
   for rc in .profile .zprofile .bash_profile; do
     if [[ -e "${HOME}/${rc}" ]]; then
-      sed -i '' 's/~\/.fig\/exports\/env.sh/~\/.fig\/fig.sh/g' "~/.${rc}" 2> /dev/null
+      sed -i '' 's/~\/.fig\/exports\/env.sh/~\/.fig\/fig.sh/g' "${HOME}/${rc}" 2> /dev/null
     fi
   done
   
@@ -137,11 +111,11 @@ append_to_profiles() {
   done
 
   # Handle fish separately.
-  mkdir -p ~/.config/fish/conf.d
+  mkdir -p "${HOME}/.config/fish/conf.d"
 
   # Use 00_/99_ prefix to load script earlier/later in fish startup.
   ln -sf ~/.fig/shell/pre.fish ~/.config/fish/conf.d/00_fig_pre.fish
-  ln -sf ~/.fig/shell/post.fish ~/.config/fish/conf.d/99_fig_post.fish
+  ln -sf ~/.fig/fig.fish ~/.config/fish/conf.d/99_fig_post.fish
 
   # Remove deprecated fish config file.
   if [[ -f -~/.config/fish/conf.d/fig.fish ]]; then
@@ -182,7 +156,8 @@ install_tmux_integration() {
 }
 
 install_fig
-append_to_profiles
+source ~/.fig/tools/install_helpers.sh
+append_to_profiles "${HOME}"
 setup_onboarding
 install_tmux_integration
 echo success
