@@ -97,9 +97,9 @@ install_fig() {
 }
 
 fig_source() {
-  echo "\n#### FIG ENV VARIABLES ####"
-  echo "[ -s ~/.fig/$1 ] && source ~/.fig/$1"
-  echo "#### END FIG ENV VARIABLES ####\n"
+  printf "#### FIG ENV VARIABLES ####\n"
+  printf "[ -s ~/.fig/$1 ] && source ~/.fig/$1\n"
+  printf "#### END FIG ENV VARIABLES ####\n"
 }
 
 fig_append() {
