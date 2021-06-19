@@ -2,4 +2,4 @@ ControlPath ~/.ssh/%C
 ControlMaster auto
 ControlPersist 1
 PermitLocalCommand yes
-LocalCommand ~/.fig/bin/fig bg:ssh ~/.ssh/%C & ~/.fig/tools/install_remote.sh ~/.ssh/%C %r %h &
+LocalCommand fig bg:ssh ~/.ssh/%C & ~/.fig/tools/install_remote.sh ~/.ssh/%C %r %h &
