@@ -467,7 +467,7 @@ cat <<EOF
 
    e.g. tab/enter behavior, width, height, theme etc
    
-   Check out ${MAGENTA}${UNDERLINE}fig.io/docs/support/settings${NORMAL}
+   Check out ${MAGENTA}${UNDERLINE}fig.io/settings${NORMAL}
 
 
 
@@ -548,37 +548,32 @@ cat <<'EOF'
 
 EOF
 
-if [[ "${TERM_PROGRAM}" == "iTerm.app" ]]; then
 cat <<EOF
-   ${BOLD}P.S. Using iTerm?${NORMAL}
+   ${BOLD}Almost done...${NORMAL}
 
-   Fig can't distinguish between iTerm tabs by default
-   and requires the use of a plugin.
 
-   Run ${MAGENTA}${BOLD}fig integrations:iterm${NORMAL} to install it now
+   1. Run ${MAGENTA}${BOLD}fig set:path${NORMAL} to sync your \$PATH variable with Fig.
 
-   ...or enable in ${UNDERLINE}Settings${NORMAL} > ${UNDERLINE}Setup iTerm Tab Integration${NORMAL}. 
+   2. In order for Fig to work in new tabs, you will need
+      to ${BOLD}quit (Cmd+Q) and restart${NORMAL} any running terminals.
+
 
 EOF
-fi
+
+# if [[ "${TERM_PROGRAM}" == "iTerm.app" ]]; then
+# cat <<EOF
+#    ${BOLD}P.S. Using iTerm?${NORMAL}
+
+#    Fig can't distinguish between iTerm tabs by default
+#    and requires the use of a plugin.
+
+#    Run ${MAGENTA}${BOLD}fig integrations:iterm${NORMAL} to install it now
+
+#    ...or enable in ${UNDERLINE}Settings${NORMAL} > ${UNDERLINE}Setup iTerm Tab Integration${NORMAL}. 
+
+# EOF
+# fi
 
 # Make absolutely sure that settings listener has been launched!
 (fig settings:init > /dev/null &)
 
-#    or install the integration from ◧ > Settings > Setup iTerm Tab Integration.
-
-# cat <<EOF
-
-#    ${BOLD}Note from Fig Team ${NORMAL} 
-#    For the moment, we are focused on building autocomplete for the terminal. 
-
-#    When we launched, we were doing a lot: runbooks, apps, sidebar, shortcuts, 
-#    an app store for the terminal… We tried to do too much too quickly.
-
-#    Limiting our focus to autocomplete in the short-term helps us make sure Fig 
-#    is a great experience. We plan to revisit everything mentioned above 
-#    (and more) very soon.
-
-#    Have thoughts? Email hello@fig.io
-
-# EOF
