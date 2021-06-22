@@ -79,11 +79,26 @@ function fig_insert_and_clear_autosuggestion () {
 zle -N fig_insert_and_clear_autosuggestion
 
 
+# Store bindkey command to reset original 'main' keymap
+RESET_KEYMAP=$(bindkey -lL main)
+# Note: ‘bindkey -lL main’ shows which keymap is linked to ‘main’, if any,
+# and hence if the standard emacs or vi emulation is in effect.
+# https://zsh.sourceforge.io/Doc/Release/Zsh-Line-Editor.html#index-bindkey
+
 # Bind to arbitrary unicode character
 # If this changes, make sure to update coresponding keycode in ZLEIntegration.insert
 # And increment $FIG_INTEGRATION_VERSION
-bindkey '◧' fig_insert
-bindkey '◨' fig_insert_and_clear_autosuggestion
+
+# bind to viins keymap
+bindkey -v '◧' fig_insert
+bindkey -v '◨' fig_insert_and_clear_autosuggestion
+
+# bind to emacs keymap
+bindkey -e '◧' fig_insert
+bindkey -e '◨' fig_insert_and_clear_autosuggestion
+
+# Restore original keymapm (the -v and -e flags override the main keymap)
+eval $RESET_KEYMAP
 
 # Ensure compatibility w/ z-asug -- resolves https://github.com/withfig/fig/issues/62
 # Add `fig_insert_and_clear_autosuggestion` to list of widgets that clear suggestions, if not already included
