@@ -47,4 +47,4 @@ fig_precmd() {
 }
 
 add-zsh-hook precmd fig_precmd
-add-zsh-hook precmd fig_preexec
+add-zsh-hook preexec fig_preexec
