@@ -99,7 +99,7 @@ append_to_profiles() {
   # Replace old sourcing in profiles 
   for rc in .profile .zprofile .bash_profile; do
     if [[ -e "${HOME}/${rc}" ]]; then
-      sed -i '' 's/~\/.fig\/exports\/env.sh/~\/.fig\/fig.sh/g' "~/.${rc}" 2> /dev/null
+      sed -i '' 's/~\/.fig\/exports\/env.sh/~\/.fig\/fig.sh/g' "${HOME}/${rc}" 2> /dev/null
     fi
   done
   
@@ -107,7 +107,7 @@ append_to_profiles() {
   # We don't want to appened fig.sh to files that doen't exist, because it creates them and might change shell behavior
   for rc in .profile .zprofile .bash_profile .bashrc .zshrc; do
     if [[ -f "${HOME}/${rc}" ]] && ! grep -q 'source ~/.fig/fig.sh' "${HOME}/${rc}"; then
-      echo "${FIG_FULLSOURCEVAR}" >> "~/.${rc}"
+      echo "${FIG_FULLSOURCEVAR}" >> "${HOME}/${rc}"
     fi
   done
 }
