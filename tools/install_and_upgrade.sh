@@ -154,15 +154,9 @@ install_tmux_integration() {
   fi
 }
 
-# hot fix (can be removed after v1.0.45)
-install_iterm_integration() {
-  mkdir -p ~/Library/Application\ Support/iTerm2/Scripts/AutoLaunch/
-}
-
 install_fig
 append_to_profiles
 setup_onboarding
 install_fish_integration
 install_tmux_integration
-install_iterm_integration
 echo success
