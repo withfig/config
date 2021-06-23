@@ -19,7 +19,7 @@ if [ -d /Applications/Fig.app -o -d ~/Applications/Fig.app ] \
   if command -v fig_pty 1>/dev/null 2>/dev/null
     if [ -z "$FIG_TERM" ] || [ -z "$FIG_TERM_TMUX" -a -n "$TMUX" ]
       set FIG_SHELL (~/.fig/bin/fig_get_shell)
-      exec -a "figterm" ~/.fig/bin/fig_pty $FIG_SHELL
+      exec ~/.fig/bin/fig_pty $FIG_SHELL
     end
   end
 end
