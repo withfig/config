@@ -127,7 +127,7 @@ append_to_profiles() {
   # Replace old sourcing in profiles.
   for rc in .profile .zprofile .bash_profile; do
     if [[ -e "${HOME}/${rc}" ]]; then
-      sed -i '' 's/~\/.fig\/exports\/env.sh/~\/.fig\/fig.sh/g' "~/.${rc}" 2> /dev/null
+      sed -i '' 's/~\/.fig\/exports\/env.sh/~\/.fig\/fig.sh/g' "${HOME}/${rc}" 2> /dev/null
     fi
   done
   
