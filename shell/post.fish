@@ -67,6 +67,8 @@ if [ -d /Applications/Fig.app -o -d ~/Applications/Fig.app ] \
 
       fig_osc "Dir=%s" $PWD
       fig_osc "Shell=fish" $PWD
+      fig_osc "PID=%d" $fish_pid
+      fig_osc "TTY=%s" (tty)
 
       if fig_fn_defined fish_mode_prompt
         fig_copy_fn fish_mode_prompt fig_user_mode_prompt

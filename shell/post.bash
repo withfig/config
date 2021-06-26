@@ -58,6 +58,9 @@ function __fig_prompt () {
 
   fig_osc "Dir=%s" "${PWD}"
   fig_osc "Shell=bash"
+  fig_osc "PID=%d" "$$"
+  fig_osc "TTY=%s" "${TTY}"
+
   START_PROMPT="\[$(fig_osc StartPrompt)\]"
   END_PROMPT="\[$(fig_osc EndPrompt)\]"
   NEW_CMD="\[$(fig_osc NewCmd)\]"
