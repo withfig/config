@@ -21,7 +21,7 @@ if ([[ -d /Applications/Fig.app || -d ~/Applications/Fig.app ]]) \
     if ([[ -z "${TERM_SESSION_ID}" || -n "${TMUX}" || "${TERM_PROGRAM}" = vscode ]]); then 
       export TERM_SESSION_ID="$(uuidgen)"
     fi
-    export FIG_INTEGRATION_VERSION=3
+    export FIG_INTEGRATION_VERSION=4
     export FIG_PRE_ENV_VAR=1
   fi
 

@@ -12,7 +12,7 @@ if [ -d /Applications/Fig.app -o -d ~/Applications/Fig.app ] \
     if [ -z "$TERM_SESSION_ID" ] || [ -n "$TMUX" ]
       export TERM_SESSION_ID=(uuidgen)
     end
-    export FIG_INTEGRATION_VERSION=3
+    export FIG_INTEGRATION_VERSION=4
     export FIG_PRE_ENV_VAR=1
   end
 
