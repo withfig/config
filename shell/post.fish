@@ -21,7 +21,7 @@ if [ -d /Applications/Fig.app -o -d ~/Applications/Fig.app ] \
 
   if [ -z "$FIG_SHELL_VAR" ]
     function fig_keybuffer --on-signal SIGUSR1
-      echo fig bg:fish-keybuffer "$TERM_SESSION_ID" $FIG_INTEGRATION_VERSION 0 (commandline -C) \"(commandline)\" \
+      echo fig bg:fish-keybuffer "$TERM_SESSION_ID" $FIG_INTEGRATION_VERSION "$TTY" $fish_pid 0 (commandline -C) \"(commandline)\" \
         | base64 \
         | /usr/bin/nc -U /tmp/fig.socket
     end
