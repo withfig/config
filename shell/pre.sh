@@ -25,7 +25,8 @@ if ([[ -d /Applications/Fig.app || -d ~/Applications/Fig.app ]]) \
     export FIG_PRE_ENV_VAR=1
   fi
 
-  if command -v ~/.fig/bin/fig_pty 1> /dev/null 2> /dev/null; then
+  # Only launch figterm if current session is not already inside PTY and command exists
+  if [[ -z "${FIG_PTY}" ]] && command -v ~/.fig/bin/fig_pty 1> /dev/null 2> /dev/null; then
     if [[ -z "${FIG_TERM}" || (-z "${FIG_TERM_TMUX}" && -n "${TMUX}") ]]; then
       # Pty module sets FIG_TERM or FIG_TERM_TMUX to avoid running twice. 
       FIG_SHELL=$(~/.fig/bin/fig_get_shell)
