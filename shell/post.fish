@@ -69,6 +69,11 @@ if [ -d /Applications/Fig.app -o -d ~/Applications/Fig.app ] \
       fig_osc "Shell=fish" $PWD
       fig_osc "PID=%d" $fish_pid
       fig_osc "TTY=%s" (tty)
+      if [ -z $SSH_TTY ]
+        fig_osc "SSH=0"
+      else
+        fig_osc "SSH=1"
+      end
 
       if fig_fn_defined fish_mode_prompt
         fig_copy_fn fish_mode_prompt fig_user_mode_prompt
