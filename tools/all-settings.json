@@ -140,6 +140,12 @@
     "type": "boolean"
   },
   {
+    "settingName": "app.beta",
+    "title": "Beta",
+    "description": "Opt-in to more frequent updates with all the newest features (and bugs).",
+    "type": "boolean"
+  },
+  {
     "settingName": "app.disableTelemetry",
     "title": "Telemetry",
     "description": "Opt-out of all telemetry. By default, Fig collects limited usage information to provide support and improve the product.",
