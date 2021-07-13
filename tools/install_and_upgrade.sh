@@ -131,6 +131,10 @@ append_to_profiles() {
     fi
   done
   
+
+  # Create .zshrc regardless of whether it exists or not
+  touch "${HOME}/.zshrc"
+
   for rc in .profile .zprofile .bash_profile .bashrc .zshrc; do
     fig_prepend shell/pre.sh "${HOME}/${rc}"
     fig_append fig.sh "${HOME}/${rc}"

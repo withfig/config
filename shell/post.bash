@@ -12,7 +12,7 @@ function fig_osc { printf "\033]697;"; printf $@; printf "\007"; }
 function __fig_preexec() {
   __fig_ret_value="$?"
 
-  fig bg:exec $$ $(tty) & disown
+  fig bg:exec $$ $TTY & disown
 
   fig_osc PreExec
 
@@ -60,6 +60,7 @@ function __fig_prompt () {
   fig_osc "Shell=bash"
   fig_osc "PID=%d" "$$"
   fig_osc "TTY=%s" "${TTY}"
+  fig_osc "SSH=%d" "${SSH_TTY:+1:-0}"
 
   START_PROMPT="\[$(fig_osc StartPrompt)\]"
   END_PROMPT="\[$(fig_osc EndPrompt)\]"
@@ -77,5 +78,5 @@ function __fig_prompt () {
 }
 
 # trap DEBUG -> preexec -> command -> PROMPT_COMMAND -> prompt shown.
-preexec_functions+=(__fig_preexec)
-precmd_functions+=(__fig_prompt)
+preexec_functions=(__fig_preexec "${preexec_functions[@]}")
+precmd_functions=(__fig_prompt "${precmd_functions[@]}")

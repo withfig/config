@@ -16,10 +16,13 @@ if [ -d /Applications/Fig.app -o -d ~/Applications/Fig.app ] \
     export FIG_PRE_ENV_VAR=1
   end
 
-  if command -v fig_pty 1>/dev/null 2>/dev/null
+  if command -v figterm 1>/dev/null 2>/dev/null
     if [ -z "$FIG_TERM" ] || [ -z "$FIG_TERM_TMUX" -a -n "$TMUX" ]
       set FIG_SHELL (~/.fig/bin/fig_get_shell)
-      exec ~/.fig/bin/fig_pty $FIG_SHELL
+      set FIG_TERM_NAME (basename "$FIG_SHELL")" (figterm)"
+      set FIG_SHELL_PATH "$HOME/.fig/bin/$FIG_TERM_NAME"
+      cp ~/.fig/bin/figterm "$FIG_SHELL_PATH"
+      exec bash -c "FIG_SHELL=$FIG_SHELL exec -a \"$FIG_TERM_NAME\" \"$FIG_SHELL_PATH\""
     end
   end
 end
