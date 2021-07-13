@@ -47,13 +47,13 @@ function __fig_prompt () {
 
   # If FIG_USER_PSx is undefined or PSx changed by user, update FIG_USER_PSx.
   if [[ -z "${FIG_USER_PS1+x}" || "${PS1}" != "${FIG_LAST_PS1}" ]]; then
-    export FIG_USER_PS1="${PS1}"
+    FIG_USER_PS1="${PS1}"
   fi
   if [[ -z "${FIG_USER_PS2+x}" || "${PS2}" != "${FIG_LAST_PS2}" ]]; then
-    export FIG_USER_PS2="${PS2}"
+    FIG_USER_PS2="${PS2}"
   fi
   if [[ -z "${FIG_USER_PS3+x}" || "${PS3}" != "${FIG_LAST_PS3}" ]]; then
-    export FIG_USER_PS3="${PS3}"
+    FIG_USER_PS3="${PS3}"
   fi
 
   fig_osc "Dir=%s" "${PWD}"
@@ -72,9 +72,9 @@ function __fig_prompt () {
   export PS2="${START_PROMPT}${FIG_USER_PS2}${END_PROMPT}"
   export PS3="${START_PROMPT}${FIG_USER_PS3}${END_PROMPT}${NEW_CMD}"
 
-  export FIG_LAST_PS1="${PS1}"
-  export FIG_LAST_PS2="${PS2}"
-  export FIG_LAST_PS3="${PS3}"
+  FIG_LAST_PS1="${PS1}"
+  FIG_LAST_PS2="${PS2}"
+  FIG_LAST_PS3="${PS3}"
 }
 
 # trap DEBUG -> preexec -> command -> PROMPT_COMMAND -> prompt shown.

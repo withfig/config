@@ -1,12 +1,11 @@
 #!/usr/bin/env bash
 
-if ([[ -d /Applications/Fig.app ]] || [[ -d ~/Applications/Fig.app ]]) \
+if ([[ -d /Applications/Fig.app || -d ~/Applications/Fig.app ]]) \
   && [[ ! "${TERMINAL_EMULATOR}" = JetBrains-JediTerm ]] \
-  && command -v fig 1> /dev/null 2> /dev/null; then
+  && command -v fig 2>&1 1>/dev/null \
+  && [[ -t 1 ]]; then
 
-  if [[ -t 1 ]] && ([[ -z "${FIG_ENV_VAR}" ]] \
-            || [[ -n "${TMUX}" ]] \
-            || [[ "${TERM_PROGRAM}" = vscode ]]); then
+  if [[ -z "${FIG_ENV_VAR}" || -n "${TMUX}" || "${TERM_PROGRAM}" = vscode ]]; then
     export FIG_ENV_VAR=1
 
     # Gives fig context for cwd in each window
