@@ -36,6 +36,8 @@ function fig_hide() {
   fig bg:hide &!
 }
 
+# Hint: to list all special widgets, run `add-zle-hook-widget -L`
+
 # Delete any widget, if it already exists
 add-zle-hook-widget line-pre-redraw fig_zsh_keybuffer
 
