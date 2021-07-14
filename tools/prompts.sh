@@ -32,9 +32,16 @@ if  [[ "$FIG_ONBOARDING" == '0' ]] \
   else
     # If we are logged in, proceed as usual.
     if [[ -s ~/.fig/tools/drip/fig_onboarding.sh ]]; then
-				  ~/.fig/tools/drip/fig_onboarding.sh 
+			  ~/.fig/tools/drip/fig_onboarding.sh
     fi
   fi
+fi
+
+# Ask for confirmation before updating
+if [[ ! -z "$NEW_VERSION_AVAILABLE" ]]; then
+  export NEW_VERSION_AVAILABLE="${NEW_VERSION_AVAILABLE}"
+  ~/.fig/tools/drip/prompt_to_update.sh
+  unset NEW_VERSION_AVAILABLE
 fi
 
 # In the future we will calculate when a user signed up and if there are any
