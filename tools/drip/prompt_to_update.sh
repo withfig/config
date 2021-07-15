@@ -3,7 +3,12 @@ MAGENTA=$(tput setaf 5)
 NORMAL=$(tput sgr0)
 
 if [[ "$(fig app:running)" -eq 1 && ! -z "${NEW_VERSION_AVAILABLE}" ]]; then
-    (fig update:app --force > /dev/null &)
-    echo "Updating ${MAGENTA}Fig${NORMAL} to latest version..."
+    DISABLE_AUTOPUPDATES="$(fig settings app.disableAutoupdates)"
+    if [[ "${DISABLE_AUTOPUPDATES}" ==  "true" ]]; then
+        echo "A new version of ${MAGENTA}Fig${NORMAL} is available. (Autoupdates are disabled)"
+    else 
+        (fig update:app --force > /dev/null &)
+        echo "Updating ${MAGENTA}Fig${NORMAL} to latest version..."
+    fi
 fi
 
