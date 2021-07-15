@@ -147,8 +147,14 @@
   },
   {
     "settingName": "app.disableAutoupdates",
-    "title": "Auto Update",
+    "title": "Disable AutoUpdate",
     "description": "Turn off automatic updates when launching a new shell session.",
+    "type": "boolean"
+  },
+  {
+    "settingName": "app.disableAutolaunch",
+    "title": "Disable AutoLaunch",
+    "description": "Do not automatically start Fig when launching a new shell session.",
     "type": "boolean"
   },
   {

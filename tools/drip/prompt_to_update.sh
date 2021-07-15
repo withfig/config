@@ -2,7 +2,7 @@
 MAGENTA=$(tput setaf 5)
 NORMAL=$(tput sgr0)
 
-if [[ "$(fig app:running)" -eq 1 && ! -z "${NEW_VERSION_AVAILABLE}" ]]; then
+if [[ "${FIG_IS_RUNNING}" -eq 1 && ! -z "${NEW_VERSION_AVAILABLE}" ]]; then
     DISABLE_AUTOPUPDATES="$(fig settings app.disableAutoupdates)"
     if [[ "${DISABLE_AUTOPUPDATES}" ==  "true" ]]; then
         echo "A new version of ${MAGENTA}Fig${NORMAL} is available. (Autoupdates are disabled)"
