@@ -46,8 +46,10 @@ export FIG_IS_RUNNING="$(fig app:running)"
 # Ask for confirmation before updating
 if [[ ! -z "$NEW_VERSION_AVAILABLE" ]]; then
   export NEW_VERSION_AVAILABLE="${NEW_VERSION_AVAILABLE}"
+  export DISPLAYED_AUTOUPDATE_SETTINGS_HINT="${DISPLAYED_AUTOUPDATE_SETTINGS_HINT}"
   ~/.fig/tools/drip/prompt_to_update.sh
   unset NEW_VERSION_AVAILABLE
+  unset DISPLAYED_AUTOUPDATE_SETTINGS_HINT
 fi
 
 if [[ "$FIG_IS_RUNNING" == '0' ]]; then
