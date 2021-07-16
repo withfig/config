@@ -9,7 +9,7 @@
 if [[ -s ~/.fig/user/config ]]; then
   source ~/.fig/user/config 
 else
-  return
+  exit
 fi
 
 # To update a specific variable:
@@ -32,15 +32,24 @@ if  [[ "$FIG_ONBOARDING" == '0' ]] \
       sed -i '' "s/FIG_LOGGED_IN=.*/FIG_LOGGED_IN=1/g" ~/.fig/user/config 2> /dev/null
       if [[ -s ~/.fig/tools/drip/fig_onboarding.sh ]]; then
         ~/.fig/tools/drip/fig_onboarding.sh 
+        exit
       fi
     fi
   else
     # If we are logged in, proceed as usual.
     if [[ -s ~/.fig/tools/drip/fig_onboarding.sh ]]; then
 			  ~/.fig/tools/drip/fig_onboarding.sh
+        exit
     fi
   fi
 fi
+
+if [[ "$FIG_LOGGED_IN" == "0" ]]; then
+  echo not logged in
+  exit
+fi
+# invariant:
+# 1. User is logged in to Fig
 
 export FIG_IS_RUNNING="$(fig app:running)"
 # Ask for confirmation before updating
@@ -52,7 +61,7 @@ if [[ ! -z "$NEW_VERSION_AVAILABLE" ]]; then
   unset DISPLAYED_AUTOUPDATE_SETTINGS_HINT
 fi
 
-if [[ "$FIG_IS_RUNNING" == '0' ]]; then
+if [[ -z "$APP_TERMINATED_BY_USER" && "$FIG_IS_RUNNING" == '0' ]]; then
   export DISPLAYED_AUTOLAUNCH_SETTINGS_HINT="${DISPLAYED_AUTOLAUNCH_SETTINGS_HINT}"
   ~/.fig/tools/drip/autolaunch.sh
   unset DISPLAYED_AUTOLAUNCH_SETTINGS_HINT
