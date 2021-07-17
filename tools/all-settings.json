@@ -97,13 +97,15 @@
     "settingName": "autocomplete.height",
     "title": "Autocomplete window height",
     "description": "Set the maximum height of the autocomplete window in pixels",
-    "type": "number"
+    "type": "number",
+    "default": "380"
   },
   {
     "settingName": "autocomplete.width",
     "title": "Autocomplete window width",
     "description": "Set the maximum width of the autocomplete window in pixels",
-    "type": "number"
+    "type": "number",
+    "default": "250"
   },
   {
     "settingName": "autocomplete.fuzzySearch",
