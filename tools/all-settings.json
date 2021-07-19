@@ -75,7 +75,7 @@
     "title": "Disable Fig for specific CLI tools",
     "description": "A JSON array of CLI tools that Fig should NOT autocomplete on.",
     "type": "multiselect",
-    "details": "e.g. [\"git\",\"npm\"]"
+    "details": "e.g. git,npm"
   },
   {
     "settingName": "autocomplete.enter",
