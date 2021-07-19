@@ -146,6 +146,18 @@
     "type": "boolean"
   },
   {
+    "settingName": "app.disableAutoupdates",
+    "title": "Disable AutoUpdate",
+    "description": "Turn off automatic updates when launching a new shell session.",
+    "type": "boolean"
+  },
+  {
+    "settingName": "app.disableAutolaunch",
+    "title": "Disable AutoLaunch",
+    "description": "Do not automatically start Fig when launching a new shell session.",
+    "type": "boolean"
+  },
+  {
     "settingName": "app.disableTelemetry",
     "title": "Telemetry",
     "description": "Opt-out of all telemetry. By default, Fig collects limited usage information to provide support and improve the product.",
