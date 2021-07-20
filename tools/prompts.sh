@@ -1,5 +1,14 @@
 #!/usr/bin/env bash
 
+# invariants:
+# 1. Fig.app is installed
+# 2. fig CLI tool is in $PATH
+# ? prompts.sh will only be called once per terminal session
+
+if [[ "$FIG_CHECKED_PROMPTS" == "1" ]]; then
+  exit
+fi
+
 # Read all the user defaults.
 if [[ -s ~/.fig/user/config ]]; then
   source ~/.fig/user/config 
@@ -37,6 +46,30 @@ if  [[ "$FIG_ONBOARDING" == '0' ]] \
   fi
 fi
 
+if [[ "$FIG_LOGGED_IN" == "0" ]]; then
+  exit
+fi
+# invariant:
+# 1. User is logged in to Fig
+
+export FIG_IS_RUNNING="$(fig app:running)"
+# Ask for confirmation before updating
+if [[ ! -z "$NEW_VERSION_AVAILABLE" ]]; then
+  export NEW_VERSION_AVAILABLE="${NEW_VERSION_AVAILABLE}"
+  export DISPLAYED_AUTOUPDATE_SETTINGS_HINT="${DISPLAYED_AUTOUPDATE_SETTINGS_HINT}"
+  ~/.fig/tools/drip/prompt_to_update.sh
+  unset NEW_VERSION_AVAILABLE
+  unset DISPLAYED_AUTOUPDATE_SETTINGS_HINT
+fi
+
+if [[ -z "$APP_TERMINATED_BY_USER" && "$FIG_IS_RUNNING" == '0' ]]; then
+  export DISPLAYED_AUTOLAUNCH_SETTINGS_HINT="${DISPLAYED_AUTOLAUNCH_SETTINGS_HINT}"
+  ~/.fig/tools/drip/autolaunch.sh
+  unset DISPLAYED_AUTOLAUNCH_SETTINGS_HINT
+fi
+
+unset FIG_IS_RUNNING
+export FIG_CHECKED_PROMPTS=1
 # In the future we will calculate when a user signed up and if there are any
 # drip campaigns remaining for the user. We will hardcode time since sign up
 # versus drip campaign date here.
