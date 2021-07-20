@@ -75,7 +75,7 @@
     "title": "Disable Fig for specific CLI tools",
     "description": "A JSON array of CLI tools that Fig should NOT autocomplete on.",
     "type": "multiselect",
-    "details": "e.g. [\"git\",\"npm\"]"
+    "details": "e.g. git,npm"
   },
   {
     "settingName": "autocomplete.enter",
@@ -143,6 +143,18 @@
     "settingName": "app.beta",
     "title": "Beta",
     "description": "Opt-in to more frequent updates with all the newest features (and bugs).",
+    "type": "boolean"
+  },
+  {
+    "settingName": "app.disableAutoupdates",
+    "title": "Disable AutoUpdate",
+    "description": "Turn off automatic updates when launching a new shell session.",
+    "type": "boolean"
+  },
+  {
+    "settingName": "app.disableAutolaunch",
+    "title": "Disable AutoLaunch",
+    "description": "Do not automatically start Fig when launching a new shell session.",
     "type": "boolean"
   },
   {

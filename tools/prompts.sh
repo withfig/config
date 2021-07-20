@@ -13,7 +13,7 @@ fi
 if [[ -s ~/.fig/user/config ]]; then
   source ~/.fig/user/config 
 else
-  return
+  exit
 fi
 
 # To update a specific variable:
@@ -36,12 +36,14 @@ if  [[ "$FIG_ONBOARDING" == '0' ]] \
       sed -i '' "s/FIG_LOGGED_IN=.*/FIG_LOGGED_IN=1/g" ~/.fig/user/config 2> /dev/null
       if [[ -s ~/.fig/tools/drip/fig_onboarding.sh ]]; then
         ~/.fig/tools/drip/fig_onboarding.sh 
+        exit
       fi
     fi
   else
     # If we are logged in, proceed as usual.
     if [[ -s ~/.fig/tools/drip/fig_onboarding.sh ]]; then
-				  ~/.fig/tools/drip/fig_onboarding.sh 
+			  ~/.fig/tools/drip/fig_onboarding.sh
+        exit
     fi
   fi
 fi
@@ -70,6 +72,7 @@ fi
 
 unset FIG_IS_RUNNING
 export FIG_CHECKED_PROMPTS=1
+
 # In the future we will calculate when a user signed up and if there are any
 # drip campaigns remaining for the user. We will hardcode time since sign up
 # versus drip campaign date here.

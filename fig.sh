@@ -13,7 +13,10 @@ if ([[ -d /Applications/Fig.app || -d ~/Applications/Fig.app ]]) \
 
     # Check for prompts or onboarding must be last, so Fig has context for
     # onboarding!
-    [[ -s ~/.fig/tools/prompts.sh ]] && source ~/.fig/tools/prompts.sh
+    if [[ -s ~/.fig/tools/prompts.sh ]]; then
+       # don't source this, to ensure the #! is respected
+       ~/.fig/tools/prompts.sh
+    fi
   fi
 
   # We use a shell variable to make sure this doesn't load twice
