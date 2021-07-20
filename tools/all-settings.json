@@ -98,7 +98,7 @@
     "title": "Autocomplete window height",
     "description": "Set the maximum height of the autocomplete window in pixels",
     "type": "number",
-    "default": "380"
+    "default": "140"
   },
   {
     "settingName": "autocomplete.width",
