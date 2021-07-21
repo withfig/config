@@ -126,8 +126,8 @@
     "title": "Init File for ",
     "description": "A file that will be sourced when Fig creates a pseudoterminal.",
     "type": "text",
-    "default" : "~/.fig/user/ptyrc",
-    "details" : "Add environment variables to this file, in order for commands like `aws` to use them when generating completions."
+    "default": "~/.fig/user/ptyrc",
+    "details": "Add environment variables to this file, in order for commands like `aws` to use them when generating completions."
   },
   {
     "settingName": "app.launchOnStartup",
@@ -164,6 +164,6 @@
     "title": "Telemetry",
     "description": "Opt-out of all telemetry. By default, Fig collects limited usage information to provide support and improve the product.",
     "type": "boolean",
-    "details" : "Read our statement on privacy at fig.io/privacy for more details."
+    "details": "Read our statement on privacy at fig.io/privacy for more details."
   }
 ]
