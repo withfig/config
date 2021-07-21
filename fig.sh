@@ -16,6 +16,7 @@ if ([[ -d /Applications/Fig.app || -d ~/Applications/Fig.app ]]) \
     if [[ -s ~/.fig/tools/prompts.sh ]]; then
        # don't source this, to ensure the #! is respected
        ~/.fig/tools/prompts.sh
+       export FIG_CHECKED_PROMPTS=1
     fi
   fi
 

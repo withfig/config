@@ -3,7 +3,7 @@
 # invariants:
 # 1. Fig.app is installed
 # 2. fig CLI tool is in $PATH
-# ? prompts.sh will only be called once per terminal session
+# 3. prompts.sh will only be called once per terminal session
 
 if [[ "$FIG_CHECKED_PROMPTS" == "1" ]]; then
   exit
@@ -71,7 +71,8 @@ if [[ -z "$APP_TERMINATED_BY_USER" && "$FIG_IS_RUNNING" == '0' ]]; then
 fi
 
 unset FIG_IS_RUNNING
-export FIG_CHECKED_PROMPTS=1
+
+# NOTE: FIG_CHECKED_PROMPTS must be set to 1 in parent shell script.
 
 # In the future we will calculate when a user signed up and if there are any
 # drip campaigns remaining for the user. We will hardcode time since sign up

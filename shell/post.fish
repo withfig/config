@@ -13,6 +13,7 @@ if [ -d /Applications/Fig.app -o -d ~/Applications/Fig.app ] \
     # Check for prompts or onboarding.
     if [ -s ~/.fig/tools/prompts.sh ]
       bash ~/.fig/tools/prompts.sh
+      export FIG_CHECKED_PROMPTS 1
     end
 
     export TTY=(tty)
