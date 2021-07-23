@@ -5,14 +5,16 @@
     "title": "Developer Mode",
     "description": "Turns off completion-spec caching and loads completion specs from the Completion Specs Folder.",
     "type": "boolean",
-    "details": "Developer Mode changes the way specs are loaded"
+    "details": "Developer Mode changes the way specs are loaded",
+    "sidebarHeading": "Autocomplete"
   },
   {
     "settingName": "autocomplete.devCompletionsFolder",
     "sidebarName": "Specs Folder",
     "title": "Completion Specs Folder",
     "description": "When Developer Mode is enabled, Fig loads completion specs from the specified directory.",
-    "type": "text"
+    "type": "text",
+    "sidebarHeading": "Autocomplete"
   },
   {
     "settingName": "autocomplete.theme",
@@ -21,13 +23,14 @@
     "description": "Change Fig's theme",
     "type": "single_select",
     "options": ["dark", "light"],
-    "default": "dark"
+    "default": "dark",
+    "sidebarHeading": "Appearance"
   },
   {
     "settingName": "autocomplete.sortMethod",
     "sidebarName": "Sort Suggestions",
     "title": "Order Suggestions by:",
-    "details": "Specifies how Fig should sort suggestions",
+    "description": "Specifies how Fig should sort suggestions.",
     "type": "single_select",
     "default": "recency",
     "options": [
@@ -39,15 +42,17 @@
         "name": "alphabetical",
         "description": "Sort in alphabetical order"
       }
-    ]
+    ],
+    "sidebarHeading": "Autocomplete"
   },
   {
     "settingName": "autocomplete.scrollWrapAround",
     "sidebarName": "Wrap Around",
     "title": "Wrap Around Suggestions",
-    "description": "If true, when the end of suggestions are reached by pressing ⬇, it will wrap back around to the top.",
+    "description": "If true, when the end of suggestions are reached by pressing the down arrow key, it will wrap back around to the top.",
     "type": "boolean",
-    "default": false
+    "default": false,
+    "sidebarHeading": "Appearance"
   },
   {
     "settingName": "autocomplete.insertSpaceAutomatically",
@@ -55,28 +60,32 @@
     "title": "Insert Space After Suggestion",
     "description": "If true, Fig will automatically insert a space after you select a suggestion.",
     "type": "boolean",
-    "default": true
+    "default": true,
+    "sidebarHeading": "Autocomplete"
   },
   {
     "settingName": "autocomplete.immediatelyRunDangerousCommands",
     "sidebarName": "Dangerous",
     "title": "Run Dangerous Commands",
     "description": "If true, users will be able to immediately run suggestions that completion specs have marked as \"dangerous\" (e.g. rm -rf) rather than having to hit enter twice.",
-    "type": "boolean"
+    "type": "boolean",
+    "sidebarHeading": "Autocomplete"
   },
   {
     "settingName": "autocomplete.immediatelyRunGitAliases",
     "sidebarName": "Git Aliases",
     "title": "Git Aliases",
     "description": "If false, Fig will treat git aliases as 'dangerous' (described above).",
-    "type": "boolean"
+    "type": "boolean",
+    "sidebarHeading": "Autocomplete"
   },
   {
     "settingName": "autocomplete.immediatelyExecuteAfterSpace",
     "sidebarName": "Instant Execute",
     "title": "Allow immediate execute after space",
     "description": "If true, Fig will allow user to immediately execute commands after the user hits space.",
-    "type": "boolean"
+    "type": "boolean",
+    "sidebarHeading": "Autocomplete"
   },
   {
     "settingName": "autocomplete.disableForCommands",
@@ -84,7 +93,8 @@
     "title": "Disable Fig for Specific CLIs",
     "description": "A list of CLI tools that Fig should not autocomplete on.",
     "type": "multiselect",
-    "details": "e.g. git,npm"
+    "details": "e.g. git,npm",
+    "sidebarHeading": "Autocomplete"
   },
   {
     "settingName": "autocomplete.enter",
@@ -93,36 +103,40 @@
     "description": "Set the behavior of the enter key.",
     "type": "single_select",
     "options": ["insert", "ignore"],
-    "default": "insert"
+    "default": "insert",
+    "sidebarHeading": "Autocomplete"
   },
   {
     "settingName": "autocomplete.tab",
     "sidebarName": "Tab Behavior",
     "title": "Set Tab Behavior",
-    "description": "Set the behavior of the tab key. shake: . navigate: Insert matching prefix or move down one selection",
+    "description": "Set the behavior of the tab key.",
     "type": "single_select",
     "default": "shake",
     "options": [
       {"name": "shake", "descrition": "Insert matching prefix or shake"},
       {"name": "insert", "description": "Insert immediately"}, 
       {"name":"insertOrPrefix", "description": "Insert matching prefix or selected suggestion."},
-      {"name": "navigate", "decription": "Navigate"}]
+      {"name": "navigate", "decription": "Navigate"}],
+    "sidebarHeading": "Autocomplete"
   },
   {
     "settingName": "autocomplete.height",
     "sidebarName": "Window Height",
     "title": "Autocomplete Window Height",
-    "description": "Set the height of the autocomplete window in pixels",
+    "description": "Set the height of the autocomplete window in pixels.",
     "type": "number",
-    "default": "140"
+    "default": "140",
+    "sidebarHeading": "Appearance"
   },
   {
     "settingName": "autocomplete.width",
     "sidebarName": "Window Width",
     "title": "Autocomplete Window Width",
-    "description": "Set the width of the autocomplete window in pixels",
+    "description": "Set the width of the autocomplete window in pixels.",
     "type": "number",
-    "default": "250"
+    "default": "250",
+    "sidebarHeading": "Appearance"
   },
   {
     "settingName": "autocomplete.fuzzySearch",
@@ -130,7 +144,8 @@
     "title": "Fuzzy Search Strings",
     "description": "Search suggestions using substring matching rather than prefix search.",
     "type": "boolean",
-    "details": "This currently does not support the tab autocomplete underlining that prefix search has"
+    "details": "This currently does not support the tab autocomplete underlining that prefix search has",
+    "sidebarHeading": "Autocomplete"
   },
   {
     "settingName": "pty.path",
@@ -138,7 +153,8 @@
     "title": "Set $PATH of Fig's Pseudoterminal",
     "description": "Sets the PATH variable used in pseudoterminals.",
     "type": "text",
-    "details": "The error text 'commands not found' often appears if this path is not set correctly."
+    "details": "The error text 'commands not found' often appears if this path is not set correctly.",
+    "sidebarHeading": "Psuedoterminal"
   },
   {
     "settingName": "pty.rc",
@@ -147,42 +163,48 @@
     "description": "A file that will be sourced when Fig creates a pseudoterminal.",
     "type": "text",
     "default" : "~/.fig/user/ptyrc",
-    "details" : "Add environment variables to this file, in order for commands like `aws` to use them when generating completions."
+    "details" : "Add environment variables to this file, in order for commands like `aws` to use them when generating completions.",
+    "sidebarHeading": "Psuedoterminal"
   },
   {
     "settingName": "app.launchOnStartup",
     "sidebarName": "Launch on start",
     "title": "Launch Fig on Start",
     "description": "If true, the Fig app is added to Login Items and will launch automatically whenever you restart your computer.",
-    "type": "boolean"
+    "type": "boolean",
+    "sidebarHeading": "Application"
   },
   {
     "settingName": "app.hideMenubarIcon",
     "sidebarName": "Hide Icon",
     "title": "Hide Menu Bar Icon",
     "description": "Hide Fig's icon from the macOS menu bar",
-    "type": "boolean"
+    "type": "boolean",
+    "sidebarHeading": "Application"
   },
   {
     "settingName": "app.beta",
     "sidebarName": "Beta",
     "title": "Beta",
     "description": "Opt-in to more frequent updates with all the newest features (and bugs).",
-    "type": "boolean"
+    "type": "boolean",
+    "sidebarHeading": "Application"
   },
   {
     "settingName": "app.disableAutoupdates",
     "sidebarName": "AutoUpdate",
     "title": "Disable AutoUpdate",
     "description": "Turn off automatic updates when launching a new shell session.",
-    "type": "boolean"
+    "type": "boolean",
+    "sidebarHeading": "Application"
   },
   {
     "settingName": "app.disableAutolaunch",
     "sidebarName": "AutoLaunch",
     "title": "Disable AutoLaunch",
     "description": "Do not automatically start Fig when launching a new shell session.",
-    "type": "boolean"
+    "type": "boolean",
+    "sidebarHeading": "Application"
   },
   {
     "settingName": "app.disableTelemetry",
@@ -190,6 +212,7 @@
     "title": "Telemetry",
     "description": "Opt-out of all telemetry. By default, Fig collects limited usage information to provide support and improve the product.",
     "type": "boolean",
-    "details" : "Read our statement on privacy at fig.io/privacy for more details."
+    "details" : "Read our statement on privacy at fig.io/privacy for more details.",
+    "sidebarHeading": "Application"
   }
 ]
