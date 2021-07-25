@@ -33,19 +33,23 @@ while IFS= read -ra line; do
         "Bundle path")
             if [[ $value != /Applications/Fig.app ]]; then
                 # TODO fix wrong bundle path
-                echo "You need to install in /Applications"
+                echo "You need to install Fig in /Applications"
             fi
             ;;
         "Autocomplete")
             if [[ $value != true ]]; then
                 # TODO fix missing autocomplete
-                echo "Autocomplete missing"
+                echo "Missing autocomplete"
             fi
             ;;
         "Settings.json")
             if [[ $value != true ]]; then
                 # TODO fix missing settings.json
-                echo "Missing settings.json"
+                echo "settings.json is missing!"
+                echo -e "Let's run install script to add a new settings.json.\n"
+                ./install_and_upgrade.sh
+                echo -e "Fix applied!\n"
+                "./$(basename "$0")" && exit
             fi
             ;;
         "CLI installed")
