@@ -73,8 +73,12 @@ while IFS= read -ra line; do
         "Number of specs")
             # Magic number 50 seems safe. Not sure what normal range of # specs is.
             if ((value < 50)); then
-                # TODO fix missing autocomplete
-                echo "Missing autocomplete specs"
+                echo "Autocomplete specs are missing!"
+                echo -e "Let's run 'fig update' to download the all autocomplete specs.\n"
+                echo "fig update"
+                fig update
+                echo -e "Fix applied!\n"
+                "./$(basename "$0")" && exit
             fi
             ;;
         "SSH Integration")
