@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+# TODO log applied fixes in /tmp
+# If same fix is being applied twice, the fix is not working
+# and we are in a loop. Script should be killed.
+# Logs to be cleared after each run
+
 ################
 # check .zshrc #
 ################
@@ -18,7 +23,9 @@ fi
 # check fig diagnostic #
 ########################
 
+# run fig diagnostic and split output into lines
 while IFS= read -ra line; do
+    # for each line, split by ':' into the check and value
     IFS=: read -r check value <<<"${line[@]}"
     # strip leading and trailing whitespace from diagnostic value
     value=$(echo "$value" | xargs)
