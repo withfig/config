@@ -182,7 +182,12 @@ while IFS= read -ra line; do
         "Installation Script")
             if [[ $value != true ]]; then
                 # TODO fix missing installation script
-                echo "Missing installation script"
+                echo "Missing the installation script!"
+                echo -e "Let's run 'fig update' to re-install Fig's scripts.\n"
+                echo "> fig update"
+                fig update
+                echo -e "Fix applied!\n"
+                "./$(basename "$0")" && exit
             fi
             ;;
         "PseudoTerminal Path")
@@ -190,8 +195,12 @@ while IFS= read -ra line; do
             ;;
         "PATH")
             if [[ $value != "$pseudo_terminal_path" ]]; then
-                echo "Setting pseudo terminal path!"
+                echo "Your PATH and Fig's pseudo terminal path do not match!"
+                echo "Let's sync the paths!"
+                echo "> fig set:path"
                 fig set:path
+                echo -e "Fix applied!\n"
+                "./$(basename "$0")" && exit
             fi
             ;;
         "SecureKeyboardInput")
