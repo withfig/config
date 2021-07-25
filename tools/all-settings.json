@@ -11,7 +11,7 @@
     "title": "Theme",
     "description": "Change Fig's theme",
     "type": "single_select",
-    "options": ["light", "dark"],
+    "options": ["light", "dark", "gruvbox", "nightowl"],
     "default": "dark"
   },
   {
