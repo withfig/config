@@ -1,4 +1,4 @@
-##!/usr/bin/env bash
+#!/usr/bin/env bash
 
 ################
 # check .zshrc #
@@ -19,81 +19,86 @@ fi
 ########################
 
 while IFS= read -ra line; do
-    IFS=: read check value <<<"$line"
+    IFS=: read -r check value <<<"${line[@]}"
+    # strip leading and trailing whitespace from diagnostic value
+    value=$(echo "$value" | xargs)
 
     case $check in
         "UserShell")
-            if [[ $(echo $value) != "/bin/zsh" ]]; then
+            if [[ $value != /bin/zsh ]]; then
                 # TODO do something based on shell
                 echo "Not using zsh"
             fi
             ;;
         "Bundle path")
-            if [[ $(echo $value) != "/Applications/Fig.app" ]]; then
+            if [[ $value != /Applications/Fig.app ]]; then
                 # TODO fix wrong bundle path
                 echo "You need to install in /Applications"
             fi
             ;;
         "Autocomplete")
-            if [[ $(echo $value) != "true" ]]; then
+            if [[ $value != true ]]; then
                 # TODO fix missing autocomplete
                 echo "Autocomplete missing"
             fi
             ;;
         "Settings.json")
-            if [[ $(echo $value) != "true" ]]; then
+            if [[ $value != true ]]; then
                 # TODO fix missing settings.json
                 echo "Missing settings.json"
             fi
             ;;
         "CLI installed")
-            if [[ $(echo $value) != "true" ]]; then
+            if [[ $value != "true" ]]; then
                 # TODO fix missing CLI
                 echo "Missing CLI"
             fi
             ;;
         "CLI tool path")
-            if [[ $(echo $value) != "$HOME/.fig/bin/fig" ]]; then
+            if [[ $value != $HOME/.fig/bin/fig ]]; then
                 # TODO fix wrong CLI tool path
                 echo "Wrong CLI tool path"
             fi
             ;;
         "Accessibility")
-            if [[ $(echo $value) != "true" ]]; then
+            if [[ $value != true ]]; then
                 # TODO fix accessibility
                 echo "Accessibility not turned off"
             fi
             ;;
         "Number of specs")
             # Magic number 50 seems safe. Not sure what normal range of # specs is.
-            if (($value < 50)); then
+            if ((value < 50)); then
                 # TODO fix missing autocomplete
                 echo "Missing autocomplete specs"
             fi
             ;;
         "SSH Integration")
-            if [[ $(echo $value) != "true" ]]; then
+            if [[ $value != true ]]; then
                 # TODO fix ssh
                 echo "SSH not integrated"
             fi
             ;;
         "Tmux Integration")
-            if [[ $(echo $value) != "true" ]]; then
+            if [[ $value != true ]]; then
                 # TODO fix tmux
                 echo "tmux not integrated"
             fi
             ;;
         "Keybindings path")
-            if [[ $(echo $value) != "$HOME/.fig/user/keybindings" ]]; then
+            if [[ $value != $HOME/.fig/user/keybindings ]]; then
                 # TODO fix keybindings
                 echo "Keybindings not in correct place"
             fi
             ;;
         "iTerm Integration")
-            if [[ $(echo $value) != "true" ]]; then
+            if [[ $value != true ]]; then
                 # check if Hyper is installed
-                mdfind "kMDItemKind == 'Application'" | grep "iTerm.app" | 2>/dev/null
-                [[ $? == "0" ]] && iterm_installed=true || iterm_installed=false
+                if mdfind "kMDItemKind == 'Application'" | grep "iTerm.app" | 2>/dev/null; then
+                    iterm_installed=true
+                else
+                    iterm_installed=false
+                fi
 
                 # only care about integration if iTerm is installed
                 if [[ $iterm_installed == true ]]; then
@@ -103,10 +108,13 @@ while IFS= read -ra line; do
             fi
             ;;
         "Hyper Integration")
-            if [[ $(echo $value) != "true" ]]; then
+            if [[ $value != true ]]; then
                 # check if Hyper is installed
-                mdfind "kMDItemKind == 'Application'" | grep "Hyper.app" | 2>/dev/null
-                [[ $? == "0" ]] && hyper_installed=true || hyper_installed=false
+                if mdfind "kMDItemKind == 'Application'" | grep "Hyper.app" | 2>/dev/null; then
+                    hyper_installed=true
+                else
+                    hyper_installed=false
+                fi
 
                 # only care about integration if Hyper is installed
                 if [[ $hyper_installed == true ]]; then
@@ -116,10 +124,13 @@ while IFS= read -ra line; do
             fi
             ;;
         "VSCode Integration")
-            if [[ $(echo $value) != "true" ]]; then
+            if [[ $value != true ]]; then
                 # check if VSCode is installed
-                mdfind "kMDItemKind == 'Application'" | grep "Visual Studio Code.app" | 2>/dev/null
-                [[ $? == "0" ]] && vscode_installed=true || vscode_installed=false
+                if mdfind "kMDItemKind == 'Application'" | grep "Visual Studio Code.app" | 2>/dev/null; then
+                    vscode_installed=true
+                else
+                    vscode_installed=false
+                fi
 
                 # only care about integration if VSCode is installed
                 if [[ $vscode_installed == true ]]; then
@@ -129,10 +140,13 @@ while IFS= read -ra line; do
             fi
             ;;
         "Docker Integration")
-            if [[ $(echo $value) != "true" ]]; then
+            if [[ $value != true ]]; then
                 # check if docker is installed
-                docker -v 2>/dev/null
-                [[ $? == "0" ]] && docker_installed=true || docker_installed=false
+                if docker -v 2>/dev/null; then
+                    docker_installed=true
+                else
+                    docker_installed=false
+                fi
 
                 # only care about integration if docker is installed
                 if [[ $docker_installed == true ]]; then
@@ -142,19 +156,19 @@ while IFS= read -ra line; do
             fi
             ;;
         "Symlinked dotfiles")
-            if [[ $(echo $value) != "true" ]]; then
+            if [[ $value != true ]]; then
                 # TODO anything to do here?
                 echo "dotfiles are not symlinked" | 2>/dev/null
             fi
             ;;
         "Only insert on tab")
-            if [[ $(echo $value) == "true" ]]; then
+            if [[ $value == true ]]; then
                 # TODO anything to do here?
                 echo "Fig is inserted on tab"
             fi
             ;;
         "Installation Script")
-            if [[ $(echo $value) != "true" ]]; then
+            if [[ $value != true ]]; then
                 # TODO fix missing installation script
                 echo "Missing installation script"
             fi
@@ -163,7 +177,7 @@ while IFS= read -ra line; do
             pseudo_terminal_path=$value
             ;;
         "PATH")
-            if [[ $value != $pseudo_terminal_path ]]; then
+            if [[ $value != "$pseudo_terminal_path" ]]; then
                 echo "Setting pseudo terminal path!"
                 fig set:path
             fi
@@ -172,32 +186,32 @@ while IFS= read -ra line; do
             secure_keyboard_input=$value
             ;;
         "SecureKeyboardProcess")
-            if [[ $secure_keyboard_input == "true" ]]; then
+            if [[ $secure_keyboard_input == true ]]; then
                 # TODO fix Secure keyboard input
                 echo "Secure keyboard input is on"
                 echo "Secure keyboard process is$value"
             fi
             ;;
         "Current active process")
-            if [[ $(echo $value) == "???" ]]; then
+            if [[ $value == ??? ]]; then
                 # TODO fix current active process
                 echo "Can't find current active process"
             fi
             ;;
         "Current working directory")
-            if [[ $(echo $value) == "???" ]]; then
+            if [[ $value == ??? ]]; then
                 # TODO fix current active directory
                 echo "Can't find current active directory"
             fi
             ;;
         "Current window identifier")
-            if [[ $(echo $value) == "???" ]]; then
+            if [[ $value == ??? ]]; then
                 # TODO fix current window identifier
                 echo "Can't find current window identifier"
             fi
             ;;
         "FIG_INTEGRATION_VERSION")
-            if [[ $(echo $value) != "4" ]]; then
+            if [[ $value != 4 ]]; then
                 # TODO fix incorrect FIG_INTEGRATION_VERSION
                 echo "Current FIG_INTEGRATION_VERSION = 4"
             fi
@@ -218,3 +232,5 @@ done <<<"$(fig diagnostic)"
 
 echo "Fig still not working?"
 echo "Run 'fig issue' to let us know!"
+
+echo "$FIG_IS_RUNNING"
