@@ -110,8 +110,12 @@ while IFS= read -ra line; do
 
                 # only care about integration if iTerm is installed
                 if [[ $iterm_installed == true ]]; then
-                    echo "Integrating iTerm!"
+                    echo "The iTerm integration is not installed!"
+                    echo -e "Let's run fig integrations:iterm to fix this."
+                    echo "> fig integrations:iterm"
                     fig integrations:iterm
+                    echo -e "Fix applied!\n"
+                    "./$(basename "$0")" && exit
                 fi
             fi
             ;;
