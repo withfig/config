@@ -84,6 +84,9 @@ install_fig() {
   
   "${FIGCLI}" settings pty.path $("${USER_SHELL_TRIMMED}" -li -c "/usr/bin/env | /usr/bin/grep '^PATH=' | /bin/cat | /usr/bin/sed 's|PATH=||g'") 
 
+  # hotfix for infinite looping when writing "☑ fig" title to a tty backed by figterm
+  "${FIGCLI}" settings autocomplete.addStatusToTerminalTitle false
+
   # Restart file watcher
   "${FIGCLI}" settings:init
 
@@ -185,8 +188,14 @@ install_tmux_integration() {
   fi
 }
 
+# hotfix for infinite looping when writing "☑ fig" title to a tty backed by figterm
+disable_setting_tty_title() {
+  defaults write com.mschrage.fig addIndicatorToTitlebar false
+}
+
 install_fig
 append_to_profiles
 setup_onboarding
 install_tmux_integration
+disable_setting_tty_title
 echo success
