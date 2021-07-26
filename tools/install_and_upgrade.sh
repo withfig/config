@@ -127,6 +127,12 @@ fig_prepend() {
 
 # Add the fig.sh to your profiles so it can be sourced on new terminal window load
 append_to_profiles() {
+  # Make sure one of [.bash_profile|.bash_login|.profile] exists to ensure fig
+  # is sourced on login shells. We choose .profile to be as minimally
+  # disruptive to existing user set up as possible.
+  # https://superuser.com/questions/320065/bashrc-not-sourced-in-iterm-mac-os-x
+  touch .profile
+
   # Replace old sourcing in profiles.
   for rc in .profile .zprofile .bash_profile; do
     if [[ -e "${HOME}/${rc}" ]]; then
@@ -138,7 +144,7 @@ append_to_profiles() {
   # Create .zshrc/.bashrc regardless of whether it exists or not
   touch "${HOME}/.zshrc" "${HOME}/.bashrc"
 
-  for rc in .profile .zprofile .bash_profile .bashrc .zshrc; do
+  for rc in .profile .zprofile .bash_profile .bash_login .bashrc .zshrc; do
     fig_prepend shell/pre.sh "${HOME}/${rc}"
     fig_append fig.sh "${HOME}/${rc}"
   done
