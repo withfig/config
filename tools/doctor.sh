@@ -1,20 +1,64 @@
 #!/usr/bin/env bash
 
+# Everytime we attempt a fix, there is a chance that other checks
+# will be affected. Script should be re-run to ensure we are
+# looking at an up to date environment.
+function fix {
+    echo "> $*"
+    "$@"
+    echo -e "\nFix applied!\n"
+    "./$(basename "$0")" && exit
+}
+
 # TODO log applied fixes in /tmp
 # If same fix is being applied twice, the fix is not working
 # and we are in a loop. Script should be killed.
-# Logs to be cleared after each run
+# Log to be cleared after each run
+
+# TODO check for PORT 50000 issue
 
 ################
 # check .zshrc #
 ################
 
-# print uncommented .zshrc
-zshrc=$(grep -v '^#' ~/.zshrc)
+# Check that Fig ENV vars are all in the right place. If not, remove them and put them back
+# correctly.
+vars_deleted=false
+for file in ~/.profile ~/.zprofile ~/.bash_profile ~/.bashrc ~/.zshrc; do
+    if [[ -f "$file" ]]; then
+        # strip out whitespace and commented out lines
+        clean_config=$(sed -e 's/^[ #\t]*//' $file | grep -v '^#')
+        # all lines that source other files or directly manipulate the $PATH
+        path_manip=$(echo "$clean_config" | grep -E 'PATH|source')
+
+        first=$(echo "$path_manip" | sed -n '1p')
+        last=$(echo "$path_manip" | sed -n '$p')
+
+        if [[ $first != "[ -s ~/.fig/shell/pre.sh ] && source ~/.fig/shell/pre.sh" ]] || [[ $last != "[ -s ~/.fig/fig.sh ] && source ~/.fig/fig.sh" ]]; then
+            echo "Fig ENV variables need to be at the very beginning and end of $file"
+            INSTALLATION1="#### FIG ENV VARIABLES ####"
+            INSTALLATION2="\[ -s ~/.fig/shell/pre.sh ] && source ~/.fig/shell/pre.sh"
+            INSTALLATION3="\[ -s ~/.fig/fig.sh ] && source ~/.fig/fig.sh"
+            INSTALLATION4="#### END FIG ENV VARIABLES ####"
+
+            sed -i '' -e "s/$INSTALLATION1//g" $file
+            sed -i '' -e "s#$INSTALLATION2##g" $file
+            sed -i '' -e "s#$INSTALLATION3##g" $file
+            sed -i '' -e "s/$INSTALLATION4//g" $file
+            vars_deleted=true
+        fi
+    fi
+done
+
+# reinstall env variables in all shell configs
+if [[ $vars_deleted == true ]]; then
+    fix ./install_and_upgrade.sh
+fi
 
 # Check for unsupported themes
 # unsupported: af-magic
 
+zshrc=$(sed -e 's/^[ #\t]*//' "$HOME"/.zshrc | grep -v '^#')
 if [[ $zshrc == *"af-magic"* ]]; then
     echo "af-magic is not a supported oh-my-zsh theme"
 fi
@@ -53,10 +97,8 @@ while IFS= read -ra line; do
             if [[ $value != true ]]; then
                 # TODO fix missing settings.json
                 echo "settings.json is missing!"
-                echo -e "Let's run install script to add a new settings.json.\n"
-                ./install_and_upgrade.sh
-                echo -e "Fix applied!\n"
-                "./$(basename "$0")" && exit
+                fix ./install_and_upgrade.sh
+
             fi
             ;;
         "CLI installed")
@@ -81,11 +123,7 @@ while IFS= read -ra line; do
             # Magic number 50 seems safe. Not sure what normal range of # specs is.
             if ((value < 50)); then
                 echo "Autocomplete specs are missing!"
-                echo -e "Let's run 'fig update' to download the all autocomplete specs.\n"
-                echo "fig update"
-                fig update
-                echo -e "Fix applied!\n"
-                "./$(basename "$0")" && exit
+                fix fig update
             fi
             ;;
         "SSH Integration")
@@ -107,9 +145,9 @@ while IFS= read -ra line; do
             fi
             ;;
         "iTerm Integration")
-            if [[ $value != true ]]; then
+            if [[ $value != *"true"* ]]; then
                 # check if Hyper is installed
-                if mdfind "kMDItemKind == 'Application'" | grep "iTerm.app" | 2>/dev/null; then
+                if eval "$(mdfind "kMDItemKind == 'Application'" | grep "iTerm.app")" 2>/dev/null; then
                     iterm_installed=true
                 else
                     iterm_installed=false
@@ -118,18 +156,14 @@ while IFS= read -ra line; do
                 # only care about integration if iTerm is installed
                 if [[ $iterm_installed == true ]]; then
                     echo "The iTerm integration is not installed!"
-                    echo -e "Let's run fig integrations:iterm to fix this."
-                    echo "> fig integrations:iterm"
-                    fig integrations:iterm
-                    echo -e "Fix applied!\n"
-                    "./$(basename "$0")" && exit
+                    fix fig integrations:iterm
                 fi
             fi
             ;;
         "Hyper Integration")
             if [[ $value != true ]]; then
                 # check if Hyper is installed
-                if mdfind "kMDItemKind == 'Application'" | grep "Hyper.app" | 2>/dev/null; then
+                if eval "$(mdfind "kMDItemKind == 'Application'" | grep "Hyper.app")" 2>/dev/null; then
                     hyper_installed=true
                 else
                     hyper_installed=false
@@ -145,7 +179,7 @@ while IFS= read -ra line; do
         "VSCode Integration")
             if [[ $value != true ]]; then
                 # check if VSCode is installed
-                if mdfind "kMDItemKind == 'Application'" | grep "Visual Studio Code.app" | 2>/dev/null; then
+                if eval "$(mdfind "kMDItemKind == 'Application'" | grep "Visual Studio Code.app")" 2>/dev/null; then
                     vscode_installed=true
                 else
                     vscode_installed=false
@@ -175,10 +209,9 @@ while IFS= read -ra line; do
             fi
             ;;
         "Symlinked dotfiles")
-            if [[ $value != true ]]; then
-                # TODO anything to do here?
-                echo "dotfiles are not symlinked" | 2>/dev/null
-            fi
+            # if [[ $value != true ]]; then
+            # TODO anything to do here?
+            # fi
             ;;
         "Only insert on tab")
             if [[ $value == true ]]; then
@@ -190,11 +223,7 @@ while IFS= read -ra line; do
             if [[ $value != true ]]; then
                 # TODO fix missing installation script
                 echo "Missing the installation script!"
-                echo -e "Let's run 'fig update' to re-install Fig's scripts.\n"
-                echo "> fig update"
-                fig update
-                echo -e "Fix applied!\n"
-                "./$(basename "$0")" && exit
+                fix fig util:install-script
             fi
             ;;
         "PseudoTerminal Path")
@@ -203,11 +232,7 @@ while IFS= read -ra line; do
         "PATH")
             if [[ $value != "$pseudo_terminal_path" ]]; then
                 echo "Your PATH and Fig's pseudo terminal path do not match!"
-                echo "Let's sync the paths!"
-                echo "> fig set:path"
-                fig set:path
-                echo -e "Fix applied!\n"
-                "./$(basename "$0")" && exit
+                fix fig set:path
             fi
             ;;
         "SecureKeyboardInput")
@@ -221,21 +246,22 @@ while IFS= read -ra line; do
             fi
             ;;
         "Current active process")
-            if [[ $value == ??? ]]; then
+            if [[ $value == *"?"* ]]; then
                 # TODO fix current active process
                 echo "Can't find current active process"
             fi
             ;;
         "Current working directory")
-            if [[ $value == ??? ]]; then
+            if [[ $value == *"?"* ]]; then
                 # TODO fix current active directory
                 echo "Can't find current active directory"
             fi
             ;;
         "Current window identifier")
-            if [[ $value == ??? ]]; then
+            if [[ $value == *"?"* ]]; then
                 # TODO fix current window identifier
                 echo "Can't find current window identifier"
+                echo -e "\nAre you running a supported terminal? [eg: Terminal, iTerm, VSCode, Hyper]"
             fi
             ;;
         "FIG_INTEGRATION_VERSION")
@@ -254,11 +280,13 @@ done <<<"$(fig diagnostic)"
 # Can we get latest version before running?
 # echo "Checking for updates!"
 
+# TODO check for SSH
+
 ###########################
 # additional help prompts #
 ###########################
 
-echo "Fig still not working?"
-echo "Run 'fig issue' to let us know!"
+echo -e "\nFig still not working?"
 
-echo "$FIG_IS_RUNNING"
+echo "Run 'fig issue' to let us know!"
+echo "Or email us at hello@fig.io!"
