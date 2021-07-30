@@ -166,6 +166,7 @@
   },
   {
     "settingName": "app.launchOnStartup",
+    "title": "Launch on Start",
     "description": "If true, the Fig app is added to Login Items and will launch automatically whenever you restart your computer.",
     "type": "boolean",
     "default": true,
