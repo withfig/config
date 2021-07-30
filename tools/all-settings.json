@@ -7,7 +7,7 @@
     "type": "boolean",
     "details": "Developer Mode changes the way specs are loaded",
     "default": false,
-    "sidebarHeading": "Autocomplete"
+    "category": "Autocomplete"
   },
   {
     "settingName": "autocomplete.devCompletionsFolder",
@@ -16,7 +16,7 @@
     "description": "When Developer Mode is enabled, Fig loads completion specs from the specified directory.",
     "type": "text",
     "default": "",
-    "sidebarHeading": "Autocomplete"
+    "category": "Autocomplete"
   },
   {
     "settingName": "autocomplete.theme",
@@ -26,7 +26,7 @@
     "type": "single_select",
     "options": ["dark", "light"],
     "default": "dark",
-    "sidebarHeading": "Appearance"
+    "category": "Appearance"
   },
   {
     "settingName": "autocomplete.sortMethod",
@@ -45,7 +45,7 @@
         "description": "Sort in alphabetical order"
       }
     ],
-    "sidebarHeading": "Autocomplete"
+    "category": "Autocomplete"
   },
   {
     "settingName": "autocomplete.scrollWrapAround",
@@ -54,7 +54,7 @@
     "description": "If true, when the end of suggestions are reached by pressing the down arrow key, it will wrap back around to the top.",
     "type": "boolean",
     "default": false,
-    "sidebarHeading": "Appearance"
+    "category": "Appearance"
   },
   {
     "settingName": "autocomplete.insertSpaceAutomatically",
@@ -63,7 +63,7 @@
     "description": "If true, Fig will automatically insert a space after you select a suggestion.",
     "type": "boolean",
     "default": true,
-    "sidebarHeading": "Autocomplete"
+    "category": "Autocomplete"
   },
   {
     "settingName": "autocomplete.immediatelyRunDangerousCommands",
@@ -72,7 +72,7 @@
     "description": "If true, users will be able to immediately run suggestions that completion specs have marked as \"dangerous\" (e.g. rm -rf) rather than having to hit enter twice.",
     "type": "boolean",
     "default": false,
-    "sidebarHeading": "Autocomplete"
+    "category": "Autocomplete"
   },
   {
     "settingName": "autocomplete.immediatelyRunGitAliases",
@@ -81,7 +81,7 @@
     "description": "If false, Fig will treat git aliases as 'dangerous' (described above).",
     "type": "boolean",
     "default": false,
-    "sidebarHeading": "Autocomplete"
+    "category": "Autocomplete"
   },
   {
     "settingName": "autocomplete.immediatelyExecuteAfterSpace",
@@ -90,7 +90,7 @@
     "description": "If true, Fig will allow user to immediately execute commands after the user hits space.",
     "type": "boolean",
     "default": false,
-    "sidebarHeading": "Autocomplete"
+    "category": "Autocomplete"
   },
   {
     "settingName": "autocomplete.disableForCommands",
@@ -100,7 +100,7 @@
     "type": "multiselect",
     "default": [],
     "details": "e.g. git,npm",
-    "sidebarHeading": "Autocomplete"
+    "category": "Autocomplete"
   },
   {
     "settingName": "autocomplete.enter",
@@ -110,7 +110,7 @@
     "type": "single_select",
     "options": ["insert", "ignore"],
     "default": "insert",
-    "sidebarHeading": "Autocomplete"
+    "category": "Autocomplete"
   },
   {
     "settingName": "autocomplete.tab",
@@ -128,7 +128,7 @@
       },
       { "name": "navigate", "decription": "Navigate" }
     ],
-    "sidebarHeading": "Autocomplete"
+    "category": "Autocomplete"
   },
   {
     "settingName": "autocomplete.height",
@@ -137,7 +137,7 @@
     "description": "Set the height of the autocomplete window in pixels.",
     "type": "number",
     "default": "140",
-    "sidebarHeading": "Appearance",
+    "category": "Appearance",
     "commonlyUsed": true
   },
   {
@@ -147,7 +147,7 @@
     "description": "Set the width of the autocomplete window in pixels.",
     "type": "number",
     "default": "320",
-    "sidebarHeading": "Appearance",
+    "category": "Appearance",
     "commonlyUsed": true
   },
   {
@@ -158,7 +158,7 @@
     "type": "boolean",
     "default": false,
     "details": "This currently does not support the tab autocomplete underlining that prefix search has",
-    "sidebarHeading": "Autocomplete"
+    "category": "Autocomplete"
   },
   {
     "settingName": "pty.path",
@@ -168,7 +168,7 @@
     "type": "text",
     "default": "",
     "details": "The error text 'commands not found' often appears if this path is not set correctly.",
-    "sidebarHeading": "Pseudoterminal",
+    "category": "Pseudoterminal",
     "commonlyUsed": true
   },
   {
@@ -179,7 +179,7 @@
     "type": "text",
     "default": "~/.fig/user/ptyrc",
     "details": "Add environment variables to this file, in order for commands like `aws` to use them when generating completions.",
-    "sidebarHeading": "Pseudoterminal"
+    "category": "Pseudoterminal"
   },
   {
     "settingName": "app.launchOnStartup",
@@ -188,7 +188,7 @@
     "description": "If true, the Fig app is added to Login Items and will launch automatically whenever you restart your computer.",
     "type": "boolean",
     "default": true,
-    "sidebarHeading": "Application"
+    "category": "Application"
   },
   {
     "settingName": "app.hideMenubarIcon",
@@ -197,7 +197,7 @@
     "description": "Hide Fig's icon from the macOS menu bar",
     "type": "boolean",
     "default": false,
-    "sidebarHeading": "Application"
+    "category": "Application"
   },
   {
     "settingName": "app.beta",
@@ -206,7 +206,7 @@
     "description": "Opt-in to more frequent updates with all the newest features (and bugs).",
     "type": "boolean",
     "default": false,
-    "sidebarHeading": "Application"
+    "category": "Application"
   },
   {
     "settingName": "app.disableAutoupdates",
@@ -215,7 +215,7 @@
     "description": "Turn off automatic updates when launching a new shell session.",
     "type": "boolean",
     "default": false,
-    "sidebarHeading": "Application"
+    "category": "Application"
   },
   {
     "settingName": "app.disableAutolaunch",
@@ -224,7 +224,7 @@
     "description": "Do not automatically start Fig when launching a new shell session.",
     "type": "boolean",
     "default": false,
-    "sidebarHeading": "Application"
+    "category": "Application"
   },
   {
     "settingName": "app.disableTelemetry",
@@ -234,6 +234,6 @@
     "type": "boolean",
     "default": false,
     "details": "Read our statement on privacy at fig.io/privacy for more details.",
-    "sidebarHeading": "Application"
+    "category": "Application"
   }
 ]
