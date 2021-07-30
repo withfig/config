@@ -227,7 +227,14 @@ if [[ $("$HOME"/.fig/bin/fig app:running) == 1 ]]; then
             ;;
         "iTerm Integration")
             if [[ $value == *"true"* ]]; then
-                echo -e "iTerm integration: $pass"
+                IFS="=. " read -ra version <<<"$(mdls -name kMDItemVersion /Applications/iTerm.app | xargs)"
+                iterm_version="${version[1]}${version[2]}"
+                if (("$iterm_version" > 33)); then
+                    echo -e "iTerm integration: $pass"
+                else
+                    echo -e "iTerm integration: $fail"
+                    warn "Your iTerm version is incompatible with Fig. Please update iTerm to latest version."
+                fi
             else
                 # only care about integration if iTerm is installed
                 if is_installed "iTerm.app"; then
