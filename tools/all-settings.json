@@ -62,7 +62,7 @@
   {
     "settingName": "autocomplete.insertSpaceAutomatically",
     "title": "Insert Space",
-    "description": "If true, Fig will automatically insert a space after you select a suggestion.",
+    "description": "If true, Fig will automatically insert a space after you select a suggestion that contains a mandatory argument (e.g selecting git clone).",
     "type": "boolean",
     "default": true,
     "category": "Autocomplete"
