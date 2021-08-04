@@ -53,7 +53,9 @@ install_fig() {
   mkdir -p ~/.fig/autocomplete
   cd ~/.fig/autocomplete
 
-  curl -s "https://waitlist.withfig.com/specs?version=v6" \
+  AUTOCOMPLETE_VERSION=$(defaults read com.mschrage.fig "autocompleteVersion" 2>/dev/null) ;
+
+  curl -s "https://waitlist.withfig.com/specs?version=$AUTOCOMPLETE_VERSION" \
     | tar -xz --strip-components=1 specs \
     || error "pulling latest autocomplete files failed"
 
