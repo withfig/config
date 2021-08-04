@@ -102,7 +102,7 @@ install_fig() {
 }
 
 fig_source() {
-  printf "#### FIG ENV VARIABLES ####\n"
+  printf "\n#### FIG ENV VARIABLES ####\n"
   printf "[ -s ~/.fig/$1 ] && source ~/.fig/$1\n"
   printf "#### END FIG ENV VARIABLES ####\n"
 }
