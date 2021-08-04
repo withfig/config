@@ -1,3 +1,11 @@
+
+# Check if running under emulation to avoid running zsh specific code
+# fixes https://github.com/withfig/fig/issues/291
+EMULATION="$(emulate 2> /dev/null)"
+if [[ "${EMULATION}" != "zsh" ]]; then
+  return
+fi 
+
 zmodload zsh/system
 
 # Integrate with ZSH line editor

@@ -53,7 +53,9 @@ install_fig() {
   mkdir -p ~/.fig/autocomplete
   cd ~/.fig/autocomplete
 
-  curl -s "https://waitlist.withfig.com/specs?version=latest" \
+  AUTOCOMPLETE_VERSION=$(defaults read com.mschrage.fig "autocompleteVersion" 2>/dev/null) ;
+
+  curl -s "https://waitlist.withfig.com/specs?version=$AUTOCOMPLETE_VERSION" \
     | tar -xz --strip-components=1 specs \
     || error "pulling latest autocomplete files failed"
 
@@ -83,6 +85,9 @@ install_fig() {
   "${FIGCLI}" settings userShell "${USER_SHELL_TRIMMED}"
   
   "${FIGCLI}" settings pty.path $("${USER_SHELL_TRIMMED}" -li -c "/usr/bin/env | /usr/bin/grep '^PATH=' | /bin/cat | /usr/bin/sed 's|PATH=||g'") 
+
+  # hotfix for infinite looping when writing "☑ fig" title to a tty backed by figterm
+  "${FIGCLI}" settings autocomplete.addStatusToTerminalTitle false
 
   # Restart file watcher
   "${FIGCLI}" settings:init
@@ -118,12 +123,18 @@ fig_prepend() {
   # Don't prepend to files that don't exist to avoid creating file and
   # changing shell behavior.
   if [ -f "$2" ] && ! grep -q "source ~/.fig/$1" "$2"; then
-    echo -e "$(fig_source $1)\n$(cat $2)" > $2
+    echo "$(fig_source $1)" | cat - "$2" > "/tmp/fig_prepend" && mv "/tmp/fig_prepend" "$2"
   fi
 }
 
 # Add the fig.sh to your profiles so it can be sourced on new terminal window load
 append_to_profiles() {
+  # Make sure one of [.bash_profile|.bash_login|.profile] exists to ensure fig
+  # is sourced on login shells. We choose .profile to be as minimally
+  # disruptive to existing user set up as possible.
+  # https://superuser.com/questions/320065/bashrc-not-sourced-in-iterm-mac-os-x
+  touch .profile
+
   # Replace old sourcing in profiles.
   for rc in .profile .zprofile .bash_profile; do
     if [[ -e "${HOME}/${rc}" ]]; then
@@ -135,7 +146,7 @@ append_to_profiles() {
   # Create .zshrc/.bashrc regardless of whether it exists or not
   touch "${HOME}/.zshrc" "${HOME}/.bashrc"
 
-  for rc in .profile .zprofile .bash_profile .bashrc .zshrc; do
+  for rc in .profile .zprofile .bash_profile .bash_login .bashrc .zshrc; do
     fig_prepend shell/pre.sh "${HOME}/${rc}"
     fig_append fig.sh "${HOME}/${rc}"
   done
@@ -185,8 +196,14 @@ install_tmux_integration() {
   fi
 }
 
+# hotfix for infinite looping when writing "☑ fig" title to a tty backed by figterm
+disable_setting_tty_title() {
+  defaults write com.mschrage.fig addIndicatorToTitlebar false
+}
+
 install_fig
 append_to_profiles
 setup_onboarding
 install_tmux_integration
+disable_setting_tty_title
 echo success
