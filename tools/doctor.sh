@@ -335,6 +335,14 @@ if [[ $("$HOME"/.fig/bin/fig app:running) == 1 ]]; then
         esac
     done <<<"$("$HOME"/.fig/bin/fig diagnostic)"
 
+    ###############
+    # misc checks #
+    ###############
+
+    if [[ "$(defaults read com.mschrage.fig debugAutocomplete)" == 1 ]]; then
+        warn "Forced popup is enabled.\nDisable in Fig menu under Integrations -> Developer -> Force Popup to Appear."
+    fi
+
     ###########################
     # additional help prompts #
     ###########################
