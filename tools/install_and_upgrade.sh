@@ -133,7 +133,7 @@ append_to_profiles() {
   # is sourced on login shells. We choose .profile to be as minimally
   # disruptive to existing user set up as possible.
   # https://superuser.com/questions/320065/bashrc-not-sourced-in-iterm-mac-os-x
-  touch .profile
+  touch "${HOME}/.profile"
 
   # Replace old sourcing in profiles.
   for rc in .profile .zprofile .bash_profile; do
