@@ -199,6 +199,10 @@ if [[ $("$HOME"/.fig/bin/fig app:running) == 1 ]]; then
             fi
             ;;
         "SSH Integration")
+            if [ ! -w "$HOME"/.ssh/config ]; then
+                note "FYI, your ssh config is read-only. Make sure Fig installed its integration in ~/.ssh/config.\n"
+            fi
+
             if grep -q "Include ~/.fig/ssh" "$HOME"/.ssh/config; then
                 echo -e "SSH config: $pass"
             else
