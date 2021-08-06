@@ -198,7 +198,7 @@
   },
   {
     "settingName": "integrations.terminal.disabled",
-    "title": "Disable for Terminal",
+    "title": "Disable Terminal",
     "description": "Disables Fig for the macOS Terminal",
     "type": "boolean",
     "default": false,
@@ -206,7 +206,7 @@
   },
   {
     "settingName": "integrations.hyper.disabled",
-    "title": "Disable for Hyper",
+    "title": "Disable Hyper",
     "description": "Disables Fig for Hyper",
     "type": "boolean",
     "default": false,
@@ -214,7 +214,7 @@
   },
   {
     "settingName": "integrations.vscode.disabled",
-    "title": "Disable for VSCode integrated terminal",
+    "title": "Disable VSCode",
     "description": "Disables Fig for the VSCode integrated terminal",
     "type": "boolean",
     "default": false,
@@ -222,7 +222,7 @@
   },
   {
     "settingName": "integrations.iterm.disabled",
-    "title": "Disable for iTerm",
+    "title": "Disable iTerm",
     "description": "Disables Fig for iTerm",
     "type": "boolean",
     "default": false,
