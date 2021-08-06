@@ -36,7 +36,17 @@ if ([[ -d /Applications/Fig.app || -d ~/Applications/Fig.app ]]) \
       FIG_TERM_NAME="${FIG_SHELL} (figterm)"
       FIG_SHELL_PATH="${HOME}/.fig/bin/$(basename "${FIG_SHELL}") (figterm)"
       cp ~/.fig/bin/figterm "${FIG_SHELL_PATH}"
-      FIG_SHELL="${FIG_SHELL}" FIG_IS_LOGIN_SHELL="${FIG_IS_LOGIN_SHELL}" exec -a "${FIG_TERM_NAME}" "${FIG_SHELL_PATH}"
+      # Get initial text.
+      INITIAL_TEXT=""
+      if [[ -z "${BASH}" || "${BASH_VERSINFO[0]}" -gt "3" ]]; then
+        while read -t 0; do
+          if [[ -n "${BASH}" ]]; then
+            read
+          fi
+          INITIAL_TEXT="${INITIAL_TEXT}${REPLY}\n"
+        done
+      fi
+      FIG_START_TEXT="$(printf "%b" "${INITIAL_TEXT}")" FIG_SHELL="${FIG_SHELL}" FIG_IS_LOGIN_SHELL="${FIG_IS_LOGIN_SHELL}" exec -a "${FIG_TERM_NAME}" "${FIG_SHELL_PATH}"
     fi
   fi
 fi
