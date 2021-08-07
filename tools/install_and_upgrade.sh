@@ -188,7 +188,7 @@ setup_onboarding() {
 }
 
 install_tmux_integration() {
-  TMUX_INTEGRATION=$'# Fig Tmux Integration: Enabled\nsource-file ~/.fig/tmux\n# End of Fig Tmux Integration'
+  TMUX_INTEGRATION=$'\n# Fig Tmux Integration: Enabled\nsource-file ~/.fig/tmux\n# End of Fig Tmux Integration'
 
   # TODO: check if ~/.tmux.conf exists before appending to it
   if ! grep -q 'source-file ~/.fig/tmux' ~/.tmux.conf; then 
