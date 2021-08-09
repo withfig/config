@@ -31,6 +31,7 @@ error() {
   exit 1
 }
 
+# TODO(sean) add backup for ssh config (not currently done in this file)
 fig_backup() {
   full_path=$1
   name=$2
