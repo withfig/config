@@ -24,10 +24,22 @@ if [[ -z "${FIG_TAG}" ]]; then
 fi
 
 echo "Tag is ${FIG_TAG}"
+date_string=$(date '+%Y-%m-%d_%H:%M:%S')
 
 error() {
   echo "Error: $@" >&2
   exit 1
+}
+
+fig_backup() {
+  full_path=$1
+  name=$2
+  if [[ -e "${full_path}" ]]; then
+    backup_dir="${HOME}/.fig.dotfiles.bak/${date_string}"
+    mkdir -p $backup_dir
+
+    cp $full_path "${backup_dir}/${name}"
+  fi;
 }
 
 # Install fig. Override if already exists
@@ -147,6 +159,7 @@ append_to_profiles() {
   touch "${HOME}/.zshrc" "${HOME}/.bashrc"
 
   for rc in .profile .zprofile .bash_profile .bash_login .bashrc .zshrc; do
+    fig_backup "${HOME}/${rc}" "${rc}"
     fig_prepend shell/pre.sh "${HOME}/${rc}"
     fig_append fig.sh "${HOME}/${rc}"
   done
@@ -191,6 +204,7 @@ install_tmux_integration() {
   TMUX_INTEGRATION=$'\n# Fig Tmux Integration: Enabled\nsource-file ~/.fig/tmux\n# End of Fig Tmux Integration'
 
   # TODO: check if ~/.tmux.conf exists before appending to it
+  fig_backup "${HOME}/.tmux.conf" ".tmux.conf"
   if ! grep -q 'source-file ~/.fig/tmux' ~/.tmux.conf; then 
     echo "${TMUX_INTEGRATION}" >> ~/.tmux.conf
   fi
