@@ -103,6 +103,9 @@ install_fig() {
 
 fig_source() {
   printf "\n#### FIG ENV VARIABLES ####\n"
+  if [[ -n $2 ]]; then
+    printf "# $2\n"
+  fi
   printf "[ -s ~/.fig/$1 ] && source ~/.fig/$1\n"
   printf "#### END FIG ENV VARIABLES ####\n"
 }
@@ -113,7 +116,7 @@ fig_append() {
   # Don't append to files that don't exist to avoid creating file and
   # changing shell behavior.
   if [ -f "$2" ] && ! grep -q "source ~/.fig/$1" "$2"; then
-    echo "$(fig_source $1)" >> "$2"
+    echo "$(fig_source $1 "Please make sure this block is at the end of this file.")" >> "$2"
   fi
 }
 
@@ -123,7 +126,7 @@ fig_prepend() {
   # Don't prepend to files that don't exist to avoid creating file and
   # changing shell behavior.
   if [ -f "$2" ] && ! grep -q "source ~/.fig/$1" "$2"; then
-    echo "$(fig_source $1)" | cat - "$2" > "/tmp/fig_prepend" && mv "/tmp/fig_prepend" "$2"
+    echo "$(fig_source $1 "Please make sure this block is at the start of this file.")" | cat - "$2" > "/tmp/fig_prepend" && mv "/tmp/fig_prepend" "$2"
   fi
 }
 
