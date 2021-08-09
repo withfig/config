@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 
 # This is the fig installation script. It runs just after you sign in for the
 # first time.
@@ -24,7 +25,7 @@ if [[ -z "${FIG_TAG}" ]]; then
 fi
 
 echo "Tag is ${FIG_TAG}"
-date_string=$(date '+%Y-%m-%d_%H:%M:%S')
+date_string=$(date '+%Y-%m-%d_%H-%M-%S')
 
 error() {
   echo "Error: $@" >&2
@@ -39,8 +40,8 @@ fig_backup() {
     backup_dir="${HOME}/.fig.dotfiles.bak/${date_string}"
     mkdir -p $backup_dir
 
-    cp $full_path "${backup_dir}/${name}"
-  fi;
+    cp $full_path "${backup_dir}/${name}" || error "Failed to backup file $1"
+  fi
 }
 
 # Install fig. Override if already exists
@@ -151,7 +152,8 @@ append_to_profiles() {
   # Replace old sourcing in profiles.
   for rc in .profile .zprofile .bash_profile; do
     if [[ -e "${HOME}/${rc}" ]]; then
-      sed -i '' 's/~\/.fig\/exports\/env.sh/~\/.fig\/fig.sh/g' "${HOME}/${rc}" 2> /dev/null
+      # Ignore failures if we don't find old contents.
+      sed -i '' 's/~\/.fig\/exports\/env.sh/~\/.fig\/fig.sh/g' "${HOME}/${rc}" 2> /dev/null || :
     fi
   done
   
@@ -159,8 +161,12 @@ append_to_profiles() {
   # Create .zshrc/.bashrc regardless of whether it exists or not
   touch "${HOME}/.zshrc" "${HOME}/.bashrc"
 
+  # Don't modify files until all are backed up.
   for rc in .profile .zprofile .bash_profile .bash_login .bashrc .zshrc; do
     fig_backup "${HOME}/${rc}" "${rc}"
+  done
+
+  for rc in .profile .zprofile .bash_profile .bash_login .bashrc .zshrc; do
     fig_prepend shell/pre.sh "${HOME}/${rc}"
     fig_append fig.sh "${HOME}/${rc}"
   done
