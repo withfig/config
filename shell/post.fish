@@ -70,6 +70,7 @@ if [ -d /Applications/Fig.app -o -d ~/Applications/Fig.app ] \
       fig_osc "Shell=fish" $PWD
       fig_osc "PID=%d" $fish_pid
       fig_osc "TTY=%s" (tty)
+      fig_osc "FishSuggestionColor=%s" $fish_color_autosuggestion
       if [ -z $SSH_TTY ]
         fig_osc "SSH=0"
       else
