@@ -290,7 +290,7 @@ if [[ $("$HOME"/.fig/bin/fig app:running) == 1 ]]; then
             fi
             ;;
         "Symlinked dotfiles")
-            if [[ $value != true ]]; then
+            if [[ $value == true ]]; then
                 dotfiles_symlinked=true
             fi
             ;;
