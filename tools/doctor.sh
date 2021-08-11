@@ -199,16 +199,18 @@ if [[ $("$HOME"/.fig/bin/fig app:running) == 1 ]]; then
             fi
             ;;
         "SSH Integration")
-            if [ ! -w "$HOME"/.ssh/config ]; then
-                note "FYI, your ssh config is read-only. Make sure Fig installed its integration in ~/.ssh/config.\n"
-            fi
+            if [[ $value == true ]]; then
+                if [ ! -w "$HOME"/.ssh/config ]; then
+                    note "FYI, your ssh config is read-only. Make sure Fig installed its integration in ~/.ssh/config.\n"
+                fi
 
-            if grep -q "Include ~/.fig/ssh" "$HOME"/.ssh/config; then
-                echo -e "SSH config: $pass"
-            else
-                echo -e "SSH config: $fail"
-                warn "SSH config is missing Include ~/.fig/ssh"
-                note "To fix: Re-enable SSH integration from the Fig menu"
+                if grep -q "Include ~/.fig/ssh" "$HOME"/.ssh/config; then
+                    echo -e "SSH config: $pass"
+                else
+                    echo -e "SSH config: $fail"
+                    warn "SSH config is missing Include ~/.fig/ssh"
+                    note "To fix: Re-enable SSH integration from the Fig menu"
+                fi
             fi
             ;;
         "Tmux Integration")
