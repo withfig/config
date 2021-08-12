@@ -35,6 +35,9 @@ if ([[ -d /Applications/Fig.app || -d ~/Applications/Fig.app ]]) \
       fi
       FIG_TERM_NAME="${FIG_SHELL} (figterm)"
       FIG_SHELL_PATH="${HOME}/.fig/bin/$(basename "${FIG_SHELL}") (figterm)"
+
+      # fix for arch related crash in zsh on M1
+      rm "${FIG_SHELL_PATH}" 2> /dev/null
       cp ~/.fig/bin/figterm "${FIG_SHELL_PATH}"
       # Get initial text.
       INITIAL_TEXT=""
