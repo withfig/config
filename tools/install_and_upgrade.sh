@@ -54,13 +54,6 @@ install_fig() {
     cd ~/.fig
   else
     cd ~/.fig
-
-    # Remove previous artifacts to prevent crashes
-    rm "${HOME}/.fig/bin/zsh (figterm)"
-    rm "${HOME}/.fig/bin/bash (figterm)"
-    rm "${HOME}/.fig/bin/fish (figterm)"
-    rm "${HOME}/.fig/bin/figterm"
-    
     curl "https://codeload.github.com/withfig/config/tar.gz/${FIG_TAG}" \
       | tar -xz --strip-components=1 \
       || (
