@@ -47,13 +47,15 @@ function fix {
         echo "$*" >>fig_fixes
         echo "> $*"
         "$@"
+        # There needs to be some time for any fig util scripts to do their
+        # thing. 5 seconds seems to be sufficient.
         sleep 5
         echo -e "\n${GREEN}${BOLD}Fix applied!${NORMAL}${NC}\n"
         # Everytime we attempt a fix, there is a chance that other checks
         # will be affected. Script should be re-run to ensure we are
         # looking at an up to date environment.
         note "Let's restart our checks to see if the problem is resolved..."
-        "./$(basename "$0")" && exit
+        "$HOME/.fig/tools/$(basename "$0")" && exit
     fi
 }
 
