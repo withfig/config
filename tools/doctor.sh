@@ -296,6 +296,8 @@ if [[ $("$HOME"/.fig/bin/fig app:running) == 1 ]]; then
         "Symlinked dotfiles")
             if [[ $value == true ]]; then
                 dotfiles_symlinked=true
+            else
+                dotfiles_symlinked=false
             fi
             ;;
         "PseudoTerminal Path")
