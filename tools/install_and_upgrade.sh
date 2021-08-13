@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -e
+#set -e
 
 # This is the fig installation script. It runs just after you sign in for the
 # first time.
