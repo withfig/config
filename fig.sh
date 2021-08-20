@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 
+pathadd() {
+  if [[ -d "$1" ]] && [[ ":$PATH:" != *":$1:"* ]]; then
+    PATH="${PATH:+"$PATH:"}$1"
+  fi
+}
+
+pathadd ~/.fig/bin
+
 if ([[ -d /Applications/Fig.app || -d ~/Applications/Fig.app ]]) \
   && [[ ! "${TERMINAL_EMULATOR}" = JetBrains-JediTerm ]] \
   && command -v fig 2>&1 1>/dev/null; then

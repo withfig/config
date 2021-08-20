@@ -1,3 +1,6 @@
+contains $HOME/.fig/bin $fish_user_paths
+or set -Ua fish_user_paths $HOME/.fig/bin
+
 if [ -d /Applications/Fig.app -o -d ~/Applications/Fig.app ] \
   && command -v fig 1>/dev/null 2>/dev/null
 
