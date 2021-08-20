@@ -38,7 +38,7 @@ if ([[ -d /Applications/Fig.app || -d ~/Applications/Fig.app ]]) \
 
       # fix for arch related crash in zsh on M1
       rm "${FIG_SHELL_PATH}" 2> /dev/null
-      cp ~/.fig/bin/figterm "${FIG_SHELL_PATH}"
+      cp -p ~/.fig/bin/figterm "${FIG_SHELL_PATH}"
       # Get initial text.
       INITIAL_TEXT=""
       if [[ -z "${BASH}" || "${BASH_VERSINFO[0]}" -gt "3" ]]; then
