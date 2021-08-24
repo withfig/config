@@ -34,6 +34,12 @@
     "category": "Autocomplete"
   },
   {
+    "settingName": "autocomplete.fontFamily",
+    "title": "Font Family",
+    "description": "Change the font of autocomplete",
+    "type": "text"
+  },
+  {
     "settingName": "autocomplete.sortMethod",
     "title": "Sort Suggestions",
     "description": "Specifies how Fig should sort suggestions.",
