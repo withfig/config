@@ -22,7 +22,11 @@ if [ -d /Applications/Fig.app -o -d ~/Applications/Fig.app ] \
       end
       set FIG_TERM_NAME (basename "$FIG_SHELL")" (figterm)"
       set FIG_SHELL_PATH "$HOME/.fig/bin/$FIG_TERM_NAME"
-      cp ~/.fig/bin/figterm "$FIG_SHELL_PATH"
+
+      # fix for arch related crash in zsh on M1
+      rm "FIG_SHELL_PATH" 2> /dev/null
+      cp -p ~/.fig/bin/figterm "$FIG_SHELL_PATH"
+      
       exec bash -c "FIG_SHELL=$FIG_SHELL FIG_IS_LOGIN_SHELL=$FIG_IS_LOGIN_SHELL exec -a \"$FIG_TERM_NAME\" \"$FIG_SHELL_PATH\""
     end
   end
