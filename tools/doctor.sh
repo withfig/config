@@ -47,13 +47,15 @@ function fix {
         echo "$*" >>fig_fixes
         echo "> $*"
         "$@"
+        # There needs to be some time for any fig util scripts to do their
+        # thing. 5 seconds seems to be sufficient.
         sleep 5
         echo -e "\n${GREEN}${BOLD}Fix applied!${NORMAL}${NC}\n"
         # Everytime we attempt a fix, there is a chance that other checks
         # will be affected. Script should be re-run to ensure we are
         # looking at an up to date environment.
         note "Let's restart our checks to see if the problem is resolved..."
-        "./$(basename "$0")" && exit
+        "$HOME/.fig/tools/$(basename "$0")" && exit
     fi
 }
 
@@ -199,12 +201,18 @@ if [[ $("$HOME"/.fig/bin/fig app:running) == 1 ]]; then
             fi
             ;;
         "SSH Integration")
-            if grep -q "Include ~/.fig/ssh" "$HOME"/.ssh/config; then
-                echo -e "SSH config: $pass"
-            else
-                echo -e "SSH config: $fail"
-                warn "SSH config is missing Include ~/.fig/ssh"
-                note "To fix: Re-enable SSH integration from the Fig menu"
+            if [[ $value == true ]]; then
+                if [ ! -w "$HOME"/.ssh/config ]; then
+                    note "FYI, your ssh config is read-only. Make sure Fig installed its integration in ~/.ssh/config.\n"
+                fi
+
+                if grep -q "Include ~/.fig/ssh" "$HOME"/.ssh/config; then
+                    echo -e "SSH config: $pass"
+                else
+                    echo -e "SSH config: $fail"
+                    warn "SSH config is missing Include ~/.fig/ssh"
+                    note "To fix: Re-enable SSH integration from the Fig menu"
+                fi
             fi
             ;;
         "Tmux Integration")
@@ -286,8 +294,10 @@ if [[ $("$HOME"/.fig/bin/fig app:running) == 1 ]]; then
             fi
             ;;
         "Symlinked dotfiles")
-            if [[ $value != true ]]; then
+            if [[ $value == true ]]; then
                 dotfiles_symlinked=true
+            else
+                dotfiles_symlinked=false
             fi
             ;;
         "PseudoTerminal Path")
@@ -330,6 +340,14 @@ if [[ $("$HOME"/.fig/bin/fig app:running) == 1 ]]; then
             ;;
         esac
     done <<<"$("$HOME"/.fig/bin/fig diagnostic)"
+
+    ###############
+    # misc checks #
+    ###############
+
+    if [[ "$(defaults read com.mschrage.fig debugAutocomplete)" == 1 ]]; then
+        warn "Forced popup is enabled.\nDisable in Fig menu under Integrations -> Developer -> Force Popup to Appear."
+    fi
 
     ###########################
     # additional help prompts #
