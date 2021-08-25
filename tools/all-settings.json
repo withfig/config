@@ -37,7 +37,15 @@
     "settingName": "autocomplete.fontFamily",
     "title": "Font Family",
     "description": "Change the font of autocomplete",
-    "type": "text"
+    "type": "text",
+    "category": "Appearance"
+  },
+  {
+    "settingName": "autocomplete.fontSize",
+    "title": "Font Size",
+    "description": "Change the font size of autocomplete",
+    "type": "number",
+    "category": "Appearance"
   },
   {
     "settingName": "autocomplete.sortMethod",
