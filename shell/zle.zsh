@@ -112,7 +112,7 @@ eval $RESET_KEYMAP
 
 # Ensure compatibility w/ z-asug -- resolves https://github.com/withfig/fig/issues/62
 # Add `fig_insert_and_clear_autosuggestion` to list of widgets that clear suggestions, if not already included
-if ! test -z "$ZSH_AUTOSUGGEST_CLEAR_WIDGETS" && ! (($ZSH_AUTOSUGGEST_CLEAR_WIDGETS[(Ie)fig_insert_and_clear_autosuggestion])); then
+if ! command test -z "$ZSH_AUTOSUGGEST_CLEAR_WIDGETS" && ! (($ZSH_AUTOSUGGEST_CLEAR_WIDGETS[(Ie)fig_insert_and_clear_autosuggestion])); then
   ZSH_AUTOSUGGEST_CLEAR_WIDGETS=(${(@)ZSH_AUTOSUGGEST_CLEAR_WIDGETS} fig_insert_and_clear_autosuggestion)
 fi
 
