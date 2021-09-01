@@ -58,6 +58,7 @@ case "$1" in
     echo  "Or attach it to a Github issue (run 'fig issue')"
     ;;
   "term")
+    clear
     heading "tty characteristics"
     stty -a
     press_any_key_to_continue
@@ -74,6 +75,7 @@ case "$1" in
   #   open /etc/profile
   #   ;;
   "prefs")
+    clear
     heading settings.json
     cat ~/.fig/settings.json
     press_any_key_to_continue
