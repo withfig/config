@@ -213,10 +213,17 @@ setup_onboarding() {
 install_tmux_integration() {
   TMUX_INTEGRATION=$'\n# Fig Tmux Integration: Enabled\nsource-file ~/.fig/tmux\n# End of Fig Tmux Integration'
 
-  # TODO: check if ~/.tmux.conf exists before appending to it
-  fig_backup "${HOME}/.tmux.conf" ".tmux.conf"
-  if ! grep -q 'source-file ~/.fig/tmux' ~/.tmux.conf; then 
-    echo "${TMUX_INTEGRATION}" >> ~/.tmux.conf
+  # If ~/.tmux.conf.local exists, append integration here to workaround conflict with oh-my-tmux.
+  if [[ -s "${HOME}/.tmux.conf.local" ]]; then
+    fig_backup "${HOME}/.tmux.conf.local" ".tmux.conf.local"
+    if ! grep -q 'source-file ~/.fig/tmux' ~/.tmux.conf.local; then 
+      echo "${TMUX_INTEGRATION}" >> ~/.tmux.conf.local
+    fi
+  elif [[ -s "${HOME}/.tmux.conf" ]]; then
+    fig_backup "${HOME}/.tmux.conf" ".tmux.conf"
+    if ! grep -q 'source-file ~/.fig/tmux' ~/.tmux.conf; then 
+      echo "${TMUX_INTEGRATION}" >> ~/.tmux.conf
+    fi
   fi
 }
 
