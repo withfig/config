@@ -49,8 +49,14 @@ install_fig() {
   # Create fig dir an cd into it
   mkdir -p ~/.fig
 
+  # delete binary artifacts to ensure ad-hoc code signature works for arm64 binaries on M1
+  rm ~/.fig/bin/figterm
+  rm ~/.fig/bin/fig_callback
+  rm ~/.fig/bin/fig_get_shell
+  rm ~/.fig/bin/*'(figterm)'
+
   if [[ "${FIG_TAG}" == "local" ]]; then
-    cp -r "$PWD"/* ~/.fig
+    cp -R "$PWD"/* ~/.fig
     cd ~/.fig
   else
     cd ~/.fig
