@@ -57,7 +57,7 @@ case "$1" in
     echo  "Please send this file to the Fig Team"
     echo  "Or attach it to a Github issue (run 'fig issue')"
     ;;
-  "term")
+  "terminal")
     clear
     heading "tty characteristics"
     stty -a
