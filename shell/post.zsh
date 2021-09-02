@@ -47,6 +47,11 @@ fig_precmd() {
   PS3="%{$START_PROMPT%}$PS3%{$END_PROMPT$NEW_CMD%}"
   RPS1="%{$START_PROMPT%}$RPS1%{$END_PROMPT%}"
   FIG_HAS_SET_PROMPT=1
+
+  # Temporary workaround for bug where istrip is activated (for unknown reasons).
+  # When istrip is turned on, input characters are strippped to seven bits.
+  # This causes zle insertion to stop due to our reliance on `fig_insert` being bound to a unicode character 
+  command stty -istrip
 }
 
 add-zsh-hook precmd fig_precmd
