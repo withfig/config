@@ -10,7 +10,6 @@ pathadd ~/.fig/bin
 
 if ([[ -d /Applications/Fig.app || -d ~/Applications/Fig.app ]]) \
   && [[ ! "${TERMINAL_EMULATOR}" = JetBrains-JediTerm ]] \
-  && [[ ! "${TERM_PROGRAM}" = WarpTerminal ]] \
   && command -v fig 2>&1 1>/dev/null; then
 
   if [[ -t 1 ]] && [[ -z "${FIG_ENV_VAR}" || -n "${TMUX}" || "${TERM_PROGRAM}" = vscode ]]; then
