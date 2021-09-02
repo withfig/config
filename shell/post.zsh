@@ -30,6 +30,7 @@ fig_precmd() {
   fig_osc "Shell=zsh"
   fig_osc "PID=%d" "$$"
   fig_osc "TTY=%s" "${TTY}"
+  fig_osc "Log=%s" "${FIG_LOG_LEVEL}"
   fig_osc "SSH=%d" "${SSH_TTY:+1:-0}"
 
   START_PROMPT=$(fig_osc StartPrompt)
