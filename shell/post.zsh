@@ -1,5 +1,13 @@
 autoload -Uz add-zsh-hook
 
+FIG_HOSTNAME=$(hostname -f 2> /dev/null || hostname)
+
+if [[ -e /proc/1/cgroup ]] && grep -q docker /proc/1/cgroup; then
+  FIG_IN_DOCKER=1
+else
+  FIG_IN_DOCKER=0
+fi
+
 function fig_osc { printf "\033]697;"; printf $@; printf "\007"; }
 
 FIG_HAS_ZSH_PTY_HOOKS=1
@@ -19,6 +27,7 @@ fig_preexec() {
 }
 
 fig_precmd() {
+  local LAST_STATUS=$?
   fig bg:prompt $$ $TTY &!
 
   if [ $FIG_HAS_SET_PROMPT -eq 1 ]; then
@@ -29,9 +38,14 @@ fig_precmd() {
   fig_osc "Dir=%s" "$PWD"
   fig_osc "Shell=zsh"
   fig_osc "PID=%d" "$$"
+  fig_osc "SessionId=%s" "${TERM_SESSION_ID}"
+  fig_osc "ExitCode=%s" "${LAST_STATUS}"
   fig_osc "TTY=%s" "${TTY}"
   fig_osc "Log=%s" "${FIG_LOG_LEVEL}"
+
   fig_osc "SSH=%d" "${SSH_TTY:+1:-0}"
+  fig_osc "Docker=%d" "${FIG_IN_DOCKER}"
+  fig_osc "Hostname=%s@%s" "${USER:-root}" "${FIG_HOSTNAME}"
 
   START_PROMPT=$(fig_osc StartPrompt)
   END_PROMPT=$(fig_osc EndPrompt)

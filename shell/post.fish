@@ -4,7 +4,10 @@ or set -Ua fish_user_paths $HOME/.fig/bin
 if [ -d /Applications/Fig.app -o -d ~/Applications/Fig.app ] \
   && command -v fig 1>/dev/null 2>/dev/null
 
+  set FIG_HOSTNAME (hostname -f 2> /dev/null || hostname)
+
   if [ -t 1 ] && [ -z "$FIG_ENV_VAR" ] || [ -n "$TMUX" ]
+
     # Gives fig context for cwd in each window.
     fig bg:init $fish_pid (tty)
 
@@ -24,6 +27,12 @@ if [ -d /Applications/Fig.app -o -d ~/Applications/Fig.app ] \
   end
 
   if [ -z "$FIG_SHELL_VAR" ]
+    if [ -e /proc/1/cgroup ] && grep -q docker /proc/1/cgroup
+      set FIG_IN_DOCKER 1
+    else
+      set FIG_IN_DOCKER 0
+    end
+
     function fig_keybuffer --on-signal SIGUSR1
       echo fig bg:fish-keybuffer "$TERM_SESSION_ID" $FIG_INTEGRATION_VERSION "$TTY" $fish_pid 0 (commandline -C) \"(commandline)\" \
         | base64 \
@@ -63,22 +72,34 @@ if [ -d /Applications/Fig.app -o -d ~/Applications/Fig.app ] \
     end
 
     function fig_precmd --on-event fish_prompt
+      set -l last_status $status
       fig bg:prompt $fish_pid (tty) &; disown
 
       if [ $fig_has_set_prompt = 1 ]
         fig_preexec
       end
 
-      fig_osc "Dir=%s" $PWD
-      fig_osc "Shell=fish" $PWD
-      fig_osc "PID=%d" $fish_pid
+      fig_osc "Dir=%s" "$PWD"
+      fig_osc "Shell=fish"
+      fig_osc "PID=%d" "$fish_pid"
+      fig_osc "SessionId=%s" "$TERM_SESSION_ID"
+      fig_osc "ExitCode=%s" "$last_status"
       fig_osc "TTY=%s" (tty)
-      fig_osc "Log=%s" $FIG_LOG_LEVEL
+      fig_osc "Log=%s" "$FIG_LOG_LEVEL"
       fig_osc "FishSuggestionColor=%s" "$fish_color_autosuggestion"
-      if [ -z $SSH_TTY ]
+
+      if [ -z "$SSH_TTY" ]
         fig_osc "SSH=0"
       else
         fig_osc "SSH=1"
+      end
+
+      fig_osc "Docker=%d" "$FIG_IN_DOCKER"
+
+      if [ -n "$USER" ]
+        fig_osc "Hostname=%s@%s" "$USER" "$FIG_HOSTNAME"
+      else
+        fig_osc "Hostname=%s@%s" "root" "$FIG_HOSTNAME"
       end
 
       if fig_fn_defined fish_mode_prompt
