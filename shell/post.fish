@@ -31,7 +31,7 @@ if [ -d /Applications/Fig.app -o -d ~/Applications/Fig.app ] \
     end
 
     function fig_osc; printf "\033]697;"; printf $argv; printf "\007"; end
-    function fig_copy_fn; functions -e $argv[2]; functions -c $argv[1] $argv[2]; end
+    function fig_copy_fn; functions $argv[1] | sed "s/^function $argv[1]/function $argv[2]/" | source; end
     function fig_fn_defined; test (functions $argv[1] | grep -vE '^ *(#|function |end$|$)' | wc -l | xargs) != 0; end
 
     function fig_wrap_prompt
