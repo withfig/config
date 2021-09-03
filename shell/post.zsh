@@ -49,10 +49,10 @@ fig_precmd() {
   RPS1="%{$START_PROMPT%}$RPS1%{$END_PROMPT%}"
   FIG_HAS_SET_PROMPT=1
 
-  # Temporary workaround for bug where istrip is activated (for unknown reasons).
+  # Temporary workaround for bug where istrip is activated when running brew install.
   # When istrip is turned on, input characters are strippped to seven bits.
-  # This causes zle insertion to stop due to our reliance on `fig_insert` being bound to a unicode character 
-  command stty -istrip
+  # This causes zle insertion to stop due to our reliance on `fig_insert` being bound to a unicode character
+  [[ -t 1 ]] && command stty -istrip
 }
 
 add-zsh-hook precmd fig_precmd
