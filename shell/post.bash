@@ -18,8 +18,6 @@ fi
 function fig_osc { printf "\033]697;"; printf $@; printf "\007"; }
 
 function __fig_preexec() {
-  __fig_ret_value="$?"
-
   fig bg:exec $$ $TTY & disown
 
   fig_osc PreExec
@@ -40,18 +38,23 @@ function __fig_preexec() {
   fi
 
   _fig_done_preexec="yes"
+}
+
+function __fig_preexec_preserve_status() {
+  __fig_ret_value="$?"
+  __fig_preexec "$@"
   __bp_set_ret_value "${__fig_ret_value}" "${__bp_last_argument_prev_command}"
 }
 
 function __fig_prompt () {
   __fig_ret_value="$?"
 
-  fig bg:prompt $$ $TTY & disown
-
   # Work around bug in CentOS 7.2 where preexec doesn't run if you press ^C
   # while entering a command.
   [[ -z "${_fig_done_preexec:-}" ]] && __fig_preexec ""
   _fig_done_preexec=""
+
+  fig bg:prompt $$ $TTY & disown
 
   # If FIG_USER_PSx is undefined or PSx changed by user, update FIG_USER_PSx.
   if [[ -z "${FIG_USER_PS1+x}" || "${PS1}" != "${FIG_LAST_PS1}" ]]; then
@@ -92,5 +95,5 @@ function __fig_prompt () {
 }
 
 # trap DEBUG -> preexec -> command -> PROMPT_COMMAND -> prompt shown.
-preexec_functions=(__fig_preexec "${preexec_functions[@]}")
+preexec_functions=(__fig_preexec_preserve_status "${preexec_functions[@]}")
 precmd_functions=(__fig_prompt "${precmd_functions[@]}")
