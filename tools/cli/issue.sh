@@ -7,4 +7,4 @@
 #  Copyright © 2021 Matt Schrage. All rights reserved.
 
 echo "→ Opening Github..."
-open https://github.com/withfig/fig/issues/new
+open "https://github.com/withfig/fig/issues/new?assignees=&labels=NEED_TO_LABEL&template=1_main_issue_template.yml"
