@@ -138,7 +138,7 @@ if [[ $("$HOME"/.fig/bin/fig app:running) == 1 ]]; then
             fi
             ;;
         "UserShell")
-            if [[ $SHELL == *"zsh"* || $SHELL == *"bash"* ]] || __fish_bin_dir 2>/dev/null; then
+            if [[ $SHELL == *"zsh"* || $SHELL == *"bash"* || $SHELL == *"fish"* ]]; then
                 echo -e "Compatible shell: $pass"
             else
                 echo -e "Compatible shell: $fail"
