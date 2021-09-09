@@ -105,10 +105,32 @@ if [[ $("$HOME"/.fig/bin/fig app:running) == 1 ]]; then
                 warn "Fig ENV variables need to be at the very beginning and end of $file"
                 warn "If you see the FIG ENV VARs in $file, make sure they're at the very beginning (pre) and end (post). Open a new terminal then rerun the the doctor."
                 warn "If you don't see the FIG ENV VARs in $file, run 'fig util:install-script' to add them. Open a new terminal then rerun the doctor."
-                #exit
             fi
         fi
     done
+
+    # Check for macOS version
+    # Latest supported version is 10.13.6 (High Sierra)
+    macos_version="$(sw_vers -productVersion)"
+    IFS="=. " read -ra version <<<"$macos_version"
+    major="${version[0]}"
+    minor="${version[1]}"
+
+    if (("$major" > 10)); then
+        echo -e "macOS version: $pass"
+    else
+        if (("$major" == 10)); then
+            if (("$minor" > 12)); then
+                echo -e "macOS version: $pass"
+            else
+                echo -e "macOS version: $fail"
+                warn "Your macOS version ($macos_version) is incompatible with Fig. Earliest supported version is 10.13.x (High Sierra)"
+            fi
+        else
+            echo -e "macOS version: $fail"
+            warn "Your macOS version ($macos_version) is incompatible with Fig. Earliest supported version is 10.13.x (High Sierra)"
+        fi
+    fi
 
     # Check for unsupported themes
     # unsupported: af-magic
