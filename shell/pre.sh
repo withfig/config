@@ -36,7 +36,9 @@ if ([[ -d /Applications/Fig.app || -d ~/Applications/Fig.app ]]) \
       FIG_TERM_NAME="${FIG_SHELL} (figterm)"
       FIG_SHELL_PATH="${HOME}/.fig/bin/$(basename "${FIG_SHELL}") (figterm)"
 
-      cp -p ~/.fig/bin/figterm "${FIG_SHELL_PATH}"
+      # Only copy figterm binary if it doesn't already exist
+      [[ -f "${FIG_SHELL_PATH}"]] || cp -p ~/.fig/bin/figterm "${FIG_SHELL_PATH}"
+
       # Get initial text.
       INITIAL_TEXT=""
       if [[ -z "${BASH}" || "${BASH_VERSINFO[0]}" -gt "3" ]]; then

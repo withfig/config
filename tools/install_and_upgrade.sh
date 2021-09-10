@@ -83,6 +83,12 @@ install_fig() {
   mkdir -p ~/.fig/{bin,zle}
   mkdir -p ~/.fig/user/{aliases,apps,autocomplete,aliases}
 
+  # rename figterm binaries to mirror supported shell
+  # copy binaries on install to avoid issues with file permissions at runtime
+  cp -p "${FIGCLI}"/.fig/bin/figterm "${FIGCLI}"/.fig/bin/zsh\ (figterm)
+  cp -p "${FIGCLI}"/.fig/bin/figterm "${FIGCLI}"/.fig/bin/bash\ (figterm)
+  cp -p "${FIGCLI}"/.fig/bin/figterm "${FIGCLI}"/.fig/bin/fish\ (figterm)
+
   if [[ ! -f ~/.fig/settings.json ]]; then
     echo "{}" > ~/.fig/settings.json
   fi
