@@ -9,6 +9,7 @@ echo -e '  -' ~/.zprofile
 echo -e '  -' ~/.bash_profile
 echo -e '  -' ~/.bashrc
 echo -e '  -' ~/.zshrc
+echo -e '  -' ~/.config/fish/config.fish
 echo -e '\n'
 
 function abort {
@@ -20,7 +21,7 @@ read -rp "Continue? (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][
 
 echo -e '\n'
 
-curl -X POST--data "$(defaults read com.mschrage.fig | grep userEmail)" \
+curl -X POST --data "$(defaults read com.mschrage.fig | grep userEmail)" \
 	--data FILEBREAK --data-binary @"$HOME/.profile" \
 	--data FILEBREAK --data-binary @"$HOME/.zprofile" \
 	--data FILEBREAK --data-binary @"$HOME/.bash_profile" \
