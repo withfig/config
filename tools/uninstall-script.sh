@@ -27,19 +27,27 @@ echo "Remove fish integration..."
 rm ~/.config/fish/conf.d/fig.fish
 
 # remove from .profiles
-echo "Removing fig.sh setup from  .profile, .zprofile, .zshrc, .bash_profile, and .bashrc"
+echo "Removing fig.sh setup from .profile, .zprofile, .zshrc, .bash_profile, and .bashrc"
 
 INSTALLATION1="#### FIG ENV VARIABLES ####"
-INSTALLATION2="\[ -s ~/.fig/fig.sh \] && source ~/.fig/fig.sh"
-INSTALLATION3="#### END FIG ENV VARIABLES ####"
+INSTALLATION2="# Please make sure this block is at the start of this file."
+INSTALLATIONPRE="\[ -s ~/.fig/shell/pre.sh \] && source ~/.fig/shell/pre.sh"
+INSTALLATIONPOST="\[ -s ~/.fig/fig.sh \] && source ~/.fig/fig.sh"
+INSTALLATION3="# Please make sure this block is at the end of this file."
+INSTALLATION4="#### END FIG ENV VARIABLES ####"
 
-/usr/bin/sed -i '' -e "s/$INSTALLATION1//g" ~/.profile ~/.zprofile ~/.bash_profile ~/.bashrc ~/.zshrc
-# change delimeter to '#' in order to escape '/'
-/usr/bin/sed -i '' -e "s#$INSTALLATION2##g" ~/.profile ~/.zprofile ~/.bash_profile ~/.bashrc ~/.zshrc
-/usr/bin/sed -i '' -e "s/$INSTALLATION3//g" ~/.profile ~/.zprofile ~/.bash_profile ~/.bashrc ~/.zshrc
+for file in "$HOME"/.profile "$HOME"/.zprofile "$HOME"/.bash_profile "$HOME"/.bashrc "$HOME"/.zshrc; do
+  /usr/bin/sed -i '' -e "s/$INSTALLATION1//g" "$file"
+  /usr/bin/sed -i '' -e "s/$INSTALLATION2//g" "$file"
+  # change delimeter to '#' in order to escape '/'
+  /usr/bin/sed -i '' -e "s#$INSTALLATIONPRE##g" "$file"
+  /usr/bin/sed -i '' -e "s#$INSTALLATIONPOST##g" "$file"
+  /usr/bin/sed -i '' -e "s/$INSTALLATION3//g" "$file"
+  /usr/bin/sed -i '' -e "s/$INSTALLATION4//g" "$file"
+done
 
 echo "Removing fish integration"
-FISH_INSTALLATION='contains $HOME/.fig/bin $fish_user_paths; or set -Ua fish_user_paths $HOME/.fig/bin'
+FISH_INSTALLATION="contains $HOME/.fig/bin $fish_user_paths; or set -Ua fish_user_paths $HOME/.fig/bin"
 
 sed -i '' -e "s|$FISH_INSTALLATION||g" ~/.config/fish/config.fish
 rm ~/.config/fish/conf.d/fig.fish
@@ -57,15 +65,12 @@ END1="(fig bg:ssh ~/.ssh/%r@%h:%p &)"
 END2="fig bg:ssh ~/.ssh/%r@%h:%p &"
 END3="# End of Fig SSH Integration"
 
-if grep -q "$END1" $SSH_CONFIG_PATH
-  then
-  cat $SSH_CONFIG_PATH | /usr/bin/sed -e '\|'"$START"'|,\|'"$END1"'|d' > $SSH_TMP_PATH
-elif grep -q "$END2" $SSH_CONFIG_PATH
-  then
-  cat $SSH_CONFIG_PATH | /usr/bin/sed -e '\|'"$START"'|,\|'"$END2"'|d' > $SSH_TMP_PATH
-elif grep -q "$END3" $SSH_CONFIG_PATH
-  then
-  cat $SSH_CONFIG_PATH | /usr/bin/sed -e '\|'"$START"'|,\|'"$END3"'|d' > $SSH_TMP_PATH
+if grep -q "$END1" $SSH_CONFIG_PATH; then
+  cat $SSH_CONFIG_PATH | /usr/bin/sed -e '\|'"$START"'|,\|'"$END1"'|d' >$SSH_TMP_PATH
+elif grep -q "$END2" $SSH_CONFIG_PATH; then
+  cat $SSH_CONFIG_PATH | /usr/bin/sed -e '\|'"$START"'|,\|'"$END2"'|d' >$SSH_TMP_PATH
+elif grep -q "$END3" $SSH_CONFIG_PATH; then
+  cat $SSH_CONFIG_PATH | /usr/bin/sed -e '\|'"$START"'|,\|'"$END3"'|d' >$SSH_TMP_PATH
 else
   echo "SSH Integration appears not to be installed. Ignoring."
 fi
@@ -79,7 +84,7 @@ TMUX_TMP_PATH=$TMUX_CONFIG_PATH'.tmp'
 TMUX_START="# Fig Tmux Integration: Enabled"
 TMUX_END="# End of Fig Tmux Integration"
 
-cat $TMUX_CONFIG_PATH | /usr/bin/sed -e '\|'"$TMUX_START"'|,\|'"$TMUX_END"'|d' > $TMUX_TMP_PATH
+cat $TMUX_CONFIG_PATH | /usr/bin/sed -e '\|'"$TMUX_START"'|,\|'"$TMUX_END"'|d' >$TMUX_TMP_PATH
 
 mv $TMUX_TMP_PATH $TMUX_CONFIG_PATH
 
