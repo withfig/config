@@ -66,7 +66,7 @@ case "$1" in
     env
     ;;
   "dotfiles")
-    echo "Not implemented yet..."
+  "$HOME"/.fig/tools/cli/email_dotfiles.sh
     ;;
   # "shell-startup")
 
