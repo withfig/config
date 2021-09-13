@@ -10,6 +10,7 @@ pathadd ~/.fig/bin
 
 if ([[ -d /Applications/Fig.app || -d ~/Applications/Fig.app ]]) \
   && [[ "${TERMINAL_EMULATOR}" != JetBrains-JediTerm ]] \
+  && [[ ! "${TERM_PROGRAM}" = WarpTerminal ]] \
   && command -v fig 2>&1 1>/dev/null \
   && [[ -t 1 ]]; then
 
