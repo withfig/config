@@ -1,3 +1,10 @@
+#!/usr/bin/env bash
+
+error() {
+  echo "Error: $@" >&2
+  exit 1
+}
+
 # TODO(sean) add backup for ssh config (not currently done in this file)
 fig_backup() {
   full_path=$1
@@ -100,3 +107,10 @@ install_tmux_integration() {
     fi
   fi
 }
+
+if [[ $1 == "--minimal" ]]; then
+  append_to_profiles --no-prepend
+else
+  append_to_profiles
+  install_tmux_integration
+fi

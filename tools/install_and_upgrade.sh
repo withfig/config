@@ -146,9 +146,6 @@ install_fig
 setup_onboarding
 disable_setting_tty_title
 
-source ~/.fig/tools/install_utils.sh
-
-append_to_profiles
-install_tmux_integration
+~/.fig/tools/install_integrations.sh
 
 echo success

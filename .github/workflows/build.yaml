@@ -14,7 +14,7 @@ jobs:
       run: |
         tar -czvf shell-integration.tar.gz \
           shell/ \
-          tools/install_utils.sh \
+          tools/install_integrations.sh \
           fig.sh
     - name: Update Site
       run: |
