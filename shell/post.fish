@@ -4,9 +4,8 @@ or set -Ua fish_user_paths $HOME/.fig/bin
 function __fig
   if [ -d /Applications/Fig.app -o -d ~/Applications/Fig.app ] && command -v fig 2>&1 1>/dev/null
     fig $argv
-  fi
+  end
 end
-
 
 set FIG_HOSTNAME (hostname -f 2> /dev/null || hostname)
 

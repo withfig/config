@@ -65,7 +65,9 @@ append_to_profiles() {
   done
 
   for rc in .profile .zprofile .bash_profile .bash_login .bashrc .zshrc; do
-    fig_prepend shell/pre.sh "${HOME}/${rc}"
+    if [[ $1 != "--no-prepend" ]]; then
+        fig_prepend shell/pre.sh "${HOME}/${rc}"
+    fi
     fig_append fig.sh "${HOME}/${rc}"
   done
 
@@ -77,7 +79,7 @@ append_to_profiles() {
   ln -sf ~/.fig/shell/post.fish ~/.config/fish/conf.d/99_fig_post.fish
 
   # Remove deprecated fish config file.
-  if [[ -f -~/.config/fish/conf.d/fig.fish ]]; then
+  if [[ -f ~/.config/fish/conf.d/fig.fish ]]; then
     rm ~/.config/fish/conf.d/fig.fish
   fi
 }

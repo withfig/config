@@ -23,7 +23,7 @@ if [ -d /Applications/Fig.app -o -d ~/Applications/Fig.app ] \
       set FIG_TERM_NAME (basename "$FIG_SHELL")" (figterm)"
       set FIG_SHELL_PATH "$HOME/.fig/bin/$FIG_TERM_NAME"
 
-      if [ -f "${FIG_SHELL_PATH}" ]
+      if [ -f "$FIG_SHELL_PATH" ]
         cp -p ~/.fig/bin/figterm "$FIG_SHELL_PATH"
       end
       
