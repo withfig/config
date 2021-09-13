@@ -19,9 +19,8 @@ jobs:
     - name: Update Site
       run: |
         git clone https://withfig-bot:$UPDATE_SITE_TOKEN@github.com/withfig/public-site-nextjs
+        cp shell-integration.tar.gz tools/install-shell-integration.sh public-site-nextjs/public/
         cd public-site-nextjs
-
-        cp shell-integration.tar.gz tools/install-shell-integration.sh public/
       
         git config user.email "hello@withfig.com"
         git config user.name "Figbot"
