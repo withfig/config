@@ -1,9 +1,8 @@
 mkdir -p ~/.fig/
 
-curl -Ls fig.sh/shell-integration.tar.gz | tar -x -C ~/.fig ||
-  echo "Failed to download and extract shell integration" >&2 && exit 1
+curl -Ls fig.sh/shell-integration.tar.gz | tar -x -C ~/.fig &&
+  ~/.fig/tools/install_integrations.sh --minimal &&
+  echo Successfully installed fig shell integrations ||
+  echo Failed to download and extract shell integration
 
-~/.fig/tools/install_integrations.sh --minimal
-
-echo Successfully installed fig shell integrations
-[ -n "$FISH_VERSION" ] && source ~/.fig/post.fish || source ~/.fig/post.sh
+[ -n "$FISH_VERSION" ] && source ~/.fig/shell/post.fish || source ~/.fig/shell/post.sh
