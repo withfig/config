@@ -3,7 +3,7 @@ or set -Ua fish_user_paths $HOME/.fig/bin
 
 function __fig
   if [ -d /Applications/Fig.app -o -d ~/Applications/Fig.app ] && command -v fig 2>&1 1>/dev/null
-    fig $argv
+    fig $argv &; disown
   end
 end
 
@@ -52,7 +52,7 @@ if [ -z "$FIG_SHELL_VAR" ]
   end
 
   function fig_preexec --on-event fish_preexec
-    __fig bg:exec $fish_pid (tty) &; disown
+    __fig bg:exec $fish_pid (tty)
     fig_osc PreExec
 
     if fig_fn_defined fig_user_mode_prompt
@@ -70,7 +70,7 @@ if [ -z "$FIG_SHELL_VAR" ]
 
   function fig_precmd --on-event fish_prompt
     set -l last_status $status
-    __fig bg:prompt $fish_pid (tty) &; disown
+    __fig bg:prompt $fish_pid (tty)
 
     if [ $fig_has_set_prompt = 1 ]
       fig_preexec
