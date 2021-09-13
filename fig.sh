@@ -6,18 +6,22 @@ pathadd() {
   fi
 }
 
+__fig() {
+  if [[ ! -d /Applications/Fig.app && ! -d ~/Applications/Fig.app ]] && command -v fig 2>&1 1>/dev/null; then
+    fig "$@"
+  fi
+}
+
 pathadd ~/.fig/bin
 
-if ([[ -d /Applications/Fig.app || -d ~/Applications/Fig.app ]]) \
-  && [[ ! "${TERMINAL_EMULATOR}" = JetBrains-JediTerm ]] \
-  && command -v fig 2>&1 1>/dev/null; then
-
+if [[ ! "${TERMINAL_EMULATOR}" = JetBrains-JediTerm ]]; then
   if [[ -t 1 ]] && [[ -z "${FIG_ENV_VAR}" || -n "${TMUX}" || "${TERM_PROGRAM}" = vscode ]]; then
     export FIG_ENV_VAR=1
 
     # Gives fig context for cwd in each window
     export TTY=$(tty)
-    fig bg:init "$$" "$TTY"
+
+    __fig bg:init "$$" "$TTY"
 
     # Check for prompts or onboarding must be last, so Fig has context for
     # onboarding!

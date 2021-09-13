@@ -8,10 +8,8 @@ pathadd() {
 
 pathadd ~/.fig/bin
 
-if ([[ -d /Applications/Fig.app || -d ~/Applications/Fig.app ]]) \
-  && [[ "${TERMINAL_EMULATOR}" != JetBrains-JediTerm ]] \
+if [[ "${TERMINAL_EMULATOR}" != JetBrains-JediTerm ]] \
   && [[ ! "${TERM_PROGRAM}" = WarpTerminal ]] \
-  && command -v fig 2>&1 1>/dev/null \
   && [[ -t 1 ]]; then
 
   # Generated automatically by iTerm and Terminal, but needs to be
@@ -38,7 +36,9 @@ if ([[ -d /Applications/Fig.app || -d ~/Applications/Fig.app ]]) \
       FIG_SHELL_PATH="${HOME}/.fig/bin/$(basename "${FIG_SHELL}") (figterm)"
 
       # Only copy figterm binary if it doesn't already exist
-      [[ -f "${FIG_SHELL_PATH}"]] || cp -p ~/.fig/bin/figterm "${FIG_SHELL_PATH}"
+      if [[ -f "${FIG_SHELL_PATH}" ]]; then 
+        cp -p ~/.fig/bin/figterm "${FIG_SHELL_PATH}"
+      fi
 
       # Get initial text.
       INITIAL_TEXT=""
