@@ -85,10 +85,10 @@ if [ -z "$FIG_SHELL_VAR" ]
     fig_osc "Log=%s" "$FIG_LOG_LEVEL"
     fig_osc "FishSuggestionColor=%s" "$fish_color_autosuggestion"
 
-    if [ -z "$SSH_TTY" ]
-      fig_osc "SSH=0"
-    else
+    if [ -n "$SSH_TTY" ]
       fig_osc "SSH=1"
+    else
+      fig_osc "SSH=0"
     end
 
     fig_osc "Docker=%d" "$FIG_IN_DOCKER"

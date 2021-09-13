@@ -49,7 +49,12 @@ fig_precmd() {
   fig_osc "TTY=%s" "${TTY}"
   fig_osc "Log=%s" "${FIG_LOG_LEVEL}"
 
-  fig_osc "SSH=%d" "${SSH_TTY:+1:-0}"
+  if [[ -n "${SSH_TTY}" ]]; then
+    fig_osc "SSH=1"
+  else
+    fig_osc "SSH=0"
+  fi
+
   fig_osc "Docker=%d" "${FIG_IN_DOCKER}"
   fig_osc "Hostname=%s@%s" "${USER:-root}" "${FIG_HOSTNAME}"
 
