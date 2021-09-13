@@ -8,13 +8,19 @@ else
   FIG_IN_DOCKER=0
 fi
 
+__fig() {
+  if [[ ! -d /Applications/Fig.app && ! -d ~/Applications/Fig.app ]] && command -v fig 2>&1 1>/dev/null; then
+    fig "$@"
+  fi
+}
+
 function fig_osc { printf "\033]697;"; printf $@; printf "\007"; }
 
 FIG_HAS_ZSH_PTY_HOOKS=1
 FIG_HAS_SET_PROMPT=0
 
 fig_preexec() {
-  fig bg:exec $$ $TTY &!
+  __fig bg:exec $$ $TTY &!
 
   # Restore user defined prompt before executing.
   PS1="$FIG_USER_PS1"
@@ -28,7 +34,7 @@ fig_preexec() {
 
 fig_precmd() {
   local LAST_STATUS=$?
-  fig bg:prompt $$ $TTY &!
+  __fig bg:prompt $$ $TTY &!
 
   if [ $FIG_HAS_SET_PROMPT -eq 1 ]; then
     # ^C pressed while entering command, call preexec manually to clear fig prompts.

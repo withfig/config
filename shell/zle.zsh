@@ -11,10 +11,6 @@ zmodload zsh/system
 # Integrate with ZSH line editor
 autoload -U +X add-zle-hook-widget
 function fig_zsh_keybuffer() { 
-  # if [ ! -f ~/.fig/insertion-lock ] && [ $PENDING = "0" ]; then
-  #   fig bg:zsh-keybuffer $CURSOR "$BUFFER" $HISTNO
-  # fi
-
   if (( PENDING || KEYS_QUEUED_COUNT )); then
     if (( ! ${+_fig_redraw_fd} )); then
     typeset -gi _fig_redraw_fd
@@ -41,7 +37,7 @@ function fig_zsh_redraw() {
 }
 
 function fig_hide() { 
-  fig bg:hide &!
+  command -v fig 2>&1 1>/dev/null && fig bg:hide &!
 }
 
 # Hint: to list all special widgets, run `add-zle-hook-widget -L`
