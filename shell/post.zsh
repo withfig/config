@@ -9,7 +9,7 @@ else
 fi
 
 __fig() {
-  if [[ ! -d /Applications/Fig.app && ! -d ~/Applications/Fig.app ]] && command -v fig 2>&1 1>/dev/null; then
+  if [[ ! -d /Applications/Fig.app || ! -d ~/Applications/Fig.app ]] && command -v fig 2>&1 1>/dev/null; then
     fig "$@"
   fi
 }
@@ -26,10 +26,21 @@ fig_preexec() {
   PS1="$FIG_USER_PS1"
   PS2="$FIG_USER_PS2"
   PS3="$FIG_USER_PS3"
-  RPS1="$FIG_USER_RPS1"
+  [[ -v RPS1 ]] && RPS1="$FIG_USER_RPS1"
+  [[ -v RPROMPT ]] && RPROMPT="$FIG_USER_RPROMPT"
 
   FIG_HAS_SET_PROMPT=0
   fig_osc PreExec
+}
+
+fig_wrap_prompt() {
+  # This function expands the prompt if necessary. If not, it sets it
+  # as is.
+  if [[ "${1: -1}" == '%' ]]; then
+    echo "%{$START_PROMPT%}$1{$END_PROMPT%}"
+  else
+    echo "%{$START_PROMPT%}$1%{$END_PROMPT%}"
+  fi
 }
 
 fig_precmd() {
@@ -66,24 +77,15 @@ fig_precmd() {
   FIG_USER_PS1="$PS1"
   FIG_USER_PS2="$PS2"
   FIG_USER_PS3="$PS3"
-  [[ -v RPS1 ]] && FIG_USER_RPS1="$RPS1"
-  [[ -v RPROMPT ]] && FIG_USER_RPS1="$RPROMPT"
+  FIG_USER_RPS1="$RPS1"
+  FIG_USER_RPROMPT="$RPROMPT"
 
-  PS1="%{$START_PROMPT%}$PS1%{$END_PROMPT$NEW_CMD%}"
-  PS2="%{$START_PROMPT%}$PS2%{$END_PROMPT%}"
-  PS3="%{$START_PROMPT%}$PS3%{$END_PROMPT$NEW_CMD%}"
-  # The af-magic theme adds a final # to expand. We need to paste without the #
-  # to avoid doubling up and mangling the prompt.
-  if [[ "$ZSH_THEME" == "af-magic" ]]; then
-    RPS1="%{$START_PROMPT%}$RPS1{$END_PROMPT%}"
-  else
-    # The right prompt can be set with either RPS1 or RPROMPT. These variables
-    # are not linked and can be set indepently. We need to copy the right prompt
-    # variable that is actually set.
-    [[ -v RPS1 ]] && RPS1="%{$START_PROMPT%}$RPS1%{$END_PROMPT%}"
-  fi
-  [[ -v RPROMPT ]] && RPS1="%{$START_PROMPT%}$RPROMPT%{$END_PROMPT%}"
-  
+  PS1=$(fig_wrap_prompt $PS1)
+  PS2=$(fig_wrap_prompt $PS2)
+  PS3=$(fig_wrap_prompt $PS3)
+  [[ -v RPS1 ]] && RPS1=$(fig_wrap_prompt $RPS1)
+  [[ -v RPROMPT ]] && RPROMPT=$(fig_wrap_prompt $RPROMPT)
+
   FIG_HAS_SET_PROMPT=1
 
   # Temporary workaround for bug where istrip is activated when running brew install.
