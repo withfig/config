@@ -7,7 +7,7 @@ pathadd() {
 }
 
 __fig() {
-  if [[ ! -d /Applications/Fig.app && ! -d ~/Applications/Fig.app ]] && command -v fig 2>&1 1>/dev/null; then
+  if [[ -d /Applications/Fig.app || -d ~/Applications/Fig.app ]] && command -v fig 2>&1 1>/dev/null; then
     fig "$@"
   fi
 }
