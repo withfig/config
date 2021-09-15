@@ -46,16 +46,6 @@ fig_preexec() {
   fig_osc PreExec
 }
 
-fig_wrap_prompt() {
-  # This function expands the prompt if necessary. If not, it sets it
-  # as is.
-  if [[ "${1: -1}" == '%' ]]; then
-    echo "%{$START_PROMPT%}$1{$END_PROMPT%}"
-  else
-    echo "%{$START_PROMPT%}$1%{$END_PROMPT%}"
-  fi
-}
-
 fig_precmd() {
   local LAST_STATUS=$?
   __fig bg:prompt $$ $TTY &!
