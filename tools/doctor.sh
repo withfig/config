@@ -242,7 +242,7 @@ if [[ $("$HOME"/.fig/bin/fig app:running) == 1 ]]; then
                     note "To fix: Re-enable Tmux integration from the Fig menu"
                 else
                     # Check if integration is in config
-                    if ! grep -q "source-file ~/.fig/tmux"; then
+                    if ! grep -q "source-file ~/.fig/tmux" "$HOME/.tmux.conf"; then
                         warn "Missing 'source-file ~/.fig/tmux' in $HOME/.tmux.conf"
                         note "To fix: Re-enable Tmux integration from the Fig menu"
                     fi
@@ -290,7 +290,7 @@ if [[ $("$HOME"/.fig/bin/fig app:running) == 1 ]]; then
                     fi
                     # Tell them to add to localPlugins: ["fig-hyper-integration"]
                     if ! grep -q "fig-hyper-integration" "$HOME"/.hyper.js; then
-                        warn "fig-hyper-integration plugin needs to be added localPlugins!"
+                        warn "fig-hyper-integration plugin needs to be added to localPlugins!"
                     fi
                 fi
             fi
