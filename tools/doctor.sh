@@ -132,12 +132,6 @@ if [[ $("$HOME"/.fig/bin/fig app:running) == 1 ]]; then
         fi
     fi
 
-    # Check for unsupported themes
-    # unsupported: af-magic
-    if grep -q "af-magic" <<<"$clean_config"; then
-        warn "af-magic is not a supported oh-my-zsh theme"
-    fi
-
     ########################
     # check fig diagnostic #
     ########################
