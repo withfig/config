@@ -169,7 +169,7 @@ if [[ $("$HOME"/.fig/bin/fig app:running) == 1 ]]; then
             else
                 echo -e "Bundle path: $fail"
                 note "You need to install Fig in /Applications.\n"
-                note "To fix, uninstall, then reinstall Fig."
+                note "To fix: uninstall, then reinstall Fig."
                 note "Remember to drag Fig into the Applications folder."
                 exit
             fi
@@ -179,7 +179,7 @@ if [[ $("$HOME"/.fig/bin/fig app:running) == 1 ]]; then
                 echo -e "Autocomplete enabled: $pass"
             else
                 echo -e "Autocomplete enabled: $fail"
-                note "To fix, run: $(command "fig settings autocomplete.disable false")"
+                note "To fix: run: $(command "fig settings autocomplete.disable false")"
                 exit
             fi
             ;;
@@ -334,11 +334,28 @@ if [[ $("$HOME"/.fig/bin/fig app:running) == 1 ]]; then
             if [[ $secure_keyboard_input != true ]]; then
                 echo -e "Secure keyboard input: $pass"
             else
-                echo -e "Secure keyboard input: $fail"
-                warn "Secure keyboard input is on"
-                warn "Secure keyboard process is $value"
-                note "Please follow debugging steps at https://fig.io/docs/support/secure-keyboard-input"
-                exit
+                if is_installed "Bitwarden.app"; then
+                    IFS="=. " read -ra version <<<"$(mdls -name kMDItemVersion /Applications/Bitwarden.app | xargs)"
+                    bitwarden_version="${version[1]}${version[2]}"
+                    if (("$bitwarden_version" < 128)); then
+                        warn "Bitwarden may be enabling secure keyboard entry even when not focused."
+                        warn "This was fixed in version 1.28.0. See https://github.com/bitwarden/desktop/issues/991 for details."
+                        note "To fix: upgrade Bitwarden to the latest version."
+                        exit
+                    else
+                        echo -e "Secure keyboard input: $fail"
+                        warn "Secure keyboard input is on"
+                        warn "Secure keyboard process is $value"
+                        note "Please follow debugging steps at https://fig.io/docs/support/secure-keyboard-input"
+                        exit
+                    fi
+                else
+                    echo -e "Secure keyboard input: $fail"
+                    warn "Secure keyboard input is on"
+                    warn "Secure keyboard process is $value"
+                    note "Please follow debugging steps at https://fig.io/docs/support/secure-keyboard-input"
+                    exit
+                fi
             fi
             ;;
         "FIG_INTEGRATION_VERSION")
