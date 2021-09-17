@@ -38,6 +38,19 @@ NORMAL=$(tput sgr0)
 TAB='   '
 SEPARATOR="  \n\n  --\n\n\n"
 
+function fig_osc { printf "\033]697;"; printf $@; printf "\007"; }
+
+START_PROMPT="$(fig_osc StartPrompt)"
+END_PROMPT="$(fig_osc EndPrompt)"
+NEW_CMD="$(fig_osc NewCmd)"
+
+DEFAULT_PROMPT="${START_PROMPT}${TAB}$ ${END_PROMPT}${NEW_CMD}"
+function prepare_prompt {
+  fig_osc "Dir=%s" "${PWD}"
+  fig_osc "Shell=bash"
+  fig_osc "PID=%d" "$$"
+}
+
 print_special() {
   echo "${TAB}$@${NORMAL}"$'\n'
 }
@@ -264,9 +277,12 @@ EOF
 #  keystroke "cd ~/" 
    # end tell'
 
+prepare_prompt
+
 while true; do
   input=""
-  read -e -p "${TAB}$ " input
+
+  read -e -p "$DEFAULT_PROMPT" input
   echo # New line after output
   case "${input}" in
     cd*)
@@ -324,9 +340,10 @@ cat <<EOF
 
 EOF
 
+prepare_prompt
 while true; do
   input=""
-  read -e -p "${TAB}$ " input
+  read -e -p "$DEFAULT_PROMPT" input
   echo # New line after output
   case "${input}" in
     "git commit"*)
@@ -381,7 +398,7 @@ cat <<EOF
 
    ${BOLD}To Continue...${NORMAL} 
 
-   Run the ${MAGENTA}${BOLD}fig${NORMAL} command. 
+   Run ${MAGENTA}${BOLD}fig${NORMAL} to open the menubar icon. 
    (You can also type ${UNDERLINE}continue${NORMAL})
 
 EOF
@@ -391,9 +408,10 @@ EOF
 # Eventually prompt the user: do you want to invite friends to fig? type y if yes or otherwise it's a no
 # Only run the below if yes
 
+prepare_prompt
 while true; do
   input=""
-  read -e -p "${TAB}$ " input
+  read -e -p "$DEFAULT_PROMPT" input
   echo # New line after output
   case "${input}" in
     "fig")
@@ -452,7 +470,7 @@ while true; do
       ;;
   esac
 done
-
+(fig bg:clear-keybuffer &)
 clear 
 
 cat <<EOF
@@ -467,7 +485,7 @@ cat <<EOF
 
    e.g. tab/enter behavior, width, height, theme etc
    
-   Check out ${MAGENTA}${UNDERLINE}fig.io/settings${NORMAL}
+   Run ${MAGENTA}${BOLD}fig settings${NORMAL} in your shell.
 
 
 
@@ -492,41 +510,6 @@ echo # new line
 echo # new line
 
 clear
-
-# Done using http://patorjk.com/software/taag/#p=testall&f=Graffiti&t=fig
-# Font name = Ivrit
-# cat <<'EOF'
-
-#                         We hope you enjoy
-      
-#    .----------------.  .----------------.  .----------------. 
-#    | .--------------. || .--------------. || .--------------. |
-#    | |  _________   | || |     _____    | || |    ______    | |
-#    | | |_   ___  |  | || |    |_   _|   | || |  .' ___  |   | |
-#    | |   | |_  \_|  | || |      | |     | || | / .'   \_|   | |
-#    | |   |  _|      | || |      | |     | || | | |    ____  | |
-#    | |  _| |_       | || |     _| |_    | || | \ `.___]  _| | |
-#    | | |_____|      | || |    |_____|   | || |  `._____.'   | |
-#    | |              | || |              | || |              | |
-#    | '--------------' || '--------------' || '--------------' |
-#    '----------------'  '----------------'  '----------------' 
-
-
-# EOF
-
-
-## NOTE: DON'T FORMAT THIS, IT IS ACTUALLY FORMATTED CORRECTLY...
-# cat <<EOF
-
-#    ${BOLD}                        ######## ####  ######   
-#                            ##        ##  ##    ##  
-#                            ##        ##  ##        
-#                            ######    ##  ##   #### 
-#                            ##        ##  ##    ##  
-#                            ##        ##  ##    ##  
-#    ${NORMAL}We hope you enjoy...${BOLD}    ##       ####  ######${NORMAL}
-
-# EOF
 
 # Done using http://patorjk.com/software/taag/#p=testall&f=Graffiti&t=fig
 # Font name = Ivrit
@@ -559,20 +542,6 @@ cat <<EOF
 
 
 EOF
-
-# if [[ "${TERM_PROGRAM}" == "iTerm.app" ]]; then
-# cat <<EOF
-#    ${BOLD}P.S. Using iTerm?${NORMAL}
-
-#    Fig can't distinguish between iTerm tabs by default
-#    and requires the use of a plugin.
-
-#    Run ${MAGENTA}${BOLD}fig integrations:iterm${NORMAL} to install it now
-
-#    ...or enable in ${UNDERLINE}Settings${NORMAL} > ${UNDERLINE}Setup iTerm Tab Integration${NORMAL}. 
-
-# EOF
-# fi
 
 # Make absolutely sure that settings listener has been launched!
 (fig settings:init > /dev/null &)
