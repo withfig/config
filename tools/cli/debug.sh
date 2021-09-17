@@ -38,6 +38,7 @@ case "$1" in
     if [ "$(fig app:running)" -eq 0 ]; then
       echo "Fig app is not currently running..."
       /Applications/Fig.app/Contents/MacOS/fig
+      exit 0
     fi
 
     BUNDLE_PATH=$(lsappinfo info -only "bundlepath" -app com.mschrage.fig | cut -f2 -d= | tr -d '"')
@@ -89,11 +90,18 @@ case "$1" in
     defaults read com.mschrage.fig.shared
 
     ;;
+  "unix-socket") 
+    echo Listening on /tmp/fig.socket...
+    echo "Note: You will need to restart Fig afterwards"
+    rm /tmp/fig.socket && nc -Ulk /tmp/fig.socket
+    echo "Remember to restart Fig!"
+
+    ;;
   "verify-codesign")
-    echo "Not implemented yet..."
+    codesign -vvvv /Applications/Fig.app
     ;;
   *)
-    echo "Invalid command!"
+    echo "Not a valid debug command."
     exit 1
     ;;
 esac
