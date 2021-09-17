@@ -93,6 +93,13 @@ HYPER_CONFIG=~/.hyper.js
 test -f $HYPER_CONFIG && sed -i '' -e 's/"fig-hyper-integration",//g' $HYPER_CONFIG
 test -f $HYPER_CONFIG && sed -i '' -e 's/"fig-hyper-integration"//g' $HYPER_CONFIG
 
+echo "Remove Kitty integration, if it exists"
+KITTY_COMMANDLINE_FILE="${HOME}/.config/kitty/macos-launch-services-cmdline"
+KITTY_COMMANDLINE_ARGS="--watcher ${HOME}/.fig/tools/kitty-integration.py"
+test -f "$KITTY_COMMANDLINE_FILE" && [[ $(< "$KITTY_COMMANDLINE_FILE") == "$KITTY_COMMANDLINE_ARGS" ]] && rm -f "$KITTY_COMMANDLINE_FILE";
+
+
+
 #fig bg:event "Uninstall App"
 echo "Finished removing fig resources. You may now delete the Fig app by moving it to the Trash."
 #fig bg:alert "Done removing Fig resources." "You may now delete the Fig app by moving it to the Trash."
