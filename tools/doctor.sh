@@ -120,15 +120,15 @@ if [[ $("$HOME"/.fig/bin/fig app:running) == 1 ]]; then
         echo -e "macOS version: $pass"
     else
         if (("$major" == 10)); then
-            if (("$minor" > 12)); then
+            if (("$minor" > 13)); then
                 echo -e "macOS version: $pass"
             else
                 echo -e "macOS version: $fail"
-                warn "Your macOS version ($macos_version) is incompatible with Fig. Earliest supported version is 10.13.x (High Sierra)"
+                warn "Your macOS version ($macos_version) is incompatible with Fig. Earliest supported version is 10.14.x (Mojave)"
             fi
         else
             echo -e "macOS version: $fail"
-            warn "Your macOS version ($macos_version) is incompatible with Fig. Earliest supported version is 10.13.x (High Sierra)"
+            warn "Your macOS version ($macos_version) is incompatible with Fig. Earliest supported version is 10.14.x (Mojave)"
         fi
     fi
 
@@ -169,7 +169,7 @@ if [[ $("$HOME"/.fig/bin/fig app:running) == 1 ]]; then
             else
                 echo -e "Bundle path: $fail"
                 note "You need to install Fig in /Applications.\n"
-                note "To fix, uninstall, then reinstall Fig."
+                note "To fix: uninstall, then reinstall Fig."
                 note "Remember to drag Fig into the Applications folder."
                 exit
             fi
@@ -179,7 +179,7 @@ if [[ $("$HOME"/.fig/bin/fig app:running) == 1 ]]; then
                 echo -e "Autocomplete enabled: $pass"
             else
                 echo -e "Autocomplete enabled: $fail"
-                note "To fix, run: $(command "fig settings autocomplete.disable false")"
+                note "To fix: run: $(command "fig settings autocomplete.disable false")"
                 exit
             fi
             ;;
@@ -242,7 +242,7 @@ if [[ $("$HOME"/.fig/bin/fig app:running) == 1 ]]; then
                     note "To fix: Re-enable Tmux integration from the Fig menu"
                 else
                     # Check if integration is in config
-                    if ! grep -q "source-file ~/.fig/tmux"; then
+                    if ! grep -q "source-file ~/.fig/tmux" "$HOME/.tmux.conf"; then
                         warn "Missing 'source-file ~/.fig/tmux' in $HOME/.tmux.conf"
                         note "To fix: Re-enable Tmux integration from the Fig menu"
                     fi
@@ -290,7 +290,7 @@ if [[ $("$HOME"/.fig/bin/fig app:running) == 1 ]]; then
                     fi
                     # Tell them to add to localPlugins: ["fig-hyper-integration"]
                     if ! grep -q "fig-hyper-integration" "$HOME"/.hyper.js; then
-                        warn "fig-hyper-integration plugin needs to be added localPlugins!"
+                        warn "fig-hyper-integration plugin needs to be added to localPlugins!"
                     fi
                 fi
             fi
@@ -334,11 +334,28 @@ if [[ $("$HOME"/.fig/bin/fig app:running) == 1 ]]; then
             if [[ $secure_keyboard_input != true ]]; then
                 echo -e "Secure keyboard input: $pass"
             else
-                echo -e "Secure keyboard input: $fail"
-                warn "Secure keyboard input is on"
-                warn "Secure keyboard process is $value"
-                note "Please follow debugging steps at https://fig.io/docs/support/secure-keyboard-input"
-                exit
+                if is_installed "Bitwarden.app"; then
+                    IFS="=. " read -ra version <<<"$(mdls -name kMDItemVersion /Applications/Bitwarden.app | xargs)"
+                    bitwarden_version="${version[1]}${version[2]}"
+                    if (("$bitwarden_version" < 128)); then
+                        warn "Bitwarden may be enabling secure keyboard entry even when not focused."
+                        warn "This was fixed in version 1.28.0. See https://github.com/bitwarden/desktop/issues/991 for details."
+                        note "To fix: upgrade Bitwarden to the latest version."
+                        exit
+                    else
+                        echo -e "Secure keyboard input: $fail"
+                        warn "Secure keyboard input is on"
+                        warn "Secure keyboard process is $value"
+                        note "Please follow debugging steps at https://fig.io/docs/support/secure-keyboard-input"
+                        exit
+                    fi
+                else
+                    echo -e "Secure keyboard input: $fail"
+                    warn "Secure keyboard input is on"
+                    warn "Secure keyboard process is $value"
+                    note "Please follow debugging steps at https://fig.io/docs/support/secure-keyboard-input"
+                    exit
+                fi
             fi
             ;;
         "FIG_INTEGRATION_VERSION")
