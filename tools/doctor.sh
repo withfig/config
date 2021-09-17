@@ -120,15 +120,15 @@ if [[ $("$HOME"/.fig/bin/fig app:running) == 1 ]]; then
         echo -e "macOS version: $pass"
     else
         if (("$major" == 10)); then
-            if (("$minor" > 12)); then
+            if (("$minor" > 13)); then
                 echo -e "macOS version: $pass"
             else
                 echo -e "macOS version: $fail"
-                warn "Your macOS version ($macos_version) is incompatible with Fig. Earliest supported version is 10.13.x (High Sierra)"
+                warn "Your macOS version ($macos_version) is incompatible with Fig. Earliest supported version is 10.14.x (Mojave)"
             fi
         else
             echo -e "macOS version: $fail"
-            warn "Your macOS version ($macos_version) is incompatible with Fig. Earliest supported version is 10.13.x (High Sierra)"
+            warn "Your macOS version ($macos_version) is incompatible with Fig. Earliest supported version is 10.14.x (Mojave)"
         fi
     fi
 
