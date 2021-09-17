@@ -104,4 +104,5 @@ test -f "$KITTY_COMMANDLINE_FILE" && [[ $(< "$KITTY_COMMANDLINE_FILE") == "$KITT
 echo "Finished removing fig resources. You may now delete the Fig app by moving it to the Trash."
 #fig bg:alert "Done removing Fig resources." "You may now delete the Fig app by moving it to the Trash."
 
+rm -rf "${HOME}/Library/Input Methods/FigInputMethod.app"
 rm -rf /Applications/Fig.app
