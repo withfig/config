@@ -540,6 +540,7 @@ cat <<EOF
    2. In order for Fig to work in new tabs, you will need
       to ${BOLD}quit (Cmd+Q) and restart${NORMAL} any running terminals.
 
+   PS. We've saved a backup of your dotfiles to ${HOME}/.fig.dotfiles.bak
 
 EOF
 
