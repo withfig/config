@@ -36,7 +36,7 @@ if [[ "${TERMINAL_EMULATOR}" != JetBrains-JediTerm ]] \
       FIG_SHELL_PATH="${HOME}/.fig/bin/$(basename "${FIG_SHELL}") (figterm)"
 
       # Only copy figterm binary if it doesn't already exist
-      if [[ -f "${FIG_SHELL_PATH}" ]]; then 
+      if [[ ! -f "${FIG_SHELL_PATH}" ]]; then 
         cp -p ~/.fig/bin/figterm "${FIG_SHELL_PATH}"
       fi
 
