@@ -93,12 +93,9 @@ if [[ $("$HOME"/.fig/bin/fig app:running) == 1 ]]; then
     for file in "$HOME"/.profile "$HOME"/.zprofile "$HOME"/.bash_profile "$HOME"/.bashrc "$HOME"/.zshrc; do
         if [[ -f "$file" ]]; then
             # strip out whitespace and commented out lines
-            clean_config=$(sed -e 's/#.*$//' "$file")
-            # all lines that source other files or directly manipulate the $PATH
-            path_manip=$(echo "$clean_config" | grep -E 'PATH|source')
-
-            first=$(echo "$path_manip" | sed -n '1p')
-            last=$(echo "$path_manip" | sed -n '$p')
+            clean_config=$(sed -e 's/#.*$//' "$file" | grep -ve '^$')
+            first=$(echo "$clean_config" | sed -n '1p')
+            last=$(echo "$clean_config" | sed -n '$p')
 
             if [[ $first != "[ -s ~/.fig/shell/pre.sh ] && source ~/.fig/shell/pre.sh" ]] ||
                 [[ $last != "[ -s ~/.fig/fig.sh ] && source ~/.fig/fig.sh" ]]; then
