@@ -1,0 +1,21 @@
+[
+  "insertFull",
+  "insertFullAndExecute",
+  "insertCommonPrefix",
+  "insertCommonPrefixOrInsertFull",
+  "execute",
+  "shake",
+
+  "hideAutocomplete",
+  "showAutocomplete",
+  "toggleAutocomplete",
+
+  "scrollUp",
+  "scrollDown",
+
+  "hideDescription",
+  "showDescription",
+  "toggleDescription",
+
+  "toggleHistoryMode"
+]

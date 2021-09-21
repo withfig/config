@@ -1,0 +1,11 @@
+{
+  "keybindings.tab" : "autocomplete.insertPrefixOrInsertFull",
+  "keybindings.enter" : "autocomplete.insertFull",
+  "keybindings.up" : "autocomplete.scrollUp",
+  "keybindings.down" : "autocomplete.scrollDown",
+
+  "keybindings.esc" : "autocomplete.hideAutocomplete",
+
+  "keybindings.command+i" : "autocomplete.toggleDescription",
+  "keybindings.ctrl+r" : "autocomplete.toggleHistory"
+}
