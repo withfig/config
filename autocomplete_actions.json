@@ -1,10 +1,9 @@
 [
-  "insertFull",
-  "insertFullAndExecute",
+  "insertSelected",
+  "insertSelectedAndExecute",
   "insertCommonPrefix",
-  "insertCommonPrefixOrInsertFull",
+  "insertCommonPrefixOrInsertSelected",
   "execute",
-  "shake",
 
   "hideAutocomplete",
   "showAutocomplete",

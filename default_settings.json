@@ -1,6 +1,6 @@
 {
-  "keybindings.tab" : "autocomplete.insertPrefixOrInsertFull",
-  "keybindings.enter" : "autocomplete.insertFull",
+  "keybindings.tab" : "autocomplete.insertPrefixOrInsertSelected",
+  "keybindings.enter" : "autocomplete.insertSelected",
   "keybindings.up" : "autocomplete.scrollUp",
   "keybindings.down" : "autocomplete.scrollDown",
 
