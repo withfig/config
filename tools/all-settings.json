@@ -269,37 +269,30 @@
   },
   {
     "settingName": "keybindings.tab",
-    "type": "string",
     "default": "autocomplete.insertPrefixOrInsertSelected"
   },
   {
     "settingName": "keybindings.enter",
-    "type": "string",
     "default": "autocomplete.insertSelected"
   },
   {
     "settingName": "keybindings.up",
-    "type": "string",
     "default": "autocomplete.scrollUp"
   },
   {
     "settingName": "keybindings.down",
-    "type": "string",
     "default": "autocomplete.scrollDown"
   },
   {
     "settingName": "keybindings.esc",
-    "type": "string",
     "default": "autocomplete.hideAutocomplete"
   },
   {
     "settingName": "keybindings.command+i",
-    "type": "string",
     "default": "autocomplete.toggleDescription"
   },
   {
     "settingName": "keybindings.ctrl+r",
-    "type": "string",
     "default": "autocomplete.toggleHistoryMode"
   }
 ]
