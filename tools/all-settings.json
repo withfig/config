@@ -268,31 +268,31 @@
     "category": "Application"
   },
   {
-    "settingName": "keybindings.tab",
-    "default": "autocomplete.insertPrefixOrInsertSelected"
+    "settingName": "autocomplete.keybindings.tab",
+    "default": "insertPrefixOrInsertSelected"
   },
   {
-    "settingName": "keybindings.enter",
-    "default": "autocomplete.insertSelected"
+    "settingName": "autocomplete.keybindings.enter",
+    "default": "insertSelected"
   },
   {
-    "settingName": "keybindings.up",
-    "default": "autocomplete.scrollUp"
+    "settingName": "autocomplete.keybindings.up",
+    "default": "scrollUp"
   },
   {
-    "settingName": "keybindings.down",
-    "default": "autocomplete.scrollDown"
+    "settingName": "autocomplete.keybindings.down",
+    "default": "scrollDown"
   },
   {
-    "settingName": "keybindings.esc",
-    "default": "autocomplete.hideAutocomplete"
+    "settingName": "autocomplete.keybindings.esc",
+    "default": "hideAutocomplete"
   },
   {
-    "settingName": "keybindings.command+i",
-    "default": "autocomplete.toggleDescription"
+    "settingName": "autocomplete.keybindings.command+i",
+    "default": "toggleDescription"
   },
   {
-    "settingName": "keybindings.ctrl+r",
-    "default": "autocomplete.toggleHistoryMode"
+    "settingName": "autocomplete.keybindings.control+r",
+    "default": "toggleHistoryMode"
   }
 ]
