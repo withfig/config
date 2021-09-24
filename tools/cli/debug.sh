@@ -56,7 +56,7 @@ case "$1" in
     sample $PID -f $OUT_FILE
     printf "\n\n\n-------\nFinished writing to $OUT_FILE\n"
     echo  "Please send this file to the Fig Team"
-    echo  "Or attach it to a Github issue (run 'fig issue')"
+    echo  "Or attach it to a GitHub issue (run 'fig issue')"
     ;;
   "terminal")
     clear
@@ -90,7 +90,7 @@ case "$1" in
     defaults read com.mschrage.fig.shared
 
     ;;
-  "unix-socket") 
+  "unix-socket")
     echo Listening on /tmp/fig.socket...
     echo "Note: You will need to restart Fig afterwards"
     rm /tmp/fig.socket && nc -Ulk /tmp/fig.socket
