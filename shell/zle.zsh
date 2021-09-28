@@ -45,8 +45,18 @@ function fig_hide() {
 # Delete any widget, if it already exists
 add-zle-hook-widget line-pre-redraw fig_zsh_keybuffer
 
-# Update keybuffer on new line
-add-zle-hook-widget line-init fig_zsh_keybuffer
+# z-sy-h and zsh-substring-history conflict workaround
+# Wait for these plugins to wrap zle-line-init, create our
+# widget overwriting the original, then add-zle-hook-widget
+# as usual
+# See https://github.com/zsh-users/zsh-syntax-highlighting/issues/816
+if [[ $widgets[zle-line-init] == user:azhw:zle-line-init &&
+      $functions[add-zle-hook-widget] ]]; then
+    # Update keybuffer on new line
+    add-zle-hook-widget line-init fig_zsh_keybuffer
+else
+    zle -N zle-line-init fig_zsh_keybuffer
+fi
 
 # Hide when going through history (see also: histno logic in ShellHooksManager.updateKeybuffer)
 add-zle-hook-widget history-line-set fig_hide
