@@ -3,6 +3,7 @@
   "insertSelectedAndExecute",
   "insertCommonPrefix",
   "insertCommonPrefixOrInsertSelected",
+  "insertCommonPrefixOrNavigateDown",
   "execute",
 
   "hideAutocomplete",
