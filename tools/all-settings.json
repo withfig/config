@@ -269,7 +269,7 @@
   },
   {
     "settingName": "autocomplete.keybindings.tab",
-    "default": "insertPrefixOrInsertSelected"
+    "default": "insertCommonPrefix"
   },
   {
     "settingName": "autocomplete.keybindings.enter",
@@ -277,11 +277,11 @@
   },
   {
     "settingName": "autocomplete.keybindings.up",
-    "default": "scrollUp"
+    "default": "navigateUp"
   },
   {
     "settingName": "autocomplete.keybindings.down",
-    "default": "scrollDown"
+    "default": "navigateDown"
   },
   {
     "settingName": "autocomplete.keybindings.esc",
