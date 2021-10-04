@@ -259,7 +259,7 @@
     "category": "Application"
   },
   {
-    "settingName": "app.disableTelemetry",
+    "settingName": "telemetry.disabled",
     "title": "Telemetry",
     "description": "Opt-out of all telemetry. By default, Fig collects limited usage information to provide support and improve the product.",
     "type": "boolean",
