@@ -57,17 +57,8 @@ install_fig() {
       || error "pulling withfig/config repo failed"
   fi
 
-  mkdir -p ~/.fig/autocomplete
-  cd ~/.fig/autocomplete
-
-  AUTOCOMPLETE_VERSION=$(defaults read com.mschrage.fig "autocompleteVersion" 2>/dev/null) ;
-
-  curl -s "https://waitlist.withfig.com/specs?version=$AUTOCOMPLETE_VERSION" \
-    | tar -xz --strip-components=1 specs \
-    || error "pulling latest autocomplete files failed"
-
   # Make files and folders that the user can edit (that aren't overridden by above)
-  mkdir -p ~/.fig/{bin,zle}
+  mkdir -p ~/.fig/{bin,zle,autocomplete}
   mkdir -p ~/.fig/user/{aliases,apps,autocomplete,aliases}
 
   # rename figterm binaries to mirror supported shell
