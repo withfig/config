@@ -10,8 +10,8 @@
   "showAutocomplete",
   "toggleAutocomplete",
 
-  "scrollUp",
-  "scrollDown",
+  "navigateUp",
+  "navigateDown",
 
   "hideDescription",
   "showDescription",
