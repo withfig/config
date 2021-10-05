@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+TMP_DIR=${TMPDIR:-'/tmp/'}
+
 error() {
   echo "Error: $@" >&2
   exit 1
@@ -42,7 +44,7 @@ fig_prepend() {
   # Don't prepend to files that don't exist to avoid creating file and
   # changing shell behavior.
   if [ -f "$2" ] && ! grep -q "source ~/.fig/$1" "$2"; then
-    echo "$(fig_source $1 "Please make sure this block is at the start of this file.")" | cat - "$2" > "/tmp/fig_prepend" && cat "/tmp/fig_prepend" > "$2"
+    echo "$(fig_source $1 "Please make sure this block is at the start of this file.")" | cat - "$2" > "${TMP_DIR}fig_prepend" && cat "${TMP_DIR}fig_prepend" > "$2"
   fi
 }
 
