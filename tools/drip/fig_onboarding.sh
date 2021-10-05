@@ -210,6 +210,9 @@ EOF
 ### Core Script ###
 clear
 
+# Make absolutely sure that settings listener has been launched!
+(fig settings:init > /dev/null &)
+
 # Done using http://patorjk.com/software/taag/#p=testall&f=Graffiti&t=fig
 # Font name = ANSI Shadow
 cat <<'EOF'
@@ -543,7 +546,4 @@ cat <<EOF
    PS. We've saved a backup of your dotfiles to ${HOME}/.fig.dotfiles.bak
 
 EOF
-
-# Make absolutely sure that settings listener has been launched!
-(fig settings:init > /dev/null &)
 
