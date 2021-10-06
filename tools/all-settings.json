@@ -21,7 +21,19 @@
     "title": "Theme",
     "description": "Change Fig's theme",
     "type": "single_select",
-    "options": ["dark", "light"],
+    "options": [
+      "dark",
+      "light",
+      "cobalt",
+      "cobalt2",
+      "dracula",
+      "github-dark",
+      "gruvbox",
+      "nightowl",
+      "nord",
+      "poimandres",
+      "the-unnamed"
+    ],
     "default": "dark",
     "category": "Appearance"
   },
