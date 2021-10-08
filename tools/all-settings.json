@@ -296,6 +296,22 @@
     "default": "navigateDown"
   },
   {
+    "settingName": "autocomplete.keybindings.control+k",
+    "default": "navigateUp"
+  },
+  {
+    "settingName": "autocomplete.keybindings.control+j",
+    "default": "navigateDown"
+  },
+  {
+    "settingName": "autocomplete.keybindings.control+p",
+    "default": "navigateUp"
+  },
+  {
+    "settingName": "autocomplete.keybindings.control+n",
+    "default": "navigateDown"
+  },
+  {
     "settingName": "autocomplete.keybindings.esc",
     "default": "hideAutocomplete"
   },
