@@ -43,33 +43,42 @@ function fig_osc { printf "\033]697;"; printf $@; printf "\007"; }
 START_PROMPT="$(fig_osc StartPrompt)"
 END_PROMPT="$(fig_osc EndPrompt)"
 NEW_CMD="$(fig_osc NewCmd)"
+END_CMD="$(fig_osc PreExec)"
 
 DEFAULT_PROMPT="${START_PROMPT}${TAB}$ ${END_PROMPT}${NEW_CMD}"
+
 function prepare_prompt {
   fig_osc "Dir=%s" "${PWD}"
   fig_osc "Shell=bash"
   fig_osc "PID=%d" "$$"
 }
 
+function reset_prompt {
+    (fig bg:exec $$ $TTY &)
+}
+
 print_special() {
-  echo "${TAB}$@${NORMAL}"$'\n'
+  echo "${START_PROMPT}${TAB}$@${NORMAL}"$'\n'${END_PROMPT}
+  reset_prompt
 }
 
 press_any_key_to_continue() {
-  echo # new line
+  echo ${START_PROMPT} # new line
   read -n 1 -s -r -p "${TAB}${HIGHLIGHT} Press any key to continue ${HIGHLIGHT_END}"
   echo # new line
   echo # new line
+  printf ${END_PROMPT}
 }
 
 press_enter_to_continue() {
-  echo # new line
+  echo ${START_PROMPT} # new line
 
   if [[ "$1" != "" ]]; then
     read -n 1 -s -r -p "${TAB}${HIGHLIGHT} $1 ${HIGHLIGHT_END}" pressed_key 
   else
     read -n 1 -s -r -p "${TAB}${HIGHLIGHT} Press enter to continue ${HIGHLIGHT_END}" pressed_key 
   fi
+  printf ${END_PROMPT}
 
   while true; do
     # ie if pressed_key = enter
@@ -205,6 +214,7 @@ less -R <<EOF
 
 EOF
   fig bg:clear-keybuffer
+  reset_prompt
 }
 
 ### Core Script ###
@@ -286,7 +296,8 @@ while true; do
   input=""
 
   read -e -p "$DEFAULT_PROMPT" input
-  echo # New line after output
+  echo $END_CMD # New line after output
+  reset_prompt
   case "${input}" in
     cd*)
       cd ~/.fig
@@ -347,11 +358,14 @@ prepare_prompt
 while true; do
   input=""
   read -e -p "$DEFAULT_PROMPT" input
+  printf $END_CMD
   echo # New line after output
   case "${input}" in
     "git commit"*)
+      reset_prompt
       print_special "${BOLD}Nice work!${NORMAL}"
       press_enter_to_continue
+      reset_prompt
       break
       ;;
     continue) break ;;
@@ -542,11 +556,11 @@ EOF
 cat <<EOF
    ${BOLD}Final notes${NORMAL}
 
-   1. You should run ${MAGENTA}${BOLD}fig set:path${NORMAL} right now. This syncs your \$PATH variable with Fig. We can't do this automatically and it helps avoids several potential errors.
+   1. You should run ${MAGENTA}${BOLD}fig set:path${NORMAL} right now. This syncs your \$PATH variable with Fig. We can't do this automatically.
 
-   2. Fig won't work in any terminal sessions you currently have running, only new ones. 
+   2. Fig won't work in any terminal sessions you currently have running, only new ones. (You might want to restart your terminal emulator)
 
-   3. We've saved a backup of your dotfiles to ${HOME}/.fig.dotfiles.bak
+   3. We've saved a backup of your dotfiles to ~/.fig.dotfiles.bak
 
 EOF
 
