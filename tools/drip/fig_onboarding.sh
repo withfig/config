@@ -483,15 +483,6 @@ cat <<EOF
    * Check out our docs: ${UNDERLINE}fig.io/docs/getting-started${UNDERLINE_END}
    * Submit a pull request: ${UNDERLINE}github.com/withfig/autocomplete${UNDERLINE_END}
 
-
-   ${BOLD}Want to customize Fig's settings?${NORMAL}
-
-   e.g. tab/enter behavior, width, height, theme etc
-   
-   Run ${MAGENTA}${BOLD}fig settings${NORMAL} in your shell.
-
-
-
 EOF
 
 # Tell use how to open urls based on terminal type
@@ -502,6 +493,20 @@ else
   echo "   ${UNDERLINE}Hint${UNDERLINE_END}: Hold cmd + double-click to open URLs"
 fi
 echo
+
+cat <<EOF
+
+   ${BOLD}Want to customize Fig's settings?${NORMAL}
+   e.g. tab/enter behavior, width, height, theme etc
+   
+   Run ${MAGENTA}${BOLD}fig settings${NORMAL}
+
+
+   ${BOLD}Want to invite others to Fig?${NORMAL}
+   
+   Run ${MAGENTA}${BOLD}fig invite${NORMAL} (you get 5 invites!)
+
+EOF
 
 # Make sure we are using OSX sed rather than GNU version
 sed -i='' "s/FIG_ONBOARDING=.*/FIG_ONBOARDING=1/g" ~/.fig/user/config 2> /dev/null
@@ -535,15 +540,21 @@ cat <<'EOF'
 EOF
 
 cat <<EOF
-   ${BOLD}Almost done...${NORMAL}
+   ${BOLD}Final notes${NORMAL}
 
+   1. You should run ${MAGENTA}${BOLD}fig set:path${NORMAL} right now. This syncs your \$PATH variable with Fig. We can't do this automatically and it helps avoids several potential errors.
 
-   1. Run ${MAGENTA}${BOLD}fig set:path${NORMAL} to sync your \$PATH variable with Fig.
+   2. Fig won't work in any terminal sessions you currently have running, only new ones. 
 
-   2. In order for Fig to work in new tabs, you will need
-      to ${BOLD}quit (Cmd+Q) and restart${NORMAL} any running terminals.
-
-   PS. We've saved a backup of your dotfiles to ${HOME}/.fig.dotfiles.bak
+   3. We've saved a backup of your dotfiles to ${HOME}/.fig.dotfiles.bak
 
 EOF
+
+
+
+
+
+
+
+
 
