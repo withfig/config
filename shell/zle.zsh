@@ -1,7 +1,7 @@
 
 # Check if running under emulation to avoid running zsh specific code
 # fixes https://github.com/withfig/fig/issues/291
-EMULATION="$(emulate 2> /dev/null)"
+EMULATION="$(emulate 2>"$HOME"/.fig/logs/zsh.log)"
 if [[ "${EMULATION}" != "zsh" ]]; then
   return
 fi 
@@ -33,11 +33,11 @@ function fig_zsh_redraw() {
   fi
 
 
-  (echo fig bg:zsh-keybuffer "${TERM_SESSION_ID}" "${FIG_INTEGRATION_VERSION}" "${TTY}" "$$" "${HISTNO}" "${CURSOR}" \""$BUFFER"\" | base64 | /usr/bin/nc -U /tmp/fig.socket 2> /dev/null &)
+  (echo fig bg:zsh-keybuffer "${TERM_SESSION_ID}" "${FIG_INTEGRATION_VERSION}" "${TTY}" "$$" "${HISTNO}" "${CURSOR}" \""$BUFFER"\" | /usr/bin/base64 | /usr/bin/nc -U /tmp/fig.socket 2>"$HOME"/.fig/logs/zsh.log &)
 }
 
 function fig_hide() { 
-  command -v fig 2>&1 1>/dev/null && fig bg:hide &!
+  command -v fig 2>"$HOME"/.fig/logs/zsh.log 1>/dev/null && fig bg:hide &!
 }
 
 # Hint: to list all special widgets, run `add-zle-hook-widget -L`
@@ -45,18 +45,7 @@ function fig_hide() {
 # Delete any widget, if it already exists
 add-zle-hook-widget line-pre-redraw fig_zsh_keybuffer
 
-# z-sy-h and zsh-substring-history conflict workaround
-# Wait for these plugins to wrap zle-line-init, create our
-# widget overwriting the original, then add-zle-hook-widget
-# as usual
-# See https://github.com/zsh-users/zsh-syntax-highlighting/issues/816
-if [[ $widgets[zle-line-init] == user:azhw:zle-line-init &&
-      $functions[add-zle-hook-widget] ]]; then
-    # Update keybuffer on new line
-    add-zle-hook-widget line-init fig_zsh_keybuffer
-else
-    zle -N zle-line-init fig_zsh_keybuffer
-fi
+add-zle-hook-widget line-init fig_zsh_keybuffer
 
 # Hide when going through history (see also: histno logic in ShellHooksManager.updateKeybuffer)
 add-zle-hook-widget history-line-set fig_hide
