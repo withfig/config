@@ -17,5 +17,6 @@
   "showDescription",
   "toggleDescription",
 
-  "toggleHistoryMode"
+  "toggleHistoryMode",
+  "toggleFuzzySearch"
 ]
