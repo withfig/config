@@ -131,7 +131,10 @@
     "title": "Enter Behavior",
     "description": "Set the behavior of the enter key.",
     "type": "single_select",
-    "options": ["insert", "ignore"],
+    "options": [
+      "insert",
+      "ignore"
+    ],
     "default": "insert",
     "category": "Autocomplete"
   },
@@ -142,13 +145,22 @@
     "type": "single_select",
     "default": "shake",
     "options": [
-      { "name": "shake", "descrition": "Insert matching prefix or shake" },
-      { "name": "insert", "description": "Insert immediately" },
+      {
+        "name": "shake",
+        "descrition": "Insert matching prefix or shake"
+      },
+      {
+        "name": "insert",
+        "description": "Insert immediately"
+      },
       {
         "name": "insertOrPrefix",
         "description": "Insert matching prefix or selected suggestion."
       },
-      { "name": "navigate", "decription": "Navigate" }
+      {
+        "name": "navigate",
+        "decription": "Navigate"
+      }
     ],
     "category": "Autocomplete"
   },
@@ -322,5 +334,13 @@
   {
     "settingName": "autocomplete.keybindings.control+r",
     "default": "toggleHistoryMode"
+  },
+  {
+    "settingName": "autocomplete.keybindings.control+shift+=",
+    "default": "increaseSize"
+  },
+  {
+    "settingName": "autocomplete.keybindings.control+shift+-",
+    "default": "decreaseSize"
   }
 ]
