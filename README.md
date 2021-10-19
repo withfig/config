@@ -1,3 +1,6 @@
+This repo is now archived! If you find any bugs, please open an issue in [withfig/fig](https://github.com/withfig/fig/issue/new)
+---
+
 # Config Directory (~/.fig/)
 Yes, the name **fig** comes from con**fig**uration
 
