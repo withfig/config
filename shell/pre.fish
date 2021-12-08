@@ -9,9 +9,9 @@ if [ -d /Applications/Fig.app -o -d ~/Applications/Fig.app ] \
   # explicitly set for VSCode and Hyper. This variable is inherited when
   # new ttys are created using tmux and must be explictly overwritten.
   if [ -z "$TERM_SESSION_ID" ] || [ -n "$TMUX" ] || [ "$TERM_PROGRAM" = vscode ]
-    export TERM_SESSION_ID=(uuidgen)
+    set -gx TERM_SESSION_ID uuidgen
   end
-  export FIG_INTEGRATION_VERSION=4
+  set -gx FIG_INTEGRATION_VERSION 4
 
   if command -v figterm 1>/dev/null 2>/dev/null
     if [ -z "$FIG_TERM" ] || [ -z "$FIG_TERM_TMUX" -a -n "$TMUX" ]

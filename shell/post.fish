@@ -22,11 +22,11 @@ if [ -t 1 ] && [ -z "$FIG_ENV_VAR" ] || [ -n "$TMUX" ]
   # Check for prompts or onboarding.
   if [ -s ~/.fig/tools/prompts.sh ]
     bash ~/.fig/tools/prompts.sh
-    export FIG_CHECKED_PROMPTS=1
+    set -gx FIG_CHECKED_PROMPTS 1
   end
 
-  export TTY=(tty)
-  export FIG_ENV_VAR=1
+  set -gx TTY tty
+  set -gx FIG_ENV_VAR 1
 end
 
 if [ -z "$FIG_SHELL_VAR" ]
